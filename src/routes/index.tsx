@@ -1,26 +1,48 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Navbar } from "@/components/Navbar";
+import { Hero } from "@/components/Hero";
+import { Timeline } from "@/components/Timeline";
+import { Product } from "@/components/Product";
+import { TechnicalGrid } from "@/components/TechnicalGrid";
+import { HowItWorks } from "@/components/HowItWorks";
+import { Results } from "@/components/Results";
+import { Docs } from "@/components/Docs";
+import { Contact } from "@/components/Contact";
+import { useReveal } from "@/hooks/use-reveal";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "URUCUM AI — Vision Infrastructure" },
+      {
+        name: "description",
+        content:
+          "Infraestrutura para geração e modelagem de datasets visuais com controle programável de tons de pele, iluminação, exposição e contexto.",
+      },
+      { property: "og:title", content: "URUCUM AI — Vision Infrastructure" },
+      {
+        property: "og:description",
+        content:
+          "Não geramos imagens. Controlamos como o mundo aparece nos dados.",
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
 function Index() {
-  return <PlaceholderIndex />;
+  useReveal();
+  return (
+    <main className="relative">
+      <Navbar />
+      <Hero />
+      <Timeline />
+      <Product />
+      <TechnicalGrid />
+      <HowItWorks />
+      <Results />
+      <Docs />
+      <Contact />
+    </main>
+  );
 }
