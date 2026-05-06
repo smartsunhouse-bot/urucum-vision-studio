@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactElement } from "react";
 
 type Chapter = {
   year: string;
@@ -6,7 +6,7 @@ type Chapter = {
   title: string;
   body: string;
   detail: string;
-  scene: (p: number) => JSX.Element;
+  scene: (p: number) => ReactElement;
 };
 
 const chapters: Chapter[] = [
