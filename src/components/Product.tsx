@@ -1,169 +1,266 @@
 import { useEffect, useState } from "react";
 
-function ToneGrid() {
-  const [tick, setTick] = useState(0);
+/* ---------- Visuals (Linear-style product mocks) ---------- */
+
+function CaptureConsole() {
+  const [t, setT] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setTick((t) => t + 1), 1400);
+    const id = setInterval(() => setT((v) => (v + 1) % 100), 80);
     return () => clearInterval(id);
   }, []);
-  const tones = [
-    "oklch(0.92 0.03 70)",
-    "oklch(0.78 0.06 60)",
-    "oklch(0.62 0.08 50)",
-    "oklch(0.46 0.07 45)",
-    "oklch(0.32 0.05 40)",
-    "oklch(0.22 0.04 35)",
-  ];
+  const exposures = [-2, -1, 0, 1, 2];
   return (
-    <div className="grid grid-cols-6 gap-1.5">
-      {Array.from({ length: 36 }).map((_, i) => {
-        const base = tones[i % tones.length];
-        const dim = ((i + tick) % 7 === 0);
-        return (
-          <div
-            key={i}
-            className="aspect-square rounded-sm transition-all duration-700"
-            style={{
-              background: base,
-              opacity: dim ? 0.35 : 1,
-              transform: dim ? "scale(0.9)" : "scale(1)",
-            }}
-          />
-        );
-      })}
-    </div>
-  );
-}
-
-function LightingRow() {
-  return (
-    <div className="grid grid-cols-4 gap-2">
-      {["brightness(0.4)", "brightness(0.75)", "brightness(1.05) saturate(0.9)", "brightness(0.9) contrast(1.15)"].map(
-        (f, i) => (
-          <div
-            key={i}
-            className="aspect-[3/4] rounded-sm border border-border overflow-hidden relative"
-            style={{
-              background:
-                "radial-gradient(ellipse at 50% 35%, oklch(0.42 0.05 40), oklch(0.18 0.02 35))",
-              filter: f,
-            }}
-          >
-            <div
-              className="absolute left-1/2 top-[42%] -translate-x-1/2 w-10 h-12 rounded-full"
-              style={{ background: "oklch(0.32 0.05 40)" }}
-            />
-            <div className="absolute bottom-1 left-1.5 text-[9px] font-mono text-foreground/60">
-              EV {i - 2 < 0 ? `−${Math.abs(i - 2)}` : `+${i - 2}`}
-            </div>
-          </div>
-        ),
-      )}
-    </div>
-  );
-}
-
-function DermaScan() {
-  return (
-    <div className="grid grid-cols-3 gap-2">
-      {[0, 1, 2].map((c) => (
-        <div
-          key={c}
-          className="aspect-square rounded-sm relative overflow-hidden border border-border"
-          style={{
-            background: `radial-gradient(circle at 40% 40%, oklch(${0.7 - c * 0.18} 0.06 50), oklch(${0.3 - c * 0.08} 0.04 40))`,
-          }}
-        >
-          <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full opacity-70">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <circle
-                key={i}
-                cx={20 + i * 12}
-                cy={50 + Math.sin(i + c) * 15}
-                r={1.6 + (i % 3)}
-                fill="none"
-                stroke="oklch(0.62 0.21 32 / 0.8)"
-                strokeWidth="0.5"
-              />
-            ))}
-            <path
-              d={`M5 ${60 + c * 4} Q 50 ${30 - c * 5} 95 ${55 + c * 3}`}
-              stroke="oklch(0.88 0.04 75 / 0.4)"
-              strokeWidth="0.4"
-              fill="none"
-            />
-          </svg>
+    <div className="rounded-lg border border-border/70 bg-[oklch(0.11_0.013_36)] overflow-hidden shadow-[0_30px_80px_-30px_oklch(0_0_0/0.7)]">
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 text-[11px] font-mono text-muted-foreground">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-urucum/80" />
+          <span>capture.console</span>
         </div>
-      ))}
+        <span>SUBJECT_017 · LOOP</span>
+      </div>
+      <div className="p-5 grid grid-cols-5 gap-2">
+        {exposures.map((ev, i) => {
+          const active = i === Math.floor(t / 20) % 5;
+          const lift = ev * 0.18;
+          return (
+            <div
+              key={ev}
+              className="aspect-[3/4] rounded-sm relative overflow-hidden border transition-all duration-300"
+              style={{
+                borderColor: active ? "oklch(0.62 0.21 32 / 0.8)" : "oklch(0.25 0.02 40 / 0.6)",
+                boxShadow: active ? "0 0 0 1px oklch(0.62 0.21 32 / 0.4), 0 0 30px -8px oklch(0.62 0.21 32 / 0.6)" : "none",
+              }}
+            >
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at 50% 38%, oklch(0.42 0.05 40), oklch(0.16 0.02 35))",
+                  filter: `brightness(${1 + lift}) contrast(${1 - lift * 0.25})`,
+                }}
+              />
+              <div
+                className="absolute left-1/2 top-[42%] -translate-x-1/2 w-9 h-11 rounded-full"
+                style={{ background: "oklch(0.32 0.05 40)" }}
+              />
+              <div className="absolute bottom-1.5 left-2 text-[9px] font-mono text-foreground/70">
+                {ev > 0 ? `+${ev}` : ev} EV
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="px-5 pb-4 flex items-center justify-between text-[11px] font-mono text-muted-foreground">
+        <span>delta · {(t / 100).toFixed(2)}</span>
+        <span className="text-foreground/70">● recording</span>
+      </div>
     </div>
   );
 }
 
-function MetaPanel() {
+function ToneDistribution() {
+  return (
+    <div className="rounded-lg border border-border/70 bg-[oklch(0.11_0.013_36)] p-5 shadow-[0_30px_80px_-30px_oklch(0_0_0/0.7)]">
+      <div className="flex items-center justify-between text-[11px] font-mono text-muted-foreground mb-4">
+        <span>distribution.skin_tone</span>
+        <span>n = 1.2M</span>
+      </div>
+      <div className="flex items-end gap-1.5 h-32">
+        {[18, 32, 56, 78, 92, 84, 70, 58, 44, 36, 28, 22].map((h, i) => (
+          <div key={i} className="flex-1 flex flex-col items-center gap-1">
+            <div
+              className="w-full rounded-t-sm transition-all"
+              style={{
+                height: `${h}%`,
+                background: `linear-gradient(180deg, oklch(${0.92 - i * 0.05} 0.04 ${75 - i * 3}), oklch(${0.7 - i * 0.04} 0.05 ${60 - i * 2}))`,
+              }}
+            />
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 flex justify-between text-[9px] font-mono uppercase tracking-wider text-muted-foreground">
+        <span>I</span><span>II</span><span>III</span><span>IV</span><span>V</span><span>VI</span>
+      </div>
+      <div className="mt-4 flex items-center justify-between text-[11px] font-mono">
+        <span className="text-muted-foreground">target</span>
+        <span className="text-urucum">uniform · σ 0.04</span>
+      </div>
+    </div>
+  );
+}
+
+function MetadataLedger() {
   const rows = [
-    ["EV", "−1.2"],
-    ["LIGHTING", "low_light"],
-    ["CAMERA", "ARRI Alexa 35"],
-    ["CONTRAST", "0.84"],
-    ["ST", "VI · Fitzpatrick"],
-    ["WB", "3200K"],
+    ["frame_id", "0x7af31c"],
+    ["skin_tone", "VI"],
+    ["exposure_ev", "−1.2"],
+    ["lighting", "low_light · 3200K"],
+    ["sensor", "ARRI Alexa 35"],
+    ["sha256", "a4·f1·09·b6"],
   ];
   return (
-    <div className="font-mono text-[12px] rounded-sm border border-border bg-[oklch(0.12_0.014_38)] p-5">
-      <div className="text-[10px] tracking-[0.3em] text-urucum/80 mb-3">▸ FRAME_META</div>
-      <div className="space-y-1.5">
+    <div className="rounded-lg border border-border/70 bg-[oklch(0.11_0.013_36)] overflow-hidden shadow-[0_30px_80px_-30px_oklch(0_0_0/0.7)]">
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 text-[11px] font-mono text-muted-foreground">
+        <span>frame.meta</span>
+        <span className="text-urucum">signed</span>
+      </div>
+      <div className="p-5 font-mono text-[12px] space-y-2">
         {rows.map(([k, v]) => (
-          <div key={k} className="flex justify-between text-foreground/80">
+          <div key={k} className="flex justify-between text-foreground/85">
             <span className="text-muted-foreground">{k}</span>
             <span>{v}</span>
           </div>
         ))}
       </div>
-      <div className="mt-4 h-1 rounded-full overflow-hidden bg-[oklch(0.2_0.02_40)]">
-        <div className="h-full w-2/3" style={{ background: "linear-gradient(90deg, oklch(0.55 0.18 35), oklch(0.7 0.16 60))" }} />
+      <div className="px-5 pb-4">
+        <div className="h-1 rounded-full bg-[oklch(0.2_0.02_40)] overflow-hidden">
+          <div className="h-full w-[92%]" style={{ background: "linear-gradient(90deg, oklch(0.55 0.18 35), oklch(0.7 0.16 60))" }} />
+        </div>
+        <div className="mt-2 text-[10px] font-mono text-muted-foreground tracking-wide">
+          chain integrity · 0.92
+        </div>
       </div>
     </div>
   );
 }
 
-const blocks = [
-  { n: "01", t: "Distribuição controlada", d: "Controle programável de presença nos dados.", v: <ToneGrid /> },
-  { n: "02", t: "Variação contextual", d: "A mesma imagem pode gerar dados completamente diferentes.", v: <LightingRow /> },
-  { n: "03", t: "Modelagem de padrões", d: "Como sinais aparecem em diferentes contextos visuais.", v: <DermaScan /> },
-  { n: "04", t: "Metadados estruturados", d: "Imagem transformada em dado auditável.", v: <MetaPanel /> },
+function PipelineGraph() {
+  return (
+    <div className="rounded-lg border border-border/70 bg-[oklch(0.11_0.013_36)] p-5 shadow-[0_30px_80px_-30px_oklch(0_0_0/0.7)]">
+      <div className="flex items-center justify-between text-[11px] font-mono text-muted-foreground mb-5">
+        <span>pipeline.graph</span>
+        <span>v 2.4</span>
+      </div>
+      <svg viewBox="0 0 320 160" className="w-full h-auto">
+        {[
+          { x: 20, y: 80, l: "capture" },
+          { x: 110, y: 40, l: "expose" },
+          { x: 110, y: 120, l: "tone" },
+          { x: 200, y: 80, l: "label" },
+          { x: 290, y: 80, l: "ledger" },
+        ].map((n, i) => (
+          <g key={i}>
+            <circle cx={n.x} cy={n.y} r="6" fill="oklch(0.14 0.018 40)" stroke="oklch(0.62 0.21 32 / 0.8)" strokeWidth="1" />
+            <text x={n.x} y={n.y + 22} fontSize="9" fontFamily="JetBrains Mono" fill="oklch(0.7 0.04 70)" textAnchor="middle">
+              {n.l}
+            </text>
+          </g>
+        ))}
+        {[
+          ["20,80", "110,40"],
+          ["20,80", "110,120"],
+          ["110,40", "200,80"],
+          ["110,120", "200,80"],
+          ["200,80", "290,80"],
+        ].map(([a, b], i) => (
+          <line
+            key={i}
+            x1={a.split(",")[0]}
+            y1={a.split(",")[1]}
+            x2={b.split(",")[0]}
+            y2={b.split(",")[1]}
+            stroke="oklch(0.55 0.18 35 / 0.45)"
+            strokeWidth="0.7"
+          />
+        ))}
+      </svg>
+      <div className="mt-3 flex items-center justify-between text-[11px] font-mono">
+        <span className="text-muted-foreground">throughput</span>
+        <span className="text-foreground/80">10⁹ frames / day</span>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Layout ---------- */
+
+const features = [
+  {
+    n: "01",
+    eyebrow: "Capture",
+    title: "Captura programável de exposição.",
+    body: "Defina o eixo tom × EV como parâmetro de entrada. A mesma identidade rendida sob iluminações controladas, com curva contínua e reproduzível.",
+    bullets: ["Curva EV −2 → +2", "Iluminação calibrada", "Identidade preservada"],
+    visual: <CaptureConsole />,
+  },
+  {
+    n: "02",
+    eyebrow: "Distribution",
+    title: "Distribuição controlada de presença.",
+    body: "Configure a distribuição de tons de pele do dataset como restrição explícita. Sem amostragem implícita, sem drift estatístico silencioso.",
+    bullets: ["Cota por Fitzpatrick I–VI", "Verificação contínua", "Sem viés implícito"],
+    visual: <ToneDistribution />,
+  },
+  {
+    n: "03",
+    eyebrow: "Provenance",
+    title: "Cada frame é um dado auditável.",
+    body: "Metadados assinados em todos os pontos da cadeia: sensor, exposição, iluminação, tom, contexto. Rastreabilidade ponta-a-ponta.",
+    bullets: ["Assinatura por frame", "Hash determinístico", "Auditoria reversível"],
+    visual: <MetadataLedger />,
+  },
+  {
+    n: "04",
+    eyebrow: "Pipeline",
+    title: "Infraestrutura, não aplicativo.",
+    body: "API e workers para rodar em produção. Conecta-se a pipelines de visão, identidade e biomédica sem alterar o fluxo de modelagem.",
+    bullets: ["SDK Python / TS", "Workers determinísticos", "Sem dependência de UI"],
+    visual: <PipelineGraph />,
+  },
 ];
 
 export function Product() {
   return (
-    <section id="produto" className="relative py-32 lg:py-44">
+    <section id="produto" className="relative py-32 lg:py-44 border-t border-border/40">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="reveal flex items-end justify-between flex-wrap gap-6 mb-20">
-          <div>
-            <div className="text-[11px] font-mono uppercase tracking-[0.32em] text-urucum/80 mb-5">
-              ◦ Produto
-            </div>
-            <h2 className="font-serif font-light text-4xl md:text-6xl leading-[1.02] tracking-[-0.015em] max-w-2xl">
-              Quatro primitivas <span className="italic">visuais.</span>
-            </h2>
+        <div className="reveal max-w-3xl mb-24">
+          <div className="text-[11px] font-mono uppercase tracking-[0.32em] text-urucum/80 mb-5">
+            ◦ Plataforma
           </div>
-          <p className="text-muted-foreground max-w-md text-[15px] leading-relaxed">
-            A plataforma é construída em torno de operações verificáveis sobre captura, exposição e contexto — não geração estocástica.
+          <h2 className="font-serif font-light text-4xl md:text-6xl leading-[1.02] tracking-[-0.015em]">
+            Infraestrutura visual,
+            <span className="italic"> determinística.</span>
+          </h2>
+          <p className="mt-6 text-muted-foreground text-[16px] leading-relaxed max-w-xl">
+            URUCUM AI é uma camada de captura e modelagem que opera antes do modelo. Cada operação é programável, verificável e reversível.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-px bg-border/50 rounded-sm overflow-hidden">
-          {blocks.map((b) => (
-            <div key={b.n} className="reveal bg-background p-8 md:p-12 min-h-[420px] flex flex-col">
-              <div className="flex items-baseline gap-4 mb-8">
-                <span className="font-mono text-[11px] text-urucum/80 tracking-[0.25em]">{b.n}</span>
-                <h3 className="font-serif text-2xl md:text-3xl">{b.t}</h3>
+        <div className="space-y-32 lg:space-y-48">
+          {features.map((f, i) => {
+            const reverse = i % 2 === 1;
+            return (
+              <div
+                key={f.n}
+                className={`reveal grid lg:grid-cols-12 gap-10 lg:gap-16 items-center ${
+                  reverse ? "lg:[&>*:first-child]:order-2" : ""
+                }`}
+              >
+                <div className="lg:col-span-5">
+                  <div className="flex items-center gap-3 text-[11px] font-mono uppercase tracking-[0.28em] text-urucum/80 mb-5">
+                    <span>{f.n}</span>
+                    <span className="w-6 h-px bg-urucum/60" />
+                    <span>{f.eyebrow}</span>
+                  </div>
+                  <h3 className="font-serif font-light text-3xl md:text-[40px] leading-[1.05] tracking-[-0.015em]">
+                    {f.title}
+                  </h3>
+                  <p className="mt-5 text-muted-foreground text-[15.5px] leading-relaxed max-w-md">
+                    {f.body}
+                  </p>
+                  <ul className="mt-8 space-y-3 text-[13.5px] text-foreground/80">
+                    {f.bullets.map((b) => (
+                      <li key={b} className="flex items-center gap-3 font-mono">
+                        <span className="w-1 h-1 rounded-full bg-urucum" />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="lg:col-span-7">{f.visual}</div>
               </div>
-              <div className="flex-1 flex items-center">
-                <div className="w-full max-w-md mx-auto">{b.v}</div>
-              </div>
-              <p className="mt-8 text-[14px] text-muted-foreground leading-relaxed max-w-sm">{b.d}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
