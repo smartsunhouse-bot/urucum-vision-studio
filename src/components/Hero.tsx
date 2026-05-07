@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import portrait from "@/assets/exposure-matrix.png";
+import portrait from "@/assets/face-deep.jpg";
 
 function useTypewriter(text: string, speed = 38, start = 0) {
   const [out, setOut] = useState("");
@@ -143,33 +143,31 @@ export function Hero() {
 
         {/* Right: portrait demo */}
         <div className="lg:col-span-5 relative">
-          <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-border bg-[oklch(0.10_0.012_35)]"
+          <div className="relative aspect-[3/4] rounded-sm overflow-hidden border border-border bg-[oklch(0.10_0.012_35)]"
                style={{ boxShadow: "var(--shadow-elegant)" }}>
             <img
               src={portrait}
-              alt="Matriz tom de pele × exposição — referência técnica de captura"
-              className="w-full h-full object-cover"
-              width={1536}
-              height={1024}
+              alt="Captura de referência — pele profunda a 0 EV"
+              className="w-full h-full object-cover animate-light"
+              width={1024}
+              height={1365}
             />
             <div className="absolute inset-0 pointer-events-none"
-                 style={{ background: "linear-gradient(180deg, transparent 60%, oklch(0.10 0.012 35 / 0.8))" }} />
-            {/* HUD overlay */}
+                 style={{ background: "linear-gradient(180deg, transparent 55%, oklch(0.10 0.012 35 / 0.85))" }} />
             <div className="absolute top-3 left-3 right-3 flex items-center justify-between text-[10px] font-mono tracking-wider text-foreground/70">
               <span>● REC · CAPTURE.LOOP</span>
-              <span>4096×5120 · RAW</span>
+              <span>1024×1365 · RAW</span>
             </div>
             <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] font-mono tracking-wider text-foreground/70">
-              <span>MATRIX · TONE × EV</span>
-              <span className="text-urucum">FIG. 02 · REFERENCE</span>
+              <span>SUBJECT · DEEP</span>
+              <span className="text-urucum">FIG. 01 · REFERENCE</span>
             </div>
-            {/* corner ticks */}
             {["top-2 left-2","top-2 right-2","bottom-2 left-2","bottom-2 right-2"].map((p) => (
               <span key={p} className={`absolute ${p} w-3 h-3 border border-foreground/40`} />
             ))}
           </div>
           <div className="mt-3 text-[11px] font-mono text-muted-foreground tracking-wide">
-            fig. 02 — skin tone × exposure (EV) reference matrix
+            fig. 01 — captura de referência sob ciclo de exposição
           </div>
         </div>
       </div>
