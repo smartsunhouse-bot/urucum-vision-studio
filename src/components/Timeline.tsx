@@ -207,52 +207,54 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
           }}
         />
 
-        {/* Year */}
-        <div className="absolute left-6 lg:left-16 top-[14vh] flex items-baseline gap-6">
-          <span className="font-mono text-[11px] tracking-[0.4em] uppercase text-urucum/80">
-            № {String(index + 1).padStart(2, "0")} · {chapter.kicker}
-          </span>
-        </div>
-        <div
-          className="absolute left-6 lg:left-16 top-[20vh] font-serif font-light leading-[0.85] tracking-[-0.04em] text-foreground/95"
-          style={{
-            fontSize: "clamp(120px, 22vw, 320px)",
-            transform: `translateY(${(1 - progress) * 30}px)`,
-            opacity: 0.95,
-          }}
-        >
-          {chapter.year}
-        </div>
-
-        {/* Text panel */}
-        <div className="absolute right-6 lg:right-16 bottom-[12vh] max-w-xl">
+        <div className="absolute inset-0 max-w-[1400px] mx-auto px-6 lg:px-16">
+          {/* Year + kicker */}
+          <div className="absolute left-6 lg:left-16 top-[14vh] flex items-baseline gap-6">
+            <span className="font-mono text-[11px] tracking-[0.4em] uppercase text-urucum/80">
+              № {String(index + 1).padStart(2, "0")} · {chapter.kicker}
+            </span>
+          </div>
           <div
-            className="transition-all duration-700"
+            className="absolute left-6 lg:left-16 top-[20vh] font-serif font-light leading-[0.85] tracking-[-0.04em] text-foreground/95 tabular-nums"
             style={{
-              opacity: progress > 0.15 ? 1 : 0,
-              transform: `translateY(${progress > 0.15 ? 0 : 20}px)`,
+              fontSize: "clamp(96px, 16vw, 240px)",
+              transform: `translateY(${(1 - progress) * 30}px)`,
+              opacity: 0.95,
             }}
           >
-            <h3 className="font-serif text-3xl md:text-5xl leading-[1.05] tracking-[-0.015em] text-foreground">
-              {chapter.title}
-            </h3>
-            <p className="mt-6 text-[15.5px] md:text-[16.5px] leading-relaxed text-foreground/75">
-              {chapter.body}
-            </p>
-            <p className="mt-5 text-[13px] font-mono uppercase tracking-[0.18em] text-urucum/80 leading-relaxed">
-              {chapter.detail}
-            </p>
+            {chapter.year}
           </div>
-        </div>
 
-        {/* Progress rail */}
-        <div className="absolute left-6 lg:left-16 bottom-[8vh] flex items-center gap-3 text-[10px] font-mono tracking-[0.3em] uppercase text-muted-foreground">
-          <span>{String(index + 1).padStart(2, "0")} / {String(chapters.length).padStart(2, "0")}</span>
-          <div className="w-40 h-px bg-border relative overflow-hidden">
+          {/* Text panel */}
+          <div className="absolute right-6 lg:right-16 bottom-[12vh] w-full max-w-xl">
             <div
-              className="absolute inset-y-0 left-0"
-              style={{ width: `${progress * 100}%`, background: "oklch(0.62 0.21 32)" }}
-            />
+              className="transition-all duration-700"
+              style={{
+                opacity: progress > 0.15 ? 1 : 0,
+                transform: `translateY(${progress > 0.15 ? 0 : 20}px)`,
+              }}
+            >
+              <h3 className="font-serif text-3xl md:text-5xl leading-[1.05] tracking-[-0.015em] text-foreground">
+                {chapter.title}
+              </h3>
+              <p className="mt-6 text-[15.5px] md:text-[16.5px] leading-relaxed text-foreground/75">
+                {chapter.body}
+              </p>
+              <p className="mt-5 text-[13px] font-mono uppercase tracking-[0.18em] text-urucum/80 leading-relaxed">
+                {chapter.detail}
+              </p>
+            </div>
+          </div>
+
+          {/* Progress rail */}
+          <div className="absolute left-6 lg:left-16 bottom-[8vh] flex items-center gap-3 text-[10px] font-mono tracking-[0.3em] uppercase text-muted-foreground">
+            <span>{String(index + 1).padStart(2, "0")} / {String(chapters.length).padStart(2, "0")}</span>
+            <div className="w-40 h-px bg-border relative overflow-hidden">
+              <div
+                className="absolute inset-y-0 left-0"
+                style={{ width: `${progress * 100}%`, background: "oklch(0.62 0.21 32)" }}
+              />
+            </div>
           </div>
         </div>
       </div>
