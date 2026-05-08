@@ -234,15 +234,17 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
                 transform: `translateY(${progress > 0.15 ? 0 : 20}px)`,
               }}
             >
-              <h3 className="font-serif text-3xl md:text-5xl leading-[1.05] tracking-[-0.015em] text-foreground">
+              <h3 className="font-serif text-[28px] md:text-[40px] leading-[1.05] tracking-[-0.015em] text-foreground">
                 {chapter.title}
               </h3>
-              <p className="mt-6 text-[15.5px] md:text-[16.5px] leading-relaxed text-foreground/75">
+              <p className="mt-5 text-[14.5px] leading-[1.65] text-foreground/75">
                 {chapter.body}
               </p>
-              <p className="mt-5 text-[13px] font-mono uppercase tracking-[0.18em] text-urucum/80 leading-relaxed">
-                {chapter.detail}
-              </p>
+              <div className="mt-6 pt-5 border-t border-border/60">
+                <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-urucum/90 leading-relaxed">
+                  {chapter.detail}
+                </p>
+              </div>
             </div>
           </div>
 
@@ -266,25 +268,35 @@ export function Timeline() {
   return (
     <>
       {/* Intro */}
-      <section className="relative pt-40 pb-24 lg:pt-56 lg:pb-32 overflow-hidden">
+      <section className="relative pt-32 pb-20 lg:pt-44 lg:pb-28 overflow-hidden">
         <div className="absolute inset-0 grain pointer-events-none" />
         <div className="max-w-5xl mx-auto px-6 lg:px-10">
           <div className="reveal">
-            <div className="text-[11px] font-mono tracking-[0.4em] uppercase text-urucum/80 mb-8">
-              ◦ Linha do tempo da invisibilidade
+            <div className="flex items-center gap-3 text-[11px] font-mono tracking-[0.4em] uppercase text-urucum/90 mb-6">
+              <span className="w-6 h-px bg-urucum/60" style={{ background: "oklch(0.52 0.22 25 / 0.6)" }} />
+              Linha do tempo da invisibilidade
             </div>
-            <h2 className="font-serif font-light text-5xl md:text-7xl leading-[1.0] tracking-[-0.02em] max-w-4xl">
-              Cento e oitenta e seis anos
-              <span className="italic"> de calibragem.</span>
+            <h2 className="font-serif font-light text-[40px] md:text-[56px] leading-[1.02] tracking-[-0.02em] max-w-3xl text-foreground">
+              186 anos
+              <span className="italic text-foreground/70"> de calibragem.</span>
             </h2>
-            <div className="mt-12 grid md:grid-cols-2 gap-10 max-w-3xl text-[16px] leading-relaxed text-muted-foreground">
-              <p>
-                A inteligência artificial não inventou o viés visual. Ela o herdou.
-                Cada decisão técnica — química, óptica, eletrônica — depositou uma camada sobre quem podia ser visto.
+            <div className="mt-10 grid md:grid-cols-2 gap-10 max-w-3xl">
+              <p className="text-[15px] leading-relaxed text-muted-foreground">
+                A inteligência artificial não inventou o viés visual. Ela o
+                herdou. Cada decisão técnica — química, óptica, eletrônica —
+                depositou uma camada sobre quem podia ser visto.
               </p>
-              <p className="text-foreground/80">
-                Esta linha do tempo reconstrói o caminho da imagem antes de virar dado.
+              <p className="text-[15px] leading-relaxed text-foreground/80">
+                Esta linha do tempo reconstrói o caminho da imagem antes de
+                virar dado.
               </p>
+            </div>
+            <div className="mt-10 flex items-center gap-4 text-[10px] font-mono tracking-[0.3em] uppercase text-muted-foreground">
+              <span>05 capítulos</span>
+              <span className="w-px h-3 bg-border" />
+              <span>1839 — hoje</span>
+              <span className="w-px h-3 bg-border" />
+              <span>scroll para avançar</span>
             </div>
           </div>
         </div>
