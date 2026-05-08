@@ -160,7 +160,7 @@
   .font-serif { font-family: var(--font-serif); }
   .font-mono { font-family: var(--font-mono); }
 
-  .text-urucum { color: oklch(0.62 0.21 32); }
+  .text-urucum { color: oklch(0.52 0.22 25); }
 
   .bg-hero { background: var(--gradient-hero); }
 
