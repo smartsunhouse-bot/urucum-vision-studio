@@ -234,15 +234,17 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
                 transform: `translateY(${progress > 0.15 ? 0 : 20}px)`,
               }}
             >
-              <h3 className="font-serif text-3xl md:text-5xl leading-[1.05] tracking-[-0.015em] text-foreground">
+              <h3 className="font-serif text-[28px] md:text-[40px] leading-[1.05] tracking-[-0.015em] text-foreground">
                 {chapter.title}
               </h3>
-              <p className="mt-6 text-[15.5px] md:text-[16.5px] leading-relaxed text-foreground/75">
+              <p className="mt-5 text-[14.5px] leading-[1.65] text-foreground/75">
                 {chapter.body}
               </p>
-              <p className="mt-5 text-[13px] font-mono uppercase tracking-[0.18em] text-urucum/80 leading-relaxed">
-                {chapter.detail}
-              </p>
+              <div className="mt-6 pt-5 border-t border-border/60">
+                <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-urucum/90 leading-relaxed">
+                  {chapter.detail}
+                </p>
+              </div>
             </div>
           </div>
 
