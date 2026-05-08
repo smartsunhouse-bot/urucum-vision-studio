@@ -327,53 +327,115 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // cinematic curves
+  const easeIn = Math.min(1, Math.max(0, (progress - 0.05) / 0.25));
+  const easeOut = Math.min(1, Math.max(0, 1 - (progress - 0.7) / 0.25));
+  const enter = Math.min(easeIn, easeOut);
+  const parallaxBg = (progress - 0.5) * 60;
+  const parallaxYr = (progress - 0.5) * 120;
+
   return (
     <section
       ref={ref}
-      className="relative min-h-[180vh] border-t border-border/30"
+      className="relative min-h-[220vh] border-t border-border/20"
     >
       {/* Sticky cinematic scene */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      <div className="sticky top-0 h-screen w-full overflow-hidden bg-[oklch(0.06_0.008_30)]">
+        {/* Scene with parallax + slow zoom */}
         <div
-          className="absolute inset-0 transition-opacity duration-700"
-          style={{ opacity: 0.55 + progress * 0.35 }}
+          className="absolute inset-0 will-change-transform"
+          style={{
+            transform: `translate3d(0, ${parallaxBg}px, 0) scale(${1.05 + progress * 0.08})`,
+            opacity: 0.4 + enter * 0.6,
+            transition: "opacity 600ms ease",
+            filter: `contrast(${1.05 + progress * 0.05}) saturate(${0.92 + progress * 0.12})`,
+          }}
         >
           {chapter.scene(progress)}
         </div>
-        <div className="absolute inset-0 grain pointer-events-none" />
+
+        {/* atmospheric haze */}
+        <div
+          className="absolute inset-0 pointer-events-none mix-blend-screen"
+          style={{
+            background:
+              "radial-gradient(ellipse at 70% 30%, oklch(0.50 0.20 30 / 0.18), transparent 55%), radial-gradient(ellipse at 20% 80%, oklch(0.30 0.08 25 / 0.25), transparent 60%)",
+          }}
+        />
+
+        {/* film grain */}
+        <div className="absolute inset-0 grain pointer-events-none opacity-90" />
+
+        {/* deep vignette */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "linear-gradient(180deg, oklch(0.10 0.012 35 / 0.6) 0%, transparent 25%, transparent 65%, oklch(0.10 0.012 35 / 0.95) 100%)",
+              "radial-gradient(ellipse at center, transparent 45%, oklch(0.05 0.008 30 / 0.85) 100%)",
           }}
         />
 
-        <div className="absolute inset-0 max-w-[1400px] mx-auto px-6 lg:px-16">
+        {/* top + bottom scrim */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(180deg, oklch(0.05 0.008 30 / 0.8) 0%, transparent 18%, transparent 60%, oklch(0.05 0.008 30 / 0.95) 100%)",
+          }}
+        />
+
+        {/* cinematic letterbox bars */}
+        <div
+          className="absolute inset-x-0 top-0 pointer-events-none bg-[oklch(0.04_0.005_30)] transition-[height] duration-700 ease-out"
+          style={{ height: `${6 + enter * 6}vh` }}
+        />
+        <div
+          className="absolute inset-x-0 bottom-0 pointer-events-none bg-[oklch(0.04_0.005_30)] transition-[height] duration-700 ease-out"
+          style={{ height: `${6 + enter * 6}vh` }}
+        />
+
+        {/* lens flare */}
+        <div
+          className="absolute pointer-events-none rounded-full"
+          style={{
+            width: 220,
+            height: 220,
+            top: `${22 + Math.sin(progress * 3.14) * 6}%`,
+            right: `${18 + Math.cos(progress * 2.4) * 5}%`,
+            background:
+              "radial-gradient(circle, oklch(0.78 0.18 40 / 0.25), transparent 60%)",
+            filter: "blur(20px)",
+            opacity: 0.55 * enter,
+          }}
+        />
+
+        <div className="absolute inset-0 max-w-[1500px] mx-auto px-6 lg:px-20">
           {/* Year + kicker */}
-          <div className="absolute left-6 lg:left-16 top-[14vh] flex items-baseline gap-6">
-            <span className="font-mono text-[11px] tracking-[0.4em] uppercase text-urucum/80">
-              № {String(index + 1).padStart(2, "0")} · {chapter.kicker}
+          <div className="absolute left-6 lg:left-20 top-[18vh] flex items-baseline gap-6"
+               style={{ opacity: enter, transform: `translateY(${(1 - enter) * 12}px)`, transition: "all 700ms ease" }}>
+            <span className="font-mono text-[11px] tracking-[0.45em] uppercase text-urucum">
+              CAP. {String(index + 1).padStart(2, "0")} · {chapter.kicker}
             </span>
           </div>
           <div
-            className="absolute left-6 lg:left-16 top-[20vh] font-serif font-light leading-[0.85] tracking-[-0.04em] text-foreground/95 tabular-nums"
+            className="absolute left-6 lg:left-20 top-[24vh] font-serif font-light leading-[0.82] tracking-[-0.045em] text-foreground/95 tabular-nums select-none"
             style={{
-              fontSize: "clamp(96px, 16vw, 240px)",
-              transform: `translateY(${(1 - progress) * 30}px)`,
-              opacity: 0.95,
+              fontSize: "clamp(110px, 18vw, 280px)",
+              transform: `translate3d(0, ${parallaxYr}px, 0)`,
+              opacity: 0.25 + enter * 0.7,
+              textShadow: "0 30px 80px oklch(0 0 0 / 0.6)",
             }}
           >
             {chapter.year}
           </div>
 
           {/* Text panel */}
-          <div className="absolute right-6 lg:right-16 bottom-[12vh] w-full max-w-xl">
+          <div className="absolute right-6 lg:right-20 bottom-[16vh] w-full max-w-xl">
             <div
-              className="transition-all duration-700"
               style={{
-                opacity: progress > 0.15 ? 1 : 0,
-                transform: `translateY(${progress > 0.15 ? 0 : 20}px)`,
+                opacity: enter,
+                transform: `translateY(${(1 - enter) * 24}px)`,
+                transition: "all 800ms cubic-bezier(0.22, 1, 0.36, 1)",
               }}
             >
               <h3 className="font-serif text-[28px] md:text-[40px] leading-[1.05] tracking-[-0.015em] text-foreground">
@@ -383,22 +445,27 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
                 {chapter.body}
               </p>
               <div className="mt-6 pt-5 border-t border-border/60">
-                <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-urucum/90 leading-relaxed">
+                <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-urucum leading-relaxed">
                   {chapter.detail}
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Progress rail */}
-          <div className="absolute left-6 lg:left-16 bottom-[8vh] flex items-center gap-3 text-[10px] font-mono tracking-[0.3em] uppercase text-muted-foreground">
-            <span>{String(index + 1).padStart(2, "0")} / {String(chapters.length).padStart(2, "0")}</span>
-            <div className="w-40 h-px bg-border relative overflow-hidden">
+          {/* Progress rail + timecode */}
+          <div className="absolute left-6 lg:left-20 bottom-[10vh] flex items-center gap-4 text-[10px] font-mono tracking-[0.3em] uppercase text-muted-foreground"
+               style={{ opacity: enter }}>
+            <span className="text-foreground/70">{String(index + 1).padStart(2, "0")} / {String(chapters.length).padStart(2, "0")}</span>
+            <div className="w-48 h-px bg-border relative overflow-hidden">
               <div
                 className="absolute inset-y-0 left-0"
-                style={{ width: `${progress * 100}%`, background: "oklch(0.62 0.21 32)" }}
+                style={{ width: `${progress * 100}%`, background: "oklch(0.52 0.22 25)" }}
               />
             </div>
+            <span className="tabular-nums">
+              {String(Math.floor(progress * 59)).padStart(2, "0")}:{String(Math.floor((progress * 59 * 24) % 24)).padStart(2, "0")}
+            </span>
+            <span className="text-urucum">● REC</span>
           </div>
         </div>
       </div>
