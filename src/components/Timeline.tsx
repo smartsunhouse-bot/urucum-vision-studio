@@ -310,9 +310,6 @@ export function Timeline() {
       <section className="relative py-40 lg:py-56 border-t border-border/40 overflow-hidden">
         <div className="absolute inset-0 grain pointer-events-none" />
         <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center reveal">
-          <div className="text-[11px] font-mono uppercase tracking-[0.4em] text-urucum/70 mb-10">
-            ◦ Fim da linha do tempo
-          </div>
           <blockquote className="font-serif text-3xl md:text-[44px] leading-[1.18] tracking-[-0.01em] text-foreground/95">
             “Quando pessoas negras dizem que foram apagadas, isso não é metáfora.
             <span className="block mt-5 text-foreground/65">
