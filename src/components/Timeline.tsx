@@ -242,13 +242,13 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
             <div className="w-48 h-px bg-border relative overflow-hidden">
               <div
                 className="absolute inset-y-0 left-0"
-                style={{ width: `${progress * 100}%`, background: "oklch(0.52 0.22 25)" }}
+                style={{ width: `${progress * 100}%`, background: "oklch(0.72 0.20 38)" }}
               />
             </div>
             <span className="tabular-nums">
               {String(Math.floor(progress * 59)).padStart(2, "0")}:{String(Math.floor((progress * 59 * 24) % 24)).padStart(2, "0")}
             </span>
-            <span className="text-urucum">● REC</span>
+            <span style={{ color: "oklch(0.80 0.19 38)", textShadow: "0 1px 2px oklch(0 0 0 / 0.7)" }} className="font-semibold">● REC</span>
           </div>
         </div>
       </div>
