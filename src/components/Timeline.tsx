@@ -179,7 +179,13 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
           {/* Year + kicker */}
           <div className="absolute left-6 lg:left-20 top-[18vh] flex items-baseline gap-6"
                style={{ opacity: enter, transform: `translateY(${(1 - enter) * 12}px)`, transition: "all 700ms ease" }}>
-            <span className="font-mono text-[11px] tracking-[0.45em] uppercase text-urucum">
+            <span
+              className="font-mono text-[11px] font-semibold tracking-[0.45em] uppercase"
+              style={{
+                color: "oklch(0.78 0.19 38)",
+                textShadow: "0 1px 2px oklch(0 0 0 / 0.85), 0 0 12px oklch(0.05 0.005 30 / 0.9)",
+              }}
+            >
               CAP. {String(index + 1).padStart(2, "0")} · {chapter.kicker}
             </span>
           </div>
