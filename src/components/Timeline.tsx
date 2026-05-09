@@ -418,11 +418,11 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
             </span>
           </div>
           <div
-            className="absolute left-6 lg:left-20 top-[24vh] font-serif font-light leading-[0.82] tracking-[-0.045em] text-foreground/95 tabular-nums select-none"
+            className="absolute left-6 lg:left-20 top-[22vh] font-serif font-light leading-[0.82] tracking-[-0.045em] text-foreground/95 tabular-nums select-none pointer-events-none"
             style={{
-              fontSize: "clamp(110px, 18vw, 280px)",
+              fontSize: "clamp(72px, 11vw, 168px)",
               transform: `translate3d(0, ${parallaxYr}px, 0)`,
-              opacity: 0.25 + enter * 0.7,
+              opacity: 0.22 + enter * 0.55,
               textShadow: "0 30px 80px oklch(0 0 0 / 0.6)",
             }}
           >
@@ -430,18 +430,23 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
           </div>
 
           {/* Text panel */}
-          <div className="absolute right-6 lg:right-20 bottom-[16vh] w-full max-w-xl">
+          <div className="absolute right-6 lg:right-20 bottom-[14vh] w-[min(92vw,560px)]">
             <div
+              className="rounded-sm p-6 lg:p-7 backdrop-blur-[2px]"
               style={{
                 opacity: enter,
                 transform: `translateY(${(1 - enter) * 24}px)`,
                 transition: "all 800ms cubic-bezier(0.22, 1, 0.36, 1)",
+                background:
+                  "linear-gradient(180deg, oklch(0.06 0.008 30 / 0.55), oklch(0.06 0.008 30 / 0.78))",
+                borderLeft: "1px solid oklch(0.52 0.22 25 / 0.55)",
+                boxShadow: "0 40px 80px -30px oklch(0 0 0 / 0.7)",
               }}
             >
-              <h3 className="font-serif text-[28px] md:text-[40px] leading-[1.05] tracking-[-0.015em] text-foreground">
+              <h3 className="font-serif text-[26px] md:text-[36px] leading-[1.08] tracking-[-0.015em] text-foreground">
                 {chapter.title}
               </h3>
-              <p className="mt-5 text-[14.5px] leading-[1.65] text-foreground/75">
+              <p className="mt-5 text-[15px] leading-[1.65] text-foreground/95">
                 {chapter.body}
               </p>
               <div className="mt-6 pt-5 border-t border-border/60">

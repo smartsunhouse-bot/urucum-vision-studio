@@ -9,6 +9,7 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { Results } from "@/components/Results";
 import { Docs } from "@/components/Docs";
 import { Contact } from "@/components/Contact";
+import { Footer } from "@/components/Footer";
 import { useReveal } from "@/hooks/use-reveal";
 
 export const Route = createFileRoute("/")({
@@ -45,6 +46,7 @@ function Index() {
       <Results />
       <Docs />
       <Contact />
+      <Footer />
     </main>
   );
 }
