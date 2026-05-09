@@ -222,7 +222,13 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
                 {chapter.body}
               </p>
               <div className="mt-6 pt-5 border-t border-border/60">
-                <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-urucum leading-relaxed">
+                <p
+                  className="text-[11px] font-mono font-semibold uppercase tracking-[0.22em] leading-relaxed"
+                  style={{
+                    color: "oklch(0.80 0.18 38)",
+                    textShadow: "0 1px 2px oklch(0 0 0 / 0.7)",
+                  }}
+                >
                   {chapter.detail}
                 </p>
               </div>
