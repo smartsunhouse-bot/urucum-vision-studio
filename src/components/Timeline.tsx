@@ -23,53 +23,7 @@ const chapters: Chapter[] = [
       "O daguerreótipo é apresentado em Paris. A química da prata, os tempos de exposição e os manuais de iluminação são definidos a partir de um único referente — a pele branca europeia.",
     detail:
       "Rostos negros aparecem como manchas. O problema é descrito como “limitação técnica”, não como decisão.",
-    scene: (p) => (
-      <svg viewBox="0 0 1600 900" className="w-full h-full" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <radialGradient id="sun1" cx="62%" cy="38%" r="55%">
-            <stop offset="0%" stopColor="oklch(0.78 0.18 60 / 0.85)" />
-            <stop offset="35%" stopColor="oklch(0.45 0.16 32 / 0.55)" />
-            <stop offset="100%" stopColor="transparent" />
-          </radialGradient>
-          <linearGradient id="floor1" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="oklch(0.18 0.03 38)" />
-            <stop offset="100%" stopColor="oklch(0.06 0.01 30)" />
-          </linearGradient>
-          <radialGradient id="vig1" cx="50%" cy="50%" r="75%">
-            <stop offset="55%" stopColor="transparent" />
-            <stop offset="100%" stopColor="oklch(0.05 0.008 30 / 0.95)" />
-          </radialGradient>
-        </defs>
-        <rect width="1600" height="900" fill="url(#floor1)" />
-        {/* dust motes / volumetric light */}
-        {Array.from({ length: 60 }).map((_, i) => {
-          const x = (i * 137 + p * 200) % 1600;
-          const y = 100 + ((i * 53 + p * 80) % 700);
-          return (
-            <circle key={i} cx={x} cy={y} r={0.6 + (i % 3) * 0.4} fill="oklch(0.85 0.05 70 / 0.35)" />
-          );
-        })}
-        {/* light beam through window */}
-        <polygon
-          points={`${900 + p * 30},0 ${1200 + p * 40},0 ${1500},900 ${600},900`}
-          fill="oklch(0.78 0.16 55 / 0.10)"
-        />
-        <circle cx={1000 + p * 60} cy={340 - p * 20} r={520} fill="url(#sun1)" />
-        {/* horizon scan lines */}
-        {Array.from({ length: 90 }).map((_, i) => (
-          <line
-            key={i}
-            x1="0"
-            x2="1600"
-            y1={i * 10 + (p * 6)}
-            y2={i * 10 + (p * 6)}
-            stroke="oklch(0.88 0.04 75 / 0.025)"
-            strokeWidth="1"
-          />
-        ))}
-        <rect width="1600" height="900" fill="url(#vig1)" />
-      </svg>
-    ),
+    image: img1839,
   },
   {
     year: "1950",
