@@ -36,18 +36,6 @@ export function Contact() {
         </div>
       </div>
 
-      <footer className="mt-32 border-t border-border/40">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-10 flex flex-wrap items-center justify-between gap-6 text-[12px] font-mono text-muted-foreground tracking-wide">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[oklch(0.55_0.18_35)]" />
-            URUCUM AI · Vision Infrastructure
-          </div>
-          <div className="flex items-center gap-6">
-            <span>São Paulo · Berlin</span>
-            <span>© 2025</span>
-          </div>
-        </div>
-      </footer>
     </section>
   );
 }
