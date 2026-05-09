@@ -53,65 +53,7 @@ const chapters: Chapter[] = [
       "Algoritmos de auto-exposição, balanço de branco e detecção facial herdam as mesmas premissas. Câmeras de smartphone falham em rostos negros sob baixa luz. Sistemas de reconhecimento erram desproporcionalmente.",
     detail:
       "O que era química, virou estatística. O que era manual, virou modelo.",
-    scene: (p) => (
-      <svg viewBox="0 0 1600 900" className="w-full h-full" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="bg4" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="oklch(0.10 0.012 35)" />
-            <stop offset="100%" stopColor="oklch(0.06 0.008 30)" />
-          </linearGradient>
-          <radialGradient id="vig4" cx="50%" cy="50%" r="75%">
-            <stop offset="55%" stopColor="transparent" />
-            <stop offset="100%" stopColor="oklch(0.05 0.008 30 / 0.95)" />
-          </radialGradient>
-        </defs>
-        <rect width="1600" height="900" fill="url(#bg4)" />
-        {/* sensor grid (Bayer-like) */}
-        {Array.from({ length: 18 }).map((_, r) =>
-          Array.from({ length: 32 }).map((_, c) => {
-            const v = (Math.sin(r * 0.6 + c * 0.4 + p * 2.4) + 1) / 2;
-            const dist = Math.hypot(r - 9, c - 16) / 18;
-            const intensity = Math.max(0, 1 - dist) * v;
-            return (
-              <rect
-                key={`${r}-${c}`}
-                x={80 + c * 45}
-                y={80 + r * 40}
-                width="40"
-                height="34"
-                fill={`oklch(${0.10 + intensity * 0.55} ${0.04 + intensity * 0.16} ${30 + intensity * 8})`}
-              />
-            );
-          }),
-        )}
-        {/* face detection box that misses */}
-        <g opacity={0.7}>
-          <rect
-            x={520 + Math.sin(p * 6) * 30}
-            y={260 + Math.cos(p * 5) * 20}
-            width="280"
-            height="320"
-            fill="none"
-            stroke="oklch(0.58 0.23 24 / 0.7)"
-            strokeWidth="1.4"
-            strokeDasharray="6 4"
-          />
-          <text
-            x={520 + Math.sin(p * 6) * 30}
-            y={250 + Math.cos(p * 5) * 20}
-            fill="oklch(0.58 0.23 24 / 0.85)"
-            fontFamily="JetBrains Mono"
-            fontSize="11"
-            letterSpacing="3"
-          >
-            FACE · CONFIDENCE 0.{Math.floor(12 + p * 30)}
-          </text>
-        </g>
-        {/* horizontal scan */}
-        <rect x={80} y={80 + p * 720} width="1440" height="2" fill="oklch(0.58 0.23 24 / 0.7)" />
-        <rect width="1600" height="900" fill="url(#vig4)" />
-      </svg>
-    ),
+    image: img2010,
   },
   {
     year: "Hoje",
