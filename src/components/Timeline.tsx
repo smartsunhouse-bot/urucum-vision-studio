@@ -110,7 +110,14 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
             filter: `contrast(${1.05 + progress * 0.05}) saturate(${0.92 + progress * 0.12})`,
           }}
         >
-          {chapter.scene(progress)}
+          <img
+            src={chapter.image}
+            alt={`${chapter.year} — ${chapter.title}`}
+            loading="lazy"
+            width={1920}
+            height={1080}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
         </div>
 
         {/* atmospheric haze */}
