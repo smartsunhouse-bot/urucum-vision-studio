@@ -1,4 +1,9 @@
-import { useEffect, useRef, useState, type ReactElement } from "react";
+import { useEffect, useRef, useState } from "react";
+import img1839 from "@/assets/timeline-1839.jpg";
+import img1950 from "@/assets/timeline-1950.jpg";
+import img1977 from "@/assets/timeline-1977.jpg";
+import img2010 from "@/assets/timeline-2010.jpg";
+import imgToday from "@/assets/timeline-today.jpg";
 
 type Chapter = {
   year: string;
@@ -6,7 +11,7 @@ type Chapter = {
   title: string;
   body: string;
   detail: string;
-  scene: (p: number) => ReactElement;
+  image: string;
 };
 
 const chapters: Chapter[] = [
