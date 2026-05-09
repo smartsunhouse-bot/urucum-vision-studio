@@ -62,52 +62,7 @@ const chapters: Chapter[] = [
     body:
       "Sistemas de IA são treinados sobre arquivos visuais que carregam um século e meio de calibragem. Cada inferência repete e amplifica decisões tomadas antes da fotografia digital existir.",
     detail: "Nenhum modelo corrige o que nunca foi capturado.",
-    scene: (p) => (
-      <svg viewBox="0 0 1600 900" className="w-full h-full" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <radialGradient id="core5" cx="50%" cy="50%" r="20%">
-            <stop offset="0%" stopColor="oklch(0.78 0.18 30 / 0.7)" />
-            <stop offset="100%" stopColor="transparent" />
-          </radialGradient>
-          <radialGradient id="vig5" cx="50%" cy="50%" r="75%">
-            <stop offset="55%" stopColor="transparent" />
-            <stop offset="100%" stopColor="oklch(0.05 0.008 30 / 0.95)" />
-          </radialGradient>
-        </defs>
-        <rect width="1600" height="900" fill="oklch(0.08 0.012 32)" />
-        {/* particle constellation */}
-        {Array.from({ length: 220 }).map((_, i) => {
-          const a = (i / 220) * Math.PI * 2 + p * 0.6;
-          const r = 220 + Math.sin(i * 0.7 + p * 3) * 80 + (i % 5) * 14;
-          const x = 800 + Math.cos(a) * r * 1.8;
-          const y = 450 + Math.sin(a) * r * 0.9;
-          const op = 0.25 + ((i * 13) % 100) / 200;
-          return (
-            <circle key={i} cx={x} cy={y} r={0.8 + (i % 4) * 0.4} fill={`oklch(0.58 0.23 24 / ${op})`} />
-          );
-        })}
-        {/* faint orbits */}
-        {[180, 280, 380, 480].map((r, i) => (
-          <ellipse
-            key={r}
-            cx="800"
-            cy="450"
-            rx={r * 1.6}
-            ry={r * 0.8}
-            fill="none"
-            stroke={`oklch(0.85 0.04 70 / ${0.05 + i * 0.02})`}
-            strokeWidth="0.5"
-            transform={`rotate(${p * 8 + i * 3} 800 450)`}
-          />
-        ))}
-        <circle cx="800" cy="450" r="120" fill="url(#core5)" />
-        <circle cx="800" cy="450" r="64" fill="none" stroke="oklch(0.85 0.05 70 / 0.55)" strokeWidth="0.6" />
-        <text x="800" y="455" textAnchor="middle" fill="oklch(0.88 0.04 75 / 0.85)" fontFamily="JetBrains Mono" fontSize="11" letterSpacing="6">
-          INFERENCE
-        </text>
-        <rect width="1600" height="900" fill="url(#vig5)" />
-      </svg>
-    ),
+    image: imgToday,
   },
 ];
 
