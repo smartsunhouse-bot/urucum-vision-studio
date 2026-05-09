@@ -33,54 +33,7 @@ const chapters: Chapter[] = [
       "Kodak distribui a Shirley Card aos laboratórios do mundo: uma mulher branca como referência absoluta de cor, tom e densidade. Toda a cadeia de revelação química é calibrada para esse rosto.",
     detail:
       "Por décadas, a fidelidade do retrato é definida por uma única identidade.",
-    scene: (p) => (
-      <svg viewBox="0 0 1600 900" className="w-full h-full" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="oklch(0.16 0.02 38)" />
-            <stop offset="100%" stopColor="oklch(0.08 0.01 30)" />
-          </linearGradient>
-          <radialGradient id="spot2" cx="50%" cy="42%" r="45%">
-            <stop offset="0%" stopColor="oklch(0.78 0.10 70 / 0.55)" />
-            <stop offset="100%" stopColor="transparent" />
-          </radialGradient>
-          <radialGradient id="vig2" cx="50%" cy="50%" r="75%">
-            <stop offset="55%" stopColor="transparent" />
-            <stop offset="100%" stopColor="oklch(0.05 0.008 30 / 0.95)" />
-          </radialGradient>
-        </defs>
-        <rect width="1600" height="900" fill="url(#bg2)" />
-        <ellipse cx="800" cy="380" rx="700" ry="260" fill="url(#spot2)" />
-        {/* color reference patches like a Shirley card */}
-        {Array.from({ length: 8 }).map((_, i) => {
-          const x = 280 + i * 130;
-          const lightness = 0.95 - i * 0.09;
-          const chroma = i === 0 ? 0 : 0.05 + i * 0.005;
-          const hue = 75 - i * 3;
-          return (
-            <g key={i} transform={`translate(${x}, ${360 + Math.sin((p + i) * 1.2) * 4})`}>
-              <rect
-                width="100"
-                height="280"
-                fill={`oklch(${lightness} ${chroma} ${hue})`}
-                opacity={0.9}
-              />
-              <rect width="100" height="280" fill="none" stroke="oklch(0 0 0 / 0.4)" strokeWidth="1" />
-            </g>
-          );
-        })}
-        {/* tape & label */}
-        <rect x="240" y="700" width="1120" height="60" fill="oklch(0.18 0.02 40)" stroke="oklch(0.52 0.22 25 / 0.4)" strokeWidth="0.5" />
-        <text x="800" y="738" fill="oklch(0.85 0.05 70 / 0.7)" fontFamily="JetBrains Mono" fontSize="16" letterSpacing="8" textAnchor="middle">
-          KODAK · SHIRLEY · NORMAL · CAUCASIAN REFERENCE
-        </text>
-        {/* film grain lines */}
-        {Array.from({ length: 30 }).map((_, i) => (
-          <line key={i} x1="0" x2="1600" y1={i * 30 + p * 8} y2={i * 30 + p * 8} stroke="oklch(0.88 0.04 75 / 0.02)" />
-        ))}
-        <rect width="1600" height="900" fill="url(#vig2)" />
-      </svg>
-    ),
+    image: img1950,
   },
   {
     year: "1977",
