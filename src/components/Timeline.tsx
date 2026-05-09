@@ -43,57 +43,7 @@ const chapters: Chapter[] = [
       "Fabricantes de móveis e de chocolate reclamam à Kodak: madeiras escuras e barras de chocolate não aparecem corretamente. A indústria reformula seus filmes.",
     detail:
       "A correção dos tons escuros chega como demanda comercial. Não como reparação.",
-    scene: (p) => (
-      <svg viewBox="0 0 1600 900" className="w-full h-full" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="oklch(0.14 0.02 36)" />
-            <stop offset="100%" stopColor="oklch(0.07 0.01 30)" />
-          </linearGradient>
-          <radialGradient id="warm3" cx="35%" cy="60%" r="55%">
-            <stop offset="0%" stopColor="oklch(0.50 0.14 40 / 0.55)" />
-            <stop offset="100%" stopColor="transparent" />
-          </radialGradient>
-          <radialGradient id="vig3" cx="50%" cy="50%" r="75%">
-            <stop offset="55%" stopColor="transparent" />
-            <stop offset="100%" stopColor="oklch(0.05 0.008 30 / 0.95)" />
-          </radialGradient>
-        </defs>
-        <rect width="1600" height="900" fill="url(#bg3)" />
-        <ellipse cx="500" cy="540" rx="700" ry="320" fill="url(#warm3)" />
-        {/* densitometric scan strips */}
-        <g opacity="0.88">
-          <rect x="220" y="280" width="380" height="380" fill="oklch(0.28 0.05 38)" />
-          <rect x="600" y="280" width="180" height="380" fill="oklch(0.20 0.04 35)" />
-          <rect x="780" y="280" width="360" height="380" fill="oklch(0.34 0.06 40)" />
-          <rect x="1140" y="280" width="220" height="380" fill="oklch(0.16 0.03 30)" />
-        </g>
-        {/* moving scan line */}
-        <rect
-          x={220 + p * 1140}
-          y="260"
-          width="2"
-          height="420"
-          fill="oklch(0.58 0.23 24)"
-          opacity="0.85"
-        />
-        <rect
-          x={220 + p * 1140 - 40}
-          y="260"
-          width="80"
-          height="420"
-          fill="oklch(0.58 0.23 24 / 0.08)"
-        />
-        {/* readout */}
-        <text x="220" y="730" fill="oklch(0.85 0.05 70 / 0.6)" fontFamily="JetBrains Mono" fontSize="14" letterSpacing="6">
-          DENSITOMETRY · WALNUT / DARK CHOCOLATE / MAHOGANY
-        </text>
-        <text x="220" y="760" fill="oklch(0.52 0.22 25 / 0.8)" fontFamily="JetBrains Mono" fontSize="12" letterSpacing="4">
-          CLIENT REQUEST · MFG. ASSOCIATION
-        </text>
-        <rect width="1600" height="900" fill="url(#vig3)" />
-      </svg>
-    ),
+    image: img1977,
   },
   {
     year: "2010",
