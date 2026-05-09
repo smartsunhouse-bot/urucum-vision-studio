@@ -264,8 +264,11 @@ export function Timeline() {
         <div className="absolute inset-0 grain pointer-events-none" />
         <div className="max-w-5xl mx-auto px-6 lg:px-10">
           <div className="reveal">
-            <div className="flex items-center gap-3 text-[11px] font-mono tracking-[0.4em] uppercase text-urucum/90 mb-6">
-              <span className="w-6 h-px bg-urucum/60" style={{ background: "oklch(0.52 0.22 25 / 0.6)" }} />
+            <div
+              className="flex items-center gap-3 text-[11px] font-mono font-semibold tracking-[0.4em] uppercase mb-6"
+              style={{ color: "oklch(0.78 0.19 38)" }}
+            >
+              <span className="w-6 h-px" style={{ background: "oklch(0.72 0.20 38 / 0.8)" }} />
               Linha do tempo da invisibilidade
             </div>
             <h2 className="font-serif font-light text-[40px] md:text-[56px] leading-[1.02] tracking-[-0.02em] max-w-3xl text-foreground">
