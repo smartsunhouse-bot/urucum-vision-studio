@@ -179,7 +179,13 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
           {/* Year + kicker */}
           <div className="absolute left-6 lg:left-20 top-[18vh] flex items-baseline gap-6"
                style={{ opacity: enter, transform: `translateY(${(1 - enter) * 12}px)`, transition: "all 700ms ease" }}>
-            <span className="font-mono text-[11px] tracking-[0.45em] uppercase text-urucum">
+            <span
+              className="font-mono text-[11px] font-semibold tracking-[0.45em] uppercase"
+              style={{
+                color: "oklch(0.78 0.19 38)",
+                textShadow: "0 1px 2px oklch(0 0 0 / 0.85), 0 0 12px oklch(0.05 0.005 30 / 0.9)",
+              }}
+            >
               CAP. {String(index + 1).padStart(2, "0")} · {chapter.kicker}
             </span>
           </div>
@@ -216,7 +222,13 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
                 {chapter.body}
               </p>
               <div className="mt-6 pt-5 border-t border-border/60">
-                <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-urucum leading-relaxed">
+                <p
+                  className="text-[11px] font-mono font-semibold uppercase tracking-[0.22em] leading-relaxed"
+                  style={{
+                    color: "oklch(0.80 0.18 38)",
+                    textShadow: "0 1px 2px oklch(0 0 0 / 0.7)",
+                  }}
+                >
                   {chapter.detail}
                 </p>
               </div>
@@ -230,13 +242,13 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
             <div className="w-48 h-px bg-border relative overflow-hidden">
               <div
                 className="absolute inset-y-0 left-0"
-                style={{ width: `${progress * 100}%`, background: "oklch(0.52 0.22 25)" }}
+                style={{ width: `${progress * 100}%`, background: "oklch(0.72 0.20 38)" }}
               />
             </div>
             <span className="tabular-nums">
               {String(Math.floor(progress * 59)).padStart(2, "0")}:{String(Math.floor((progress * 59 * 24) % 24)).padStart(2, "0")}
             </span>
-            <span className="text-urucum">● REC</span>
+            <span style={{ color: "oklch(0.80 0.19 38)", textShadow: "0 1px 2px oklch(0 0 0 / 0.7)" }} className="font-semibold">● REC</span>
           </div>
         </div>
       </div>
@@ -252,8 +264,11 @@ export function Timeline() {
         <div className="absolute inset-0 grain pointer-events-none" />
         <div className="max-w-5xl mx-auto px-6 lg:px-10">
           <div className="reveal">
-            <div className="flex items-center gap-3 text-[11px] font-mono tracking-[0.4em] uppercase text-urucum/90 mb-6">
-              <span className="w-6 h-px bg-urucum/60" style={{ background: "oklch(0.52 0.22 25 / 0.6)" }} />
+            <div
+              className="flex items-center gap-3 text-[11px] font-mono font-semibold tracking-[0.4em] uppercase mb-6"
+              style={{ color: "oklch(0.78 0.19 38)" }}
+            >
+              <span className="w-6 h-px" style={{ background: "oklch(0.72 0.20 38 / 0.8)" }} />
               Linha do tempo da invisibilidade
             </div>
             <h2 className="font-serif font-light text-[40px] md:text-[56px] leading-[1.02] tracking-[-0.02em] max-w-3xl text-foreground">
