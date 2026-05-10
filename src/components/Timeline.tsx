@@ -180,10 +180,11 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
           <div className="absolute left-6 lg:left-20 top-[18vh] flex items-baseline gap-6"
                style={{ opacity: enter, transform: `translateY(${(1 - enter) * 12}px)`, transition: "all 700ms ease" }}>
             <span
-              className="font-mono text-[11px] font-semibold tracking-[0.45em] uppercase"
+              className="font-mono text-[11px] font-bold tracking-[0.45em] uppercase"
               style={{
-                color: "oklch(0.78 0.19 38)",
-                textShadow: "0 1px 2px oklch(0 0 0 / 0.85), 0 0 12px oklch(0.05 0.005 30 / 0.9)",
+                color: "oklch(0.86 0.20 45)",
+                textShadow:
+                  "0 1px 2px oklch(0 0 0 / 0.95), 0 0 14px oklch(0 0 0 / 0.7)",
               }}
             >
               CAP. {String(index + 1).padStart(2, "0")} · {chapter.kicker}
@@ -204,18 +205,21 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
           {/* Text panel */}
           <div className="absolute right-6 lg:right-20 bottom-[14vh] w-[min(92vw,560px)]">
             <div
-              className="rounded-sm p-6 lg:p-7 backdrop-blur-[2px]"
+              className="rounded-sm p-6 lg:p-7 backdrop-blur-md"
               style={{
                 opacity: enter,
                 transform: `translateY(${(1 - enter) * 24}px)`,
                 transition: "all 800ms cubic-bezier(0.22, 1, 0.36, 1)",
                 background:
-                  "linear-gradient(180deg, oklch(0.06 0.008 30 / 0.55), oklch(0.06 0.008 30 / 0.78))",
+                  "linear-gradient(180deg, oklch(0.05 0.008 30 / 0.78), oklch(0.04 0.006 30 / 0.92))",
                 borderLeft: "1px solid oklch(0.52 0.22 25 / 0.55)",
-                boxShadow: "0 40px 80px -30px oklch(0 0 0 / 0.7)",
+                boxShadow: "0 40px 80px -30px oklch(0 0 0 / 0.85)",
               }}
             >
-              <h3 className="font-serif text-[26px] md:text-[36px] leading-[1.08] tracking-[-0.015em] text-foreground">
+              <h3
+                className="font-serif text-[26px] md:text-[36px] leading-[1.08] tracking-[-0.015em] text-foreground"
+                style={{ textShadow: "0 2px 12px oklch(0 0 0 / 0.85)" }}
+              >
                 {chapter.title}
               </h3>
               <p className="mt-5 text-[15px] leading-[1.65] text-foreground/95">
@@ -248,7 +252,7 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
             <span className="tabular-nums">
               {String(Math.floor(progress * 59)).padStart(2, "0")}:{String(Math.floor((progress * 59 * 24) % 24)).padStart(2, "0")}
             </span>
-            <span style={{ color: "oklch(0.80 0.19 38)", textShadow: "0 1px 2px oklch(0 0 0 / 0.7)" }} className="font-semibold">● REC</span>
+            <span style={{ color: "oklch(0.62 0.26 27)", textShadow: "0 1px 2px oklch(0 0 0 / 0.9), 0 0 10px oklch(0.55 0.25 27 / 0.6)" }} className="font-bold">● REC</span>
           </div>
         </div>
       </div>
