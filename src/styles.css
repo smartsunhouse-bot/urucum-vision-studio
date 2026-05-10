@@ -210,4 +210,46 @@
     100% { filter: brightness(0.35) contrast(1.15); }
   }
   .animate-light { animation: light-cycle 10s ease-in-out infinite; }
+
+  /* fine grain — sensor noise overlay (animated) */
+  .grain-fine::before {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    pointer-events: none;
+    opacity: 0.10;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95  0 0 0 0 0.85  0 0 0 0 0.75  0 0 0 0.7 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    animation: grain-shift 1.2s steps(3) infinite;
+  }
+  @keyframes grain-shift {
+    0%   { transform: translate3d(0,0,0); }
+    33%  { transform: translate3d(-2%, 1%, 0); }
+    66%  { transform: translate3d(1%, -2%, 0); }
+    100% { transform: translate3d(0,0,0); }
+  }
+
+  /* slow breathing glow */
+  @keyframes breathe {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50%      { opacity: 0.85; transform: scale(1.04); }
+  }
+  .animate-breathe { animation: breathe 9s ease-in-out infinite; }
+
+  /* soft scanline drift on capture panel */
+  @keyframes scan-y {
+    0%   { transform: translateY(-100%); }
+    100% { transform: translateY(220%); }
+  }
+  .animate-scan { animation: scan-y 7s linear infinite; }
+
+  /* exposure cycling for capture portrait — alternates ev steps */
+  @keyframes ev-cycle {
+    0%, 18%   { filter: brightness(0.55) contrast(1.18) saturate(0.92); }
+    25%, 43%  { filter: brightness(0.92) contrast(1.05) saturate(1); }
+    50%, 68%  { filter: brightness(1.18) contrast(0.95) saturate(0.95); }
+    75%, 93%  { filter: brightness(0.78) contrast(1.1) saturate(0.95); }
+    100%      { filter: brightness(0.55) contrast(1.18) saturate(0.92); }
+  }
+  .animate-ev { animation: ev-cycle 14s ease-in-out infinite; }
 }
