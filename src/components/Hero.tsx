@@ -51,9 +51,9 @@ export function Hero() {
         }}
       />
 
-      {/* layer 2 — optical curve (lens / exposure curve) */}
+      {/* layer 2 — optical curve (lens / exposure curve) — constrained to right column, never crosses text */}
       <svg
-        className="absolute -right-[18%] top-[2%] w-[95vw] h-[95vw] max-w-[1200px] max-h-[1200px] pointer-events-none animate-drift"
+        className="hidden lg:block absolute -right-[14%] top-[6%] w-[58vw] h-[58vw] max-w-[820px] max-h-[820px] pointer-events-none animate-drift opacity-[0.55] mix-blend-screen"
         viewBox="0 0 600 600"
         fill="none"
         aria-hidden
@@ -216,60 +216,72 @@ export function Hero() {
           }`}
         >
           <div
-            className="relative aspect-[3/4] w-full max-w-[420px] mx-auto rounded-[2px] overflow-hidden"
+            className="relative aspect-square w-full max-w-[440px] mx-auto"
             style={{
-              background: "oklch(0.10 0.012 35)",
-              boxShadow:
-                "0 0 0 1px oklch(0.55 0.18 35 / 0.18), 0 40px 100px -30px oklch(0 0 0 / 0.85), 0 0 80px -20px oklch(0.50 0.22 25 / 0.25)",
+              filter: "drop-shadow(0 40px 90px oklch(0 0 0 / 0.7))",
             }}
           >
-            {/* portraits stack — fade between */}
-            {captures.map((c, i) => (
-              <img
-                key={i}
-                src={c.src}
-                alt={`Captura técnica — ${c.state.toLowerCase()}`}
-                className={`absolute inset-0 w-full h-full object-cover animate-ev transition-opacity duration-[1400ms] ease-out ${
-                  i === cap ? "opacity-100" : "opacity-0"
-                }`}
-                width={1024}
-                height={1024}
-                loading="eager"
-              />
-            ))}
-
-            {/* dim vignette inside frame */}
             <div
-              className="absolute inset-0 pointer-events-none"
+              className="absolute inset-0 rounded-full overflow-hidden"
               style={{
                 background:
-                  "radial-gradient(ellipse at 50% 55%, transparent 45%, oklch(0.06 0.008 30 / 0.75))",
+                  "radial-gradient(circle at 50% 50%, oklch(0.14 0.018 35) 0%, oklch(0.085 0.010 32) 75%)",
+                boxShadow:
+                  "inset 0 0 90px 20px oklch(0.06 0.008 30 / 0.95), 0 0 0 1px oklch(0.55 0.18 35 / 0.12)",
               }}
-            />
+            >
+              {captures.map((c, i) => (
+                <img
+                  key={i}
+                  src={c.src}
+                  alt={`Captura técnica — ${c.state.toLowerCase()}`}
+                  className={`absolute inset-0 w-full h-full object-cover animate-ev transition-opacity duration-[1600ms] ease-out mix-blend-screen ${
+                    i === cap ? "opacity-[0.42]" : "opacity-0"
+                  }`}
+                  style={{
+                    filter: "contrast(0.78) saturate(0.7) brightness(0.95) blur(0.4px)",
+                    maskImage:
+                      "radial-gradient(circle at 50% 48%, black 28%, transparent 72%)",
+                    WebkitMaskImage:
+                      "radial-gradient(circle at 50% 48%, black 28%, transparent 72%)",
+                  }}
+                  width={1024}
+                  height={1024}
+                  loading="eager"
+                />
+              ))}
 
-            {/* scanline */}
-            <div
-              className="absolute left-0 right-0 h-px pointer-events-none animate-scan"
-              style={{
-                background:
-                  "linear-gradient(90deg, transparent, oklch(0.72 0.20 28 / 0.55), transparent)",
-                boxShadow: "0 0 14px oklch(0.62 0.24 26 / 0.7)",
-              }}
-            />
-
-            {/* corner brackets */}
-            {[
-              "top-3 left-3 border-l border-t",
-              "top-3 right-3 border-r border-t",
-              "bottom-3 left-3 border-l border-b",
-              "bottom-3 right-3 border-r border-b",
-            ].map((pos, i) => (
-              <span
-                key={i}
-                className={`absolute ${pos} w-3 h-3 pointer-events-none`}
-                style={{ borderColor: "oklch(0.78 0.18 30 / 0.55)" }}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at 50% 80%, oklch(0.50 0.20 26 / 0.18), transparent 55%)",
+                }}
               />
-            ))}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(circle at 50% 50%, transparent 40%, oklch(0.06 0.008 30 / 0.95) 78%)",
+                }}
+              />
+
+              <div
+                className="absolute left-0 right-0 h-px pointer-events-none animate-scan opacity-60"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, oklch(0.72 0.20 28 / 0.4), transparent)",
+                }}
+              />
+            </div>
+
+            <div
+              className="absolute inset-0 rounded-full pointer-events-none"
+              style={{
+                border: "1px dashed oklch(0.55 0.18 35 / 0.18)",
+                transform: "scale(1.04)",
+              }}
+            />
 
             {/* HUD top */}
             <div className="absolute top-3 inset-x-3 flex items-center justify-between text-[9.5px] font-mono tracking-[0.28em] uppercase pointer-events-none">
