@@ -209,25 +209,34 @@ export function Hero() {
           </div>
         </div>
 
-        {/* RIGHT — capture panel */}
+        {/* RIGHT — vision computacional panel */}
         <div
           className={`lg:col-span-5 relative transition-all duration-1000 delay-200 ${
             stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
           <div
-            className="relative aspect-square w-full max-w-[440px] mx-auto"
-            style={{
-              filter: "drop-shadow(0 40px 90px oklch(0 0 0 / 0.7))",
-            }}
+            className="relative aspect-square w-full max-w-[460px] mx-auto"
+            style={{ filter: "drop-shadow(0 40px 90px oklch(0 0 0 / 0.7))" }}
           >
+            {/* orbital rings */}
+            <div
+              className="absolute inset-0 rounded-full pointer-events-none animate-[spin_80s_linear_infinite]"
+              style={{ border: "1px dashed oklch(0.55 0.18 35 / 0.14)", transform: "scale(1.12)" }}
+            />
+            <div
+              className="absolute inset-0 rounded-full pointer-events-none animate-[spin_120s_linear_infinite_reverse]"
+              style={{ border: "1px solid oklch(0.55 0.18 35 / 0.08)", transform: "scale(1.20)" }}
+            />
+
+            {/* portrait disc */}
             <div
               className="absolute inset-0 rounded-full overflow-hidden"
               style={{
                 background:
                   "radial-gradient(circle at 50% 50%, oklch(0.14 0.018 35) 0%, oklch(0.085 0.010 32) 75%)",
                 boxShadow:
-                  "inset 0 0 90px 20px oklch(0.06 0.008 30 / 0.95), 0 0 0 1px oklch(0.55 0.18 35 / 0.12)",
+                  "inset 0 0 90px 20px oklch(0.06 0.008 30 / 0.95), 0 0 0 1px oklch(0.55 0.18 35 / 0.18)",
               }}
             >
               {captures.map((c, i) => (
@@ -235,15 +244,15 @@ export function Hero() {
                   key={i}
                   src={c.src}
                   alt={`Captura técnica — ${c.state.toLowerCase()}`}
-                  className={`absolute inset-0 w-full h-full object-cover animate-ev transition-opacity duration-[1600ms] ease-out mix-blend-screen ${
-                    i === cap ? "opacity-[0.42]" : "opacity-0"
+                  className={`absolute inset-0 w-full h-full object-cover animate-ev transition-opacity duration-[1600ms] ease-out ${
+                    i === cap ? "opacity-[0.78]" : "opacity-0"
                   }`}
                   style={{
-                    filter: "contrast(0.78) saturate(0.7) brightness(0.95) blur(0.4px)",
+                    filter: "contrast(0.95) saturate(0.78) brightness(0.92)",
                     maskImage:
-                      "radial-gradient(circle at 50% 48%, black 28%, transparent 72%)",
+                      "radial-gradient(circle at 50% 48%, black 38%, transparent 78%)",
                     WebkitMaskImage:
-                      "radial-gradient(circle at 50% 48%, black 28%, transparent 72%)",
+                      "radial-gradient(circle at 50% 48%, black 38%, transparent 78%)",
                   }}
                   width={1024}
                   height={1024}
@@ -251,75 +260,143 @@ export function Hero() {
                 />
               ))}
 
+              {/* warm glow + outer fade */}
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                   background:
-                    "radial-gradient(ellipse at 50% 80%, oklch(0.50 0.20 26 / 0.18), transparent 55%)",
-                }}
-              />
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(circle at 50% 50%, transparent 40%, oklch(0.06 0.008 30 / 0.95) 78%)",
+                    "radial-gradient(ellipse at 50% 80%, oklch(0.50 0.20 26 / 0.18), transparent 55%)," +
+                    "radial-gradient(circle at 50% 50%, transparent 44%, oklch(0.06 0.008 30 / 0.92) 80%)",
                 }}
               />
 
+              {/* CV overlays — bounding box, landmarks, mesh */}
+              <svg
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+                aria-hidden
+              >
+                {/* face bounding box */}
+                <g stroke="oklch(0.72 0.22 28)" fill="none">
+                  <rect x="32" y="26" width="36" height="46" strokeWidth="0.18" opacity="0.55" />
+                  {/* corner brackets */}
+                  <path d="M30 26 L30 32 M30 26 L36 26" strokeWidth="0.5" />
+                  <path d="M70 26 L70 32 M70 26 L64 26" strokeWidth="0.5" />
+                  <path d="M30 72 L30 66 M30 72 L36 72" strokeWidth="0.5" />
+                  <path d="M70 72 L70 66 M70 72 L64 72" strokeWidth="0.5" />
+                </g>
+                {/* mesh — face triangulation hint */}
+                <g stroke="oklch(0.62 0.24 26 / 0.45)" strokeWidth="0.12" fill="none">
+                  <path d="M40 42 L50 50 L60 42 M44 56 L50 60 L56 56 M40 42 L44 56 M60 42 L56 56 M50 50 L50 60 M40 42 L50 60 M60 42 L50 60" />
+                  <path d="M36 38 Q50 30 64 38 M36 64 Q50 72 64 64" />
+                </g>
+                {/* landmarks (68-style key points) */}
+                <g fill="oklch(0.78 0.22 28)">
+                  {[
+                    [40, 42],[60, 42],[50, 50],[44, 56],[56, 56],[50, 60],
+                    [38, 38],[42, 36],[46, 36],[54, 36],[58, 36],[62, 38],
+                    [42, 64],[46, 66],[50, 67],[54, 66],[58, 64],
+                    [36, 50],[64, 50],[34, 46],[66, 46],
+                  ].map(([x, y], i) => (
+                    <circle key={i} cx={x} cy={y} r="0.55" />
+                  ))}
+                </g>
+                {/* center crosshair */}
+                <g stroke="oklch(0.78 0.22 28 / 0.8)" strokeWidth="0.18">
+                  <line x1="50" y1="46" x2="50" y2="54" />
+                  <line x1="46" y1="50" x2="54" y2="50" />
+                </g>
+              </svg>
+
+              {/* scanline */}
               <div
-                className="absolute left-0 right-0 h-px pointer-events-none animate-scan opacity-60"
+                className="absolute left-0 right-0 h-px pointer-events-none animate-scan"
                 style={{
                   background:
-                    "linear-gradient(90deg, transparent, oklch(0.72 0.20 28 / 0.4), transparent)",
+                    "linear-gradient(90deg, transparent, oklch(0.72 0.20 28 / 0.7), transparent)",
+                  boxShadow: "0 0 18px oklch(0.62 0.24 26 / 0.7)",
                 }}
               />
             </div>
 
+            {/* DETECTION badge — left side */}
+            <div className="absolute top-1/2 -left-2 -translate-y-1/2 hidden md:flex flex-col items-center gap-1 pointer-events-none">
+              <div className="w-px h-12 bg-gradient-to-b from-transparent to-[oklch(0.62_0.24_26)]/60" />
+              <div
+                className="px-1.5 py-3 text-[8.5px] font-mono font-bold tracking-[0.32em] uppercase text-[oklch(0.10_0.012_35)]"
+                style={{
+                  writingMode: "vertical-rl",
+                  background: "oklch(0.68 0.22 28)",
+                }}
+              >
+                Detected
+              </div>
+              <div className="w-px h-12 bg-gradient-to-t from-transparent to-[oklch(0.62_0.24_26)]/60" />
+            </div>
+
+            {/* HUD telemetry — top-left floating */}
             <div
-              className="absolute inset-0 rounded-full pointer-events-none"
+              className="absolute -top-2 -left-2 hidden md:block font-mono text-[8.5px] uppercase tracking-[0.22em] p-2.5 pointer-events-none"
               style={{
-                border: "1px dashed oklch(0.55 0.18 35 / 0.18)",
-                transform: "scale(1.04)",
+                background: "oklch(0.10 0.012 35 / 0.85)",
+                border: "1px solid oklch(0.55 0.18 35 / 0.25)",
+                backdropFilter: "blur(8px)",
               }}
-            />
-
-            {/* HUD top */}
-            <div className="absolute top-3 inset-x-3 flex items-center justify-between text-[9.5px] font-mono tracking-[0.28em] uppercase pointer-events-none">
-              <span className="flex items-center gap-1.5 text-[oklch(0.68_0.26_27)]">
-                <span
-                  className="inline-block w-1.5 h-1.5 rounded-full bg-[oklch(0.62_0.26_27)] animate-breathe"
-                  style={{ boxShadow: "0 0 8px oklch(0.62 0.26 27 / 0.9)" }}
-                />
-                REC
-              </span>
-              <span className="text-foreground/55">CAPTURE · LOOP</span>
+            >
+              <div className="flex justify-between gap-6 text-foreground/45">
+                <span>biometric_lock</span>
+                <span className="text-[oklch(0.78_0.20_28)]">99.42%</span>
+              </div>
+              <div className="flex justify-between gap-6 text-foreground/45 mt-1">
+                <span>landmarks</span>
+                <span className="text-foreground/85">68 / 68</span>
+              </div>
+              <div className="flex justify-between gap-6 text-foreground/45 mt-1">
+                <span>latency</span>
+                <span className="text-foreground/85">0.82 ms</span>
+              </div>
             </div>
 
-            {/* HUD bottom */}
-            <div className="absolute bottom-3 inset-x-3 pointer-events-none">
-              <div className="flex items-end justify-between text-[9.5px] font-mono tracking-[0.28em] uppercase">
+            {/* HUD REC — top right */}
+            <div className="absolute -top-2 right-0 flex items-center gap-1.5 text-[9px] font-mono tracking-[0.32em] uppercase text-[oklch(0.68_0.26_27)] pointer-events-none">
+              <span
+                className="inline-block w-1.5 h-1.5 rounded-full bg-[oklch(0.62_0.26_27)] animate-breathe"
+                style={{ boxShadow: "0 0 8px oklch(0.62 0.26 27 / 0.9)" }}
+              />
+              REC · LIVE
+            </div>
+
+            {/* HUD bottom — STATE / EV */}
+            <div
+              className="absolute -bottom-2 inset-x-0 font-mono text-[9px] tracking-[0.28em] uppercase pointer-events-none px-3 py-2.5"
+              style={{
+                background: "oklch(0.10 0.012 35 / 0.85)",
+                border: "1px solid oklch(0.55 0.18 35 / 0.22)",
+                backdropFilter: "blur(8px)",
+              }}
+            >
+              <div className="flex items-end justify-between">
                 <div className="space-y-1">
-                  <div className="text-foreground/40">STATE</div>
-                  <div
-                    key={cap}
-                    className="text-foreground/90 animate-fade-in"
-                  >
+                  <div className="text-foreground/40">state</div>
+                  <div key={cap} className="text-foreground/90 animate-fade-in">
                     {current.state}
                   </div>
                 </div>
+                <div className="space-y-1 text-center">
+                  <div className="text-foreground/40">model</div>
+                  <div className="text-[oklch(0.78_0.20_28)]">urucum-vision · v4</div>
+                </div>
                 <div className="space-y-1 text-right">
-                  <div className="text-foreground/40">EV · FRAME</div>
-                  <div
-                    key={`ev-${cap}`}
-                    className="text-foreground/90 tabular-nums animate-fade-in"
-                  >
+                  <div className="text-foreground/40">ev · frame</div>
+                  <div key={`ev-${cap}`} className="text-foreground/90 tabular-nums animate-fade-in">
                     {current.ev} · #{current.frame}
                   </div>
                 </div>
               </div>
 
-              {/* exposure bar */}
-              <div className="mt-3 relative h-px w-full bg-foreground/15">
+              {/* exposure / confidence bar */}
+              <div className="mt-2.5 relative h-px w-full bg-foreground/15">
                 <div
                   className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full transition-all duration-1000"
                   style={{
@@ -332,11 +409,14 @@ export function Hero() {
             </div>
           </div>
 
-          {/* side label */}
-          <div className="hidden md:flex absolute -right-2 top-0 bottom-0 flex-col items-center justify-between text-[9px] font-mono tracking-[0.34em] uppercase text-foreground/35"
-               style={{ writingMode: "vertical-rl" }}>
-            <span>fig. 01 · subject deep</span>
-            <span>sensor · live</span>
+          {/* side telemetry — XYZ orientation */}
+          <div className="hidden xl:flex absolute -right-4 top-1/4 flex-col gap-1 font-mono text-[8.5px] uppercase tracking-[0.22em] text-foreground/35 pointer-events-none">
+            <span>x · 0.229</span>
+            <span>y · 1.882</span>
+            <span>z · −0.001</span>
+            <span className="w-6 h-px bg-foreground/20 my-1" />
+            <span>roll · 44.0</span>
+            <span>pitch · 12.8</span>
           </div>
         </div>
       </div>
