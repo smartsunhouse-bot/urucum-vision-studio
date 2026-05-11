@@ -51,9 +51,9 @@ export function Hero() {
         }}
       />
 
-      {/* layer 2 — optical curve (lens / exposure curve) */}
+      {/* layer 2 — optical curve (lens / exposure curve) — constrained to right column, never crosses text */}
       <svg
-        className="absolute -right-[18%] top-[2%] w-[95vw] h-[95vw] max-w-[1200px] max-h-[1200px] pointer-events-none animate-drift"
+        className="hidden lg:block absolute -right-[14%] top-[6%] w-[58vw] h-[58vw] max-w-[820px] max-h-[820px] pointer-events-none animate-drift opacity-[0.55] mix-blend-screen"
         viewBox="0 0 600 600"
         fill="none"
         aria-hidden
