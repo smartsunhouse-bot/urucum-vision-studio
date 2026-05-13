@@ -51,37 +51,6 @@ export function Hero() {
         }}
       />
 
-      {/* layer 2 — optical curve (lens / exposure curve) — constrained to right column, never crosses text */}
-      <svg
-        className="hidden lg:block absolute -right-[14%] top-[6%] w-[58vw] h-[58vw] max-w-[820px] max-h-[820px] pointer-events-none animate-drift opacity-[0.55] mix-blend-screen"
-        viewBox="0 0 600 600"
-        fill="none"
-        aria-hidden
-      >
-        <defs>
-          <radialGradient id="lensFill" cx="50%" cy="50%" r="50%">
-            <stop offset="0%"   stopColor="oklch(0.62 0.24 26 / 0.28)" />
-            <stop offset="55%"  stopColor="oklch(0.32 0.14 26 / 0.14)" />
-            <stop offset="100%" stopColor="transparent" />
-          </radialGradient>
-          <linearGradient id="lensRim" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%"   stopColor="oklch(0.72 0.22 28 / 0.55)" />
-            <stop offset="50%"  stopColor="oklch(0.50 0.20 26 / 0.20)" />
-            <stop offset="100%" stopColor="transparent" />
-          </linearGradient>
-          <mask id="lensCut">
-            <rect width="600" height="600" fill="white" />
-            <circle cx="380" cy="270" r="240" fill="black" />
-          </mask>
-          <filter id="softBlur">
-            <feGaussianBlur stdDeviation="1.4" />
-          </filter>
-        </defs>
-        <circle cx="300" cy="300" r="262" fill="url(#lensFill)" mask="url(#lensCut)" filter="url(#softBlur)" />
-        <circle cx="300" cy="300" r="262" fill="none" stroke="url(#lensRim)" strokeWidth="0.6" mask="url(#lensCut)" />
-        <circle cx="300" cy="300" r="248" fill="none" stroke="oklch(0.55 0.20 26 / 0.18)" strokeWidth="0.3" mask="url(#lensCut)" strokeDasharray="0.6 2.2" />
-      </svg>
-
       {/* layer 3 — vignette */}
       <div
         className="absolute inset-0 pointer-events-none"

@@ -1,20 +1,56 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const links = [
+const links: { href: string; label: string }[] = [
+  { href: "#top", label: "Home" },
+  { href: "#solucoes", label: "Soluções" },
   { href: "#produto", label: "Produto" },
-  { href: "#como-funciona", label: "Sistema" },
-  { href: "#resultados", label: "Resultados" },
-  { href: "#documentacao", label: "Documentação" },
+  { href: "#tecnologia", label: "Tecnologia / Ética" },
+  { href: "#precos", label: "Preços" },
+];
+
+const productPillars = [
+  {
+    code: "01",
+    title: "Sintética API",
+    sub: "Geração on-demand",
+    desc: "Painel programável: fototipos IV–VI, iluminação, clima, sensores. Output via POST /v1/generate_faces.",
+    href: "#produto",
+  },
+  {
+    code: "02",
+    title: "Datasets Pré-Treinados",
+    sub: "Core libraries",
+    desc: "Bancos massivos prontos: biométrico base, estresse lumínico, dermatológico clínico em peles retintas.",
+    href: "#produto",
+  },
+  {
+    code: "03",
+    title: "Motor de Anotação",
+    sub: "Pixel-perfect ground truth",
+    desc: "Segmentação semântica, 68+ landmarks faciais. Export COCO JSON, YOLO txt, Pascal VOC.",
+    href: "#produto",
+  },
 ];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [openProduct, setOpenProduct] = useState(false);
+  const closeTimer = useRef<number | null>(null);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const scheduleClose = () => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(() => setOpenProduct(false), 140);
+  };
+  const cancelClose = () => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+  };
 
   return (
     <header
@@ -41,18 +77,69 @@ export function Navbar() {
           </span>
         </a>
 
-        {/* nav — pushed right, breathable */}
-        <ul className="hidden md:flex items-center justify-end gap-9">
-          {links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="text-[11.5px] font-mono tracking-[0.22em] uppercase text-foreground/55 hover:text-foreground/95 transition-colors duration-500"
+        {/* nav */}
+        <ul className="hidden md:flex items-center justify-end gap-8">
+          {links.map((l) => {
+            const isProduct = l.label === "Produto";
+            return (
+              <li
+                key={l.href}
+                className={isProduct ? "relative" : undefined}
+                onMouseEnter={isProduct ? () => { cancelClose(); setOpenProduct(true); } : undefined}
+                onMouseLeave={isProduct ? scheduleClose : undefined}
               >
-                {l.label}
-              </a>
-            </li>
-          ))}
+                <a
+                  href={l.href}
+                  className="inline-flex items-center gap-1.5 text-[11.5px] font-mono tracking-[0.22em] uppercase text-foreground/55 hover:text-foreground/95 transition-colors duration-500"
+                  aria-haspopup={isProduct || undefined}
+                  aria-expanded={isProduct ? openProduct : undefined}
+                >
+                  {l.label}
+                  {isProduct && (
+                    <span className="text-[8px] text-foreground/40 leading-none">▾</span>
+                  )}
+                </a>
+
+                {isProduct && openProduct && (
+                  <div
+                    className="absolute right-0 top-full pt-4 w-[640px] z-50"
+                    onMouseEnter={cancelClose}
+                    onMouseLeave={scheduleClose}
+                  >
+                    <div
+                      className="rounded-[3px] p-5 grid grid-cols-3 gap-3"
+                      style={{
+                        background: "oklch(0.10 0.012 35 / 0.96)",
+                        border: "1px solid oklch(0.55 0.18 35 / 0.22)",
+                        backdropFilter: "blur(14px)",
+                        boxShadow:
+                          "0 30px 60px -20px oklch(0 0 0 / 0.7), 0 0 0 1px oklch(0.55 0.18 35 / 0.08)",
+                      }}
+                    >
+                      {productPillars.map((p) => (
+                        <a
+                          key={p.code}
+                          href={p.href}
+                          className="group block p-3.5 rounded-[2px] transition-colors duration-300 hover:bg-[oklch(0.18_0.02_35_/_0.6)]"
+                        >
+                          <div className="flex items-center gap-2 text-[9px] font-mono tracking-[0.32em] uppercase text-foreground/40">
+                            <span style={{ color: "oklch(0.66 0.24 28)" }}>{p.code}</span>
+                            <span>{p.sub}</span>
+                          </div>
+                          <div className="mt-2 font-serif text-[15px] leading-tight text-foreground/95 group-hover:text-foreground transition-colors">
+                            {p.title}
+                          </div>
+                          <p className="mt-2 text-[11px] leading-[1.55] text-foreground/55 normal-case tracking-normal font-sans">
+                            {p.desc}
+                          </p>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </li>
+            );
+          })}
         </ul>
 
         <a
