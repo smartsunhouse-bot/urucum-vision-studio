@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
 const links: { href: string; label: string }[] = [
-  { href: "#top", label: "Home" },
-  { href: "#solucoes", label: "Soluções" },
-  { href: "#produto", label: "Produto" },
-  { href: "#tecnologia", label: "Tecnologia / Ética" },
-  { href: "#precos", label: "Preços" },
+  { href: "/", label: "Home" },
+  { href: "/solucoes", label: "Soluções" },
+  { href: "/#produto", label: "Produto" },
+  { href: "/#tecnologia", label: "Tecnologia / Ética" },
+  { href: "/#precos", label: "Preços" },
 ];
 
 const productPillars = [
