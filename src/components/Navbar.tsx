@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
 const links: { href: string; label: string }[] = [
-  { href: "#top", label: "Home" },
-  { href: "#solucoes", label: "Soluções" },
-  { href: "#produto", label: "Produto" },
-  { href: "#tecnologia", label: "Tecnologia / Ética" },
-  { href: "#precos", label: "Preços" },
+  { href: "/", label: "Home" },
+  { href: "/solucoes", label: "Soluções" },
+  { href: "/#produto", label: "Produto" },
+  { href: "/#tecnologia", label: "Tecnologia / Ética" },
+  { href: "/#precos", label: "Preços" },
 ];
 
 const productPillars = [
@@ -33,9 +33,9 @@ const productPillars = [
 ];
 
 const industries = [
-  { code: "α", title: "Saúde", desc: "Dermatologia clínica, diagnóstico e imagem médica em peles retintas.", href: "#solucoes" },
-  { code: "β", title: "Segurança", desc: "Reconhecimento, biometria e CFTV sob baixa luz e fototipos extremos.", href: "#solucoes" },
-  { code: "γ", title: "Entretenimento", desc: "Captura cinematográfica, VFX e produção com fidelidade tonal real.", href: "#solucoes" },
+  { code: "α", title: "Biometria & FinTechs", desc: "KYC, liveness e auditoria biométrica em fototipos IV–VI.", href: "/solucoes/biometria" },
+  { code: "β", title: "Saúde & Telemedicina", desc: "Dermatologia clínica e imagem médica em peles retintas.", href: "/solucoes/diagnostico" },
+  { code: "γ", title: "Smart Cities & CFTV", desc: "Vigilância urbana sob baixa luz e sombras críticas.", href: "/solucoes/smart-cities" },
 ];
 
 export function Navbar() {
@@ -72,7 +72,7 @@ export function Navbar() {
     >
       <nav className="max-w-[1320px] mx-auto px-6 lg:px-12 h-[68px] grid grid-cols-[auto_1fr_auto] items-center gap-10">
         {/* logo */}
-        <a href="#top" className="flex items-center gap-3 group">
+        <a href="/" className="flex items-center gap-3 group">
           <span
             className="relative inline-block w-[7px] h-[7px] rounded-full"
             style={{
@@ -159,7 +159,7 @@ export function Navbar() {
         </ul>
 
         <a
-          href="#contato"
+          href="/#contato"
           className="inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.22em] uppercase px-4 py-2 rounded-[2px] text-foreground/85 hover:text-foreground transition-colors duration-500"
           style={{
             border: "1px solid oklch(0.55 0.18 35 / 0.32)",
