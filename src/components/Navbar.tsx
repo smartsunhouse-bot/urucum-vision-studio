@@ -32,6 +32,12 @@ const productPillars = [
   },
 ];
 
+const industries = [
+  { code: "α", title: "Saúde", desc: "Dermatologia clínica, diagnóstico e imagem médica em peles retintas.", href: "#solucoes" },
+  { code: "β", title: "Segurança", desc: "Reconhecimento, biometria e CFTV sob baixa luz e fototipos extremos.", href: "#solucoes" },
+  { code: "γ", title: "Entretenimento", desc: "Captura cinematográfica, VFX e produção com fidelidade tonal real.", href: "#solucoes" },
+];
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [openProduct, setOpenProduct] = useState(false);
