@@ -40,7 +40,7 @@ const industries = [
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [openProduct, setOpenProduct] = useState(false);
+  const [openKey, setOpenKey] = useState<string | null>(null);
   const closeTimer = useRef<number | null>(null);
 
   useEffect(() => {
@@ -50,9 +50,13 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const open = (key: string) => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+    setOpenKey(key);
+  };
   const scheduleClose = () => {
     if (closeTimer.current) window.clearTimeout(closeTimer.current);
-    closeTimer.current = window.setTimeout(() => setOpenProduct(false), 140);
+    closeTimer.current = window.setTimeout(() => setOpenKey(null), 140);
   };
   const cancelClose = () => {
     if (closeTimer.current) window.clearTimeout(closeTimer.current);
@@ -86,29 +90,35 @@ export function Navbar() {
         {/* nav */}
         <ul className="hidden md:flex items-center justify-end gap-8">
           {links.map((l) => {
-            const isProduct = l.label === "Produto";
+            const dropdown =
+              l.label === "Produto"
+                ? { key: "produto", items: productPillars, width: "w-[640px]" }
+                : l.label === "Soluções"
+                  ? { key: "solucoes", items: industries, width: "w-[560px]" }
+                  : null;
+            const isOpen = dropdown ? openKey === dropdown.key : false;
             return (
               <li
                 key={l.href}
-                className={isProduct ? "relative" : undefined}
-                onMouseEnter={isProduct ? () => { cancelClose(); setOpenProduct(true); } : undefined}
-                onMouseLeave={isProduct ? scheduleClose : undefined}
+                className={dropdown ? "relative" : undefined}
+                onMouseEnter={dropdown ? () => open(dropdown.key) : undefined}
+                onMouseLeave={dropdown ? scheduleClose : undefined}
               >
                 <a
                   href={l.href}
                   className="inline-flex items-center gap-1.5 text-[11.5px] font-mono tracking-[0.22em] uppercase text-foreground/55 hover:text-foreground/95 transition-colors duration-500"
-                  aria-haspopup={isProduct || undefined}
-                  aria-expanded={isProduct ? openProduct : undefined}
+                  aria-haspopup={dropdown ? true : undefined}
+                  aria-expanded={dropdown ? isOpen : undefined}
                 >
                   {l.label}
-                  {isProduct && (
+                  {dropdown && (
                     <span className="text-[8px] text-foreground/40 leading-none">▾</span>
                   )}
                 </a>
 
-                {isProduct && openProduct && (
+                {dropdown && isOpen && (
                   <div
-                    className="absolute right-0 top-full pt-4 w-[640px] z-50"
+                    className={`absolute right-0 top-full pt-4 ${dropdown.width} z-50`}
                     onMouseEnter={cancelClose}
                     onMouseLeave={scheduleClose}
                   >
@@ -122,7 +132,7 @@ export function Navbar() {
                           "0 30px 60px -20px oklch(0 0 0 / 0.7), 0 0 0 1px oklch(0.55 0.18 35 / 0.08)",
                       }}
                     >
-                      {productPillars.map((p) => (
+                      {dropdown.items.map((p) => (
                         <a
                           key={p.code}
                           href={p.href}
@@ -130,7 +140,7 @@ export function Navbar() {
                         >
                           <div className="flex items-center gap-2 text-[9px] font-mono tracking-[0.32em] uppercase text-foreground/40">
                             <span style={{ color: "oklch(0.66 0.24 28)" }}>{p.code}</span>
-                            <span>{p.sub}</span>
+                            <span>{("sub" in p ? p.sub : "Indústria")}</span>
                           </div>
                           <div className="mt-2 font-serif text-[15px] leading-tight text-foreground/95 group-hover:text-foreground transition-colors">
                             {p.title}
