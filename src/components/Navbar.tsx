@@ -33,9 +33,9 @@ const productPillars = [
 ];
 
 const industries = [
-  { code: "α", title: "Saúde", desc: "Dermatologia clínica, diagnóstico e imagem médica em peles retintas.", href: "#solucoes" },
-  { code: "β", title: "Segurança", desc: "Reconhecimento, biometria e CFTV sob baixa luz e fototipos extremos.", href: "#solucoes" },
-  { code: "γ", title: "Entretenimento", desc: "Captura cinematográfica, VFX e produção com fidelidade tonal real.", href: "#solucoes" },
+  { code: "α", title: "Biometria & FinTechs", desc: "KYC, liveness e auditoria biométrica em fototipos IV–VI.", href: "/solucoes/biometria" },
+  { code: "β", title: "Saúde & Telemedicina", desc: "Dermatologia clínica e imagem médica em peles retintas.", href: "/solucoes/diagnostico" },
+  { code: "γ", title: "Smart Cities & CFTV", desc: "Vigilância urbana sob baixa luz e sombras críticas.", href: "/solucoes/smart-cities" },
 ];
 
 export function Navbar() {
