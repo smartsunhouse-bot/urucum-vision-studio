@@ -22,6 +22,19 @@ export type SolutionData = {
   overlays: { x: number; y: number; w: number; h: number; tag: string; conf: string }[];
   /** ROI chart rows */
   roi: { label: string; traditional: string; synthetic: string; tradPct: number; synthPct: number }[];
+  /** Photometric / capture readings */
+  photometric?: {
+    ev: string;          // exposure value e.g. "EV -1.3"
+    lum: string;         // luminance e.g. "Y' 0.31"
+    iso: string;         // ISO e.g. "ISO 3200"
+    shutter: string;     // shutter e.g. "1/30s"
+    wb: string;          // white balance e.g. "WB 3200K"
+    fitz: string;        // fitzpatrick coverage e.g. "FITZ IV–VI"
+  };
+  /** Operational technical state badges */
+  states?: string[];
+  /** Capture log lines (terminal-style) */
+  logs?: { t: string; tag: "ok" | "info" | "warn"; msg: string }[];
 };
 
 function Icon({ name }: { name: SolutionData["cards"][number]["icon"] }) {
