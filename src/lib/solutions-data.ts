@@ -260,14 +260,16 @@ export const diagnostico: SolutionData = {
     { t: "00:00.402", tag: "info", msg: "provenance.sign  sha256=4a…e1  · synthetic" },
   ],
 };
+
+export const smartCities: SolutionData = {
   code: "γ",
   vertical: "Smart Cities & Vigilância Avançada",
   audience: "Governos · Empresas de segurança · Operadoras urbanas",
-  headline: "Visão computacional confiável em ambientes críticos.",
+  headline: "Inferência confiável quando a cena perde luz, contraste e foco.",
   pain:
-    "Câmeras de segurança urbana sofrem com subexposição de luz e baixo contraste ao capturar rostos retintos à noite. O resultado: alarmes falsos de identificação criminal, falhas críticas no monitoramento público e processos por discriminação algorítmica.",
+    "CFTV urbano opera fora do envelope fotométrico do detector: vapor de sódio a 30 lux, faixas de exposição estreitas e peles retintas em sub-Y′. O modelo erra rastreio, troca identidades e dispara alarme falso.",
   benefit:
-    "Calibre algoritmos de CFTV e monitoramento inteligente para operar com alta fidelidade em condições extremas de iluminação urbana, sombras profundas e baixa resolução de lente. Auditoria reproduzível por cenário.",
+    "Cenários parametrizáveis — iluminação, clima, distância, ângulo, fototipo — gerados sob demanda para validar o detector dentro do envelope real de operação.",
   useCases: [
     "Rastreamento de fluxo de pessoas em tempo real, com paridade tonal.",
     "Monitoramento de segurança corporativa em ambientes de baixa luz.",
