@@ -136,11 +136,11 @@ export const diagnostico: SolutionData = {
   code: "β",
   vertical: "Diagnóstico Médico & Telemedicina",
   audience: "Hospitais · HealthTechs · Pesquisa clínica",
-  headline: "Precisão dermatológica para todos os fototipos.",
+  headline: "Imagem clínica calibrada por fototipo, não por padrão de pele clara.",
   pain:
-    "Softwares de triagem dermatológica por IA têm taxas de erro críticas em peles escuras porque foram treinados quase inteiramente com peles claras. O resultado: erros de diagnóstico potencialmente fatais — incluindo melanomas não detectados — e impossibilidade de escalar a telemedicina para toda a população.",
+    "Modelos dermatológicos foram treinados em distribuições tonais que não cobrem fototipos V–VI. Em peles retintas o sinal patológico se confunde com pigmentação base, e a inferência colapsa para falso negativo — incluindo melanomas.",
   benefit:
-    "Treine modelos de diagnóstico por imagem para reconhecer manifestações clínicas reais de patologias em peles pardas e retintas. Garanta eficácia clínica e equidade no atendimento de saúde digital, com proveniência rastreável de cada amostra.",
+    "Datasets sintéticos com proveniência rastreável, ground truth pixel-perfect e patologias modeladas sob cada fototipo. Auditoria fotométrica em cada amostra antes do treino.",
   useCases: [
     "Treinamento de algoritmos de detecção de câncer de pele em fototipos IV–VI.",
     "Triagem automatizada de lesões em pronto-socorro e atenção primária.",
