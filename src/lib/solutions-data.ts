@@ -368,6 +368,27 @@ export const smartCities: SolutionData = {
       synthPct: 6,
     },
   ],
+  photometric: {
+    ev: "EV −2.1",
+    lum: "Y′ 0.18",
+    iso: "ISO 6400",
+    shutter: "1/15 s",
+    wb: "WB 2200 K",
+    fitz: "FITZ V–VI",
+  },
+  states: [
+    "low-light calibrated",
+    "exposure normalized",
+    "scenario reproducible",
+    "synthetic capture validated",
+  ],
+  logs: [
+    { t: "00:00.034", tag: "info", msg: "scene.compose  lighting=sodium · 30 lux · rain=0.4" },
+    { t: "00:00.121", tag: "info", msg: "sensor.sim  iso=6400  shutter=1/15  gain=+12 dB" },
+    { t: "00:00.244", tag: "ok",   msg: "track.multi  →  4 ids stable  · jitter 0.04 px" },
+    { t: "00:00.331", tag: "warn", msg: "exposure.warn  Y′=0.18  pushed +0.6 ev" },
+    { t: "00:00.418", tag: "ok",   msg: "parity.audit  FAR(VI)=0.013  FAR(II)=0.011" },
+  ],
 };
 
 export const allSolutions = [
