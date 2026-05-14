@@ -238,9 +238,28 @@ export const diagnostico: SolutionData = {
       synthPct: 6,
     },
   ],
+  photometric: {
+    ev: "EV +0.0",
+    lum: "Y′ 0.46",
+    iso: "ISO 200",
+    shutter: "1/120 s",
+    wb: "WB 5500 K",
+    fitz: "FITZ IV–VI",
+  },
+  states: [
+    "photometric balanced",
+    "HDR calibrated",
+    "synthetic capture validated",
+    "ground-truth pixel-perfect",
+  ],
+  logs: [
+    { t: "00:00.052", tag: "info", msg: "derm.dataset.load  fitz=[4,5,6]  n=120 000" },
+    { t: "00:00.117", tag: "info", msg: "photometric.audit  ΔE00=1.2  γ-uniform=0.99" },
+    { t: "00:00.231", tag: "ok",   msg: "lesion.segment  →  iou 0.94" },
+    { t: "00:00.318", tag: "ok",   msg: "fairness.audit  Δrecall(VI−II)=0.012" },
+    { t: "00:00.402", tag: "info", msg: "provenance.sign  sha256=4a…e1  · synthetic" },
+  ],
 };
-
-export const smartCities: SolutionData = {
   code: "γ",
   vertical: "Smart Cities & Vigilância Avançada",
   audience: "Governos · Empresas de segurança · Operadoras urbanas",
