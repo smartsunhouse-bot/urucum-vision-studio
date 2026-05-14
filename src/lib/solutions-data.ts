@@ -4,11 +4,11 @@ export const biometria: SolutionData = {
   code: "α",
   vertical: "Biometria & Identidade Digital",
   audience: "FinTechs · Bancos digitais · Compliance",
-  headline: "Autenticação facial equitativa e à prova de fraudes.",
+  headline: "Captura facial calibrada para baixa luz e fototipos retintos.",
   pain:
-    "Bancos digitais perdem milhões porque seus aplicativos de Liveness Check falham em reconhecer pessoas negras em baixa iluminação. O resultado: fricção no onboarding, reclamações públicas de racismo algorítmico e vulnerabilidade direta a ataques de spoofing em peles retintas.",
+    "Pipelines de Liveness Check operam fora da faixa fotométrica em que peles retintas refletem luz. O sensor subexpõe, o detector perde contraste local e o sistema rejeita o usuário — ou aceita o spoof.",
   benefit:
-    "Reduza falsos positivos em até 95% para os fototipos IV, V e VI da escala Fitzpatrick. Garanta um onboarding fluido para todos os perfis, mitigando risco reputacional, multas regulatórias e processos judiciais.",
+    "Validação contínua do pipeline biométrico com cobertura tonal completa: exposição, ganho e mapa de luminância normalizados por fototipo Fitzpatrick antes do modelo decidir.",
   useCases: [
     "Validação de KYC (Know Your Customer) com cobertura tonal completa.",
     "Auditoria contínua de sistemas biométricos legados em produção.",
