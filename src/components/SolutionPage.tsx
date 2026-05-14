@@ -22,59 +22,20 @@ export type SolutionData = {
   overlays: { x: number; y: number; w: number; h: number; tag: string; conf: string }[];
   /** ROI chart rows */
   roi: { label: string; traditional: string; synthetic: string; tradPct: number; synthPct: number }[];
+  /** Photometric / capture readings */
+  photometric?: {
+    ev: string;          // exposure value e.g. "EV -1.3"
+    lum: string;         // luminance e.g. "Y' 0.31"
+    iso: string;         // ISO e.g. "ISO 3200"
+    shutter: string;     // shutter e.g. "1/30s"
+    wb: string;          // white balance e.g. "WB 3200K"
+    fitz: string;        // fitzpatrick coverage e.g. "FITZ IV–VI"
+  };
+  /** Operational technical state badges */
+  states?: string[];
+  /** Capture log lines (terminal-style) */
+  logs?: { t: string; tag: "ok" | "info" | "warn"; msg: string }[];
 };
-
-function Icon({ name }: { name: SolutionData["cards"][number]["icon"] }) {
-  const c = "oklch(0.78 0.20 30)";
-  switch (name) {
-    case "server":
-      return (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <rect x="3" y="4" width="18" height="6" rx="1" stroke={c} />
-          <rect x="3" y="14" width="18" height="6" rx="1" stroke={c} />
-          <circle cx="7" cy="7" r="0.8" fill={c} />
-          <circle cx="7" cy="17" r="0.8" fill={c} />
-        </svg>
-      );
-    case "model":
-      return (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c}>
-          <circle cx="12" cy="12" r="2.2" />
-          <circle cx="5" cy="6" r="1.6" />
-          <circle cx="19" cy="6" r="1.6" />
-          <circle cx="5" cy="18" r="1.6" />
-          <circle cx="19" cy="18" r="1.6" />
-          <path d="M6.5 7l4 4M17.5 7l-4 4M6.5 17l4-4M17.5 17l-4-4" />
-        </svg>
-      );
-    case "lock":
-      return (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c}>
-          <rect x="5" y="11" width="14" height="9" rx="1" />
-          <path d="M8 11V8a4 4 0 018 0v3" />
-        </svg>
-      );
-    case "scan":
-      return (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c}>
-          <path d="M4 8V5h3M20 8V5h-3M4 16v3h3M20 16v3h-3" />
-          <path d="M4 12h16" />
-        </svg>
-      );
-    case "pulse":
-      return (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c}>
-          <path d="M3 12h4l2-6 4 12 2-6h6" />
-        </svg>
-      );
-    case "shield":
-      return (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c}>
-          <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z" />
-        </svg>
-      );
-  }
-}
 
 function CodeLine({
   n,
@@ -233,57 +194,71 @@ export function SolutionPage({ data }: { data: SolutionData }) {
             </div>
 
             <div className="p-5 flex flex-col gap-4">
-              <div className="grid grid-cols-2 gap-4">
-                {data.cards.map((c) => (
-                  <div
-                    key={c.label}
-                    className="rounded-[4px] p-4 flex flex-col items-center gap-3"
-                    style={{
-                      background: "oklch(0.16 0.04 30 / 0.55)",
-                      border: "1px solid oklch(0.55 0.18 35 / 0.25)",
-                    }}
-                  >
-                    <div className="text-[9px] font-mono tracking-[0.3em] uppercase text-foreground/65">
-                      {c.label}
+              {/* Photometric / capture readings */}
+              {data.photometric && (
+                <div className="grid grid-cols-3 gap-px" style={{ background: "oklch(0.50 0.12 35 / 0.20)" }}>
+                  {[
+                    ["EV", data.photometric.ev.replace("EV ", "")],
+                    ["Y′", data.photometric.lum.replace("Y′ ", "")],
+                    ["ISO", data.photometric.iso.replace("ISO ", "")],
+                    ["SHUTTER", data.photometric.shutter],
+                    ["WB", data.photometric.wb.replace("WB ", "")],
+                    ["FITZ", data.photometric.fitz.replace("FITZ ", "")],
+                  ].map(([k, v]) => (
+                    <div key={k} className="px-3 py-2.5" style={{ background: "oklch(0.10 0.012 35 / 0.92)" }}>
+                      <div className="text-[8.5px] font-mono tracking-[0.26em] uppercase text-foreground/35">
+                        {k}
+                      </div>
+                      <div className="mt-1 text-[12.5px] font-mono text-foreground/90 tabular-nums">
+                        {v}
+                      </div>
                     </div>
-                    <Icon name={c.icon} />
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
 
+              {/* Capture viewport — bbox + scan */}
               <div
-                className="relative rounded-[4px] aspect-[16/9] overflow-hidden"
+                className="relative aspect-[16/10] overflow-hidden"
                 style={{
                   background:
-                    "linear-gradient(180deg, oklch(0.18 0.03 30) 0%, oklch(0.10 0.012 35) 100%)",
-                  border: "1px solid oklch(0.55 0.18 35 / 0.22)",
+                    "radial-gradient(120% 80% at 60% 30%, oklch(0.20 0.025 30) 0%, oklch(0.08 0.010 35) 70%)",
+                  border: "1px solid oklch(0.50 0.12 35 / 0.20)",
                 }}
               >
-                <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 200 112" preserveAspectRatio="none">
-                  {Array.from({ length: 10 }).map((_, i) => (
-                    <line key={`v${i}`} x1={i * 20} y1="0" x2={i * 20} y2="112" stroke="oklch(0.55 0.18 35 / 0.4)" strokeWidth="0.2" />
+                <svg className="absolute inset-0 w-full h-full opacity-[0.20]" viewBox="0 0 200 125" preserveAspectRatio="none">
+                  {Array.from({ length: 20 }).map((_, i) => (
+                    <line key={`v${i}`} x1={i * 10} y1="0" x2={i * 10} y2="125" stroke="oklch(0.58 0.16 30)" strokeWidth="0.15" />
                   ))}
-                  {Array.from({ length: 6 }).map((_, i) => (
-                    <line key={`h${i}`} x1="0" y1={i * 20} x2="200" y2={i * 20} stroke="oklch(0.55 0.18 35 / 0.4)" strokeWidth="0.2" />
+                  {Array.from({ length: 12 }).map((_, i) => (
+                    <line key={`h${i}`} x1="0" y1={i * 10} x2="200" y2={i * 10} stroke="oklch(0.58 0.16 30)" strokeWidth="0.15" />
                   ))}
+                  <line x1="100" y1="55" x2="100" y2="70" stroke="oklch(0.58 0.16 30)" strokeWidth="0.4" />
+                  <line x1="92" y1="62.5" x2="108" y2="62.5" stroke="oklch(0.58 0.16 30)" strokeWidth="0.4" />
                 </svg>
+
+                <div className="absolute inset-0 animate-ev pointer-events-none" />
 
                 {data.overlays.map((o, i) => (
                   <div
                     key={i}
-                    className="absolute"
+                    className="absolute animate-lock"
                     style={{
                       left: `${o.x}%`,
                       top: `${o.y}%`,
                       width: `${o.w}%`,
                       height: `${o.h}%`,
-                      border: "1px solid oklch(0.72 0.22 28)",
-                      boxShadow: "0 0 12px oklch(0.62 0.24 26 / 0.45)",
+                      border: "1px solid oklch(0.58 0.16 30)",
+                      animationDelay: `${i * 0.5}s`,
                     }}
                   >
                     <div
-                      className="absolute -top-[14px] left-0 px-1 py-[1px] font-mono text-[8px] tracking-[0.18em] uppercase text-background"
-                      style={{ background: "oklch(0.72 0.22 28)" }}
+                      className="absolute -top-[12px] left-0 px-1 py-[1px] font-mono text-[8px] tracking-[0.18em] uppercase"
+                      style={{
+                        background: "oklch(0.10 0.012 35 / 0.92)",
+                        color: "oklch(0.58 0.16 30)",
+                        border: "1px solid oklch(0.50 0.12 35 / 0.30)",
+                      }}
                     >
                       {o.tag} · {o.conf}
                     </div>
@@ -294,14 +269,72 @@ export function SolutionPage({ data }: { data: SolutionData }) {
                   className="absolute inset-x-0 h-[1px] animate-scan"
                   style={{
                     background:
-                      "linear-gradient(90deg, transparent, oklch(0.72 0.22 28 / 0.7), transparent)",
+                      "linear-gradient(90deg, transparent, oklch(0.58 0.16 30 / 0.7), transparent)",
                   }}
                 />
 
-                <div className="absolute bottom-2 left-3 font-mono text-[9px] tracking-[0.22em] uppercase text-foreground/55">
-                  {data.vizCaption}
+                <div className="absolute top-2 right-2 flex items-center gap-1.5 px-1.5 py-[2px] font-mono text-[8px] tracking-[0.22em] uppercase text-foreground/75"
+                  style={{ background: "oklch(0.10 0.012 35 / 0.85)", border: "1px solid oklch(0.50 0.12 35 / 0.30)" }}
+                >
+                  <span className="w-[5px] h-[5px] rounded-full animate-live" style={{ background: "oklch(0.58 0.16 30)" }} />
+                  REC
+                </div>
+
+                <div className="absolute bottom-1.5 left-2 right-2 flex justify-between items-center font-mono text-[8.5px] tracking-[0.22em] uppercase text-foreground/45">
+                  <span>{data.vizCaption}</span>
+                  <span>{data.photometric?.shutter ?? "—"} · {data.photometric?.iso ?? "—"}</span>
                 </div>
               </div>
+
+              {/* State badges */}
+              {data.states && (
+                <div className="flex flex-wrap gap-1.5">
+                  {data.states.map((s) => (
+                    <span
+                      key={s}
+                      className="px-2 py-1 text-[9px] font-mono tracking-[0.18em] uppercase text-foreground/65"
+                      style={{ background: "oklch(0.10 0.012 35 / 0.7)", border: "1px solid oklch(0.50 0.12 35 / 0.20)" }}
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {/* Capture log */}
+              {data.logs && (
+                <div
+                  className="font-mono text-[11px] leading-[1.85] p-4"
+                  style={{
+                    background: "oklch(0.08 0.010 35 / 0.92)",
+                    border: "1px solid oklch(0.50 0.12 35 / 0.18)",
+                  }}
+                >
+                  <div className="flex items-center justify-between text-[8.5px] tracking-[0.28em] uppercase text-foreground/35 pb-2 mb-2" style={{ borderBottom: "1px solid oklch(0.50 0.12 35 / 0.18)" }}>
+                    <span>capture.log</span>
+                    <span>tail · live</span>
+                  </div>
+                  {data.logs.map((l, i) => (
+                    <div key={i} className="flex gap-3 text-foreground/75">
+                      <span className="text-foreground/30 tabular-nums">{l.t}</span>
+                      <span
+                        className="w-12 shrink-0 text-[9.5px] tracking-[0.18em] uppercase"
+                        style={{
+                          color:
+                            l.tag === "ok"
+                              ? "oklch(0.70 0.16 145)"
+                              : l.tag === "warn"
+                              ? "oklch(0.78 0.16 75)"
+                              : "oklch(0.58 0.16 30)",
+                        }}
+                      >
+                        {l.tag}
+                      </span>
+                      <span className="text-foreground/80">{l.msg}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -4,11 +4,11 @@ export const biometria: SolutionData = {
   code: "α",
   vertical: "Biometria & Identidade Digital",
   audience: "FinTechs · Bancos digitais · Compliance",
-  headline: "Autenticação facial equitativa e à prova de fraudes.",
+  headline: "Captura facial calibrada para baixa luz e fototipos retintos.",
   pain:
-    "Bancos digitais perdem milhões porque seus aplicativos de Liveness Check falham em reconhecer pessoas negras em baixa iluminação. O resultado: fricção no onboarding, reclamações públicas de racismo algorítmico e vulnerabilidade direta a ataques de spoofing em peles retintas.",
+    "Pipelines de Liveness Check operam fora da faixa fotométrica em que peles retintas refletem luz. O sensor subexpõe, o detector perde contraste local e o sistema rejeita o usuário — ou aceita o spoof.",
   benefit:
-    "Reduza falsos positivos em até 95% para os fototipos IV, V e VI da escala Fitzpatrick. Garanta um onboarding fluido para todos os perfis, mitigando risco reputacional, multas regulatórias e processos judiciais.",
+    "Validação contínua do pipeline biométrico com cobertura tonal completa: exposição, ganho e mapa de luminância normalizados por fototipo Fitzpatrick antes do modelo decidir.",
   useCases: [
     "Validação de KYC (Know Your Customer) com cobertura tonal completa.",
     "Auditoria contínua de sistemas biométricos legados em produção.",
@@ -109,17 +109,38 @@ export const biometria: SolutionData = {
       synthPct: 4,
     },
   ],
+  photometric: {
+    ev: "EV −1.3",
+    lum: "Y′ 0.31",
+    iso: "ISO 3200",
+    shutter: "1/30 s",
+    wb: "WB 3200 K",
+    fitz: "FITZ IV–VI",
+  },
+  states: [
+    "low-light calibrated",
+    "fitzpatrick-aware",
+    "exposure normalized",
+    "spoof-hardened",
+  ],
+  logs: [
+    { t: "00:00.041", tag: "info", msg: "capture.session  start  · sensor=front · 1080p" },
+    { t: "00:00.118", tag: "info", msg: "photometric.norm  ev=-1.3  γ=2.2  Y′=0.31" },
+    { t: "00:00.214", tag: "ok",   msg: "fitzpatrick.classify  →  VI  (conf 0.97)" },
+    { t: "00:00.402", tag: "ok",   msg: "liveness.passive  →  pass  (margin 0.18)" },
+    { t: "00:00.488", tag: "warn", msg: "spoof.replay  →  rejected  (texture entropy 0.91)" },
+  ],
 };
 
 export const diagnostico: SolutionData = {
   code: "β",
   vertical: "Diagnóstico Médico & Telemedicina",
   audience: "Hospitais · HealthTechs · Pesquisa clínica",
-  headline: "Precisão dermatológica para todos os fototipos.",
+  headline: "Imagem clínica calibrada por fototipo, não por padrão de pele clara.",
   pain:
-    "Softwares de triagem dermatológica por IA têm taxas de erro críticas em peles escuras porque foram treinados quase inteiramente com peles claras. O resultado: erros de diagnóstico potencialmente fatais — incluindo melanomas não detectados — e impossibilidade de escalar a telemedicina para toda a população.",
+    "Modelos dermatológicos foram treinados em distribuições tonais que não cobrem fototipos V–VI. Em peles retintas o sinal patológico se confunde com pigmentação base, e a inferência colapsa para falso negativo — incluindo melanomas.",
   benefit:
-    "Treine modelos de diagnóstico por imagem para reconhecer manifestações clínicas reais de patologias em peles pardas e retintas. Garanta eficácia clínica e equidade no atendimento de saúde digital, com proveniência rastreável de cada amostra.",
+    "Datasets sintéticos com proveniência rastreável, ground truth pixel-perfect e patologias modeladas sob cada fototipo. Auditoria fotométrica em cada amostra antes do treino.",
   useCases: [
     "Treinamento de algoritmos de detecção de câncer de pele em fototipos IV–VI.",
     "Triagem automatizada de lesões em pronto-socorro e atenção primária.",
@@ -217,17 +238,38 @@ export const diagnostico: SolutionData = {
       synthPct: 6,
     },
   ],
+  photometric: {
+    ev: "EV +0.0",
+    lum: "Y′ 0.46",
+    iso: "ISO 200",
+    shutter: "1/120 s",
+    wb: "WB 5500 K",
+    fitz: "FITZ IV–VI",
+  },
+  states: [
+    "photometric balanced",
+    "HDR calibrated",
+    "synthetic capture validated",
+    "ground-truth pixel-perfect",
+  ],
+  logs: [
+    { t: "00:00.052", tag: "info", msg: "derm.dataset.load  fitz=[4,5,6]  n=120 000" },
+    { t: "00:00.117", tag: "info", msg: "photometric.audit  ΔE00=1.2  γ-uniform=0.99" },
+    { t: "00:00.231", tag: "ok",   msg: "lesion.segment  →  iou 0.94" },
+    { t: "00:00.318", tag: "ok",   msg: "fairness.audit  Δrecall(VI−II)=0.012" },
+    { t: "00:00.402", tag: "info", msg: "provenance.sign  sha256=4a…e1  · synthetic" },
+  ],
 };
 
 export const smartCities: SolutionData = {
   code: "γ",
   vertical: "Smart Cities & Vigilância Avançada",
   audience: "Governos · Empresas de segurança · Operadoras urbanas",
-  headline: "Visão computacional confiável em ambientes críticos.",
+  headline: "Inferência confiável quando a cena perde luz, contraste e foco.",
   pain:
-    "Câmeras de segurança urbana sofrem com subexposição de luz e baixo contraste ao capturar rostos retintos à noite. O resultado: alarmes falsos de identificação criminal, falhas críticas no monitoramento público e processos por discriminação algorítmica.",
+    "CFTV urbano opera fora do envelope fotométrico do detector: vapor de sódio a 30 lux, faixas de exposição estreitas e peles retintas em sub-Y′. O modelo erra rastreio, troca identidades e dispara alarme falso.",
   benefit:
-    "Calibre algoritmos de CFTV e monitoramento inteligente para operar com alta fidelidade em condições extremas de iluminação urbana, sombras profundas e baixa resolução de lente. Auditoria reproduzível por cenário.",
+    "Cenários parametrizáveis — iluminação, clima, distância, ângulo, fototipo — gerados sob demanda para validar o detector dentro do envelope real de operação.",
   useCases: [
     "Rastreamento de fluxo de pessoas em tempo real, com paridade tonal.",
     "Monitoramento de segurança corporativa em ambientes de baixa luz.",
@@ -325,6 +367,27 @@ export const smartCities: SolutionData = {
       tradPct: 94,
       synthPct: 6,
     },
+  ],
+  photometric: {
+    ev: "EV −2.1",
+    lum: "Y′ 0.18",
+    iso: "ISO 6400",
+    shutter: "1/15 s",
+    wb: "WB 2200 K",
+    fitz: "FITZ V–VI",
+  },
+  states: [
+    "low-light calibrated",
+    "exposure normalized",
+    "scenario reproducible",
+    "synthetic capture validated",
+  ],
+  logs: [
+    { t: "00:00.034", tag: "info", msg: "scene.compose  lighting=sodium · 30 lux · rain=0.4" },
+    { t: "00:00.121", tag: "info", msg: "sensor.sim  iso=6400  shutter=1/15  gain=+12 dB" },
+    { t: "00:00.244", tag: "ok",   msg: "track.multi  →  4 ids stable  · jitter 0.04 px" },
+    { t: "00:00.331", tag: "warn", msg: "exposure.warn  Y′=0.18  pushed +0.6 ev" },
+    { t: "00:00.418", tag: "ok",   msg: "parity.audit  FAR(VI)=0.013  FAR(II)=0.011" },
   ],
 };
 
