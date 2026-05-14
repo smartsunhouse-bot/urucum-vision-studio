@@ -109,6 +109,27 @@ export const biometria: SolutionData = {
       synthPct: 4,
     },
   ],
+  photometric: {
+    ev: "EV −1.3",
+    lum: "Y′ 0.31",
+    iso: "ISO 3200",
+    shutter: "1/30 s",
+    wb: "WB 3200 K",
+    fitz: "FITZ IV–VI",
+  },
+  states: [
+    "low-light calibrated",
+    "fitzpatrick-aware",
+    "exposure normalized",
+    "spoof-hardened",
+  ],
+  logs: [
+    { t: "00:00.041", tag: "info", msg: "capture.session  start  · sensor=front · 1080p" },
+    { t: "00:00.118", tag: "info", msg: "photometric.norm  ev=-1.3  γ=2.2  Y′=0.31" },
+    { t: "00:00.214", tag: "ok",   msg: "fitzpatrick.classify  →  VI  (conf 0.97)" },
+    { t: "00:00.402", tag: "ok",   msg: "liveness.passive  →  pass  (margin 0.18)" },
+    { t: "00:00.488", tag: "warn", msg: "spoof.replay  →  rejected  (texture entropy 0.91)" },
+  ],
 };
 
 export const diagnostico: SolutionData = {
