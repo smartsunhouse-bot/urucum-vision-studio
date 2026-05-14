@@ -37,58 +37,6 @@ export type SolutionData = {
   logs?: { t: string; tag: "ok" | "info" | "warn"; msg: string }[];
 };
 
-function Icon({ name }: { name: SolutionData["cards"][number]["icon"] }) {
-  const c = "oklch(0.78 0.20 30)";
-  switch (name) {
-    case "server":
-      return (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <rect x="3" y="4" width="18" height="6" rx="1" stroke={c} />
-          <rect x="3" y="14" width="18" height="6" rx="1" stroke={c} />
-          <circle cx="7" cy="7" r="0.8" fill={c} />
-          <circle cx="7" cy="17" r="0.8" fill={c} />
-        </svg>
-      );
-    case "model":
-      return (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c}>
-          <circle cx="12" cy="12" r="2.2" />
-          <circle cx="5" cy="6" r="1.6" />
-          <circle cx="19" cy="6" r="1.6" />
-          <circle cx="5" cy="18" r="1.6" />
-          <circle cx="19" cy="18" r="1.6" />
-          <path d="M6.5 7l4 4M17.5 7l-4 4M6.5 17l4-4M17.5 17l-4-4" />
-        </svg>
-      );
-    case "lock":
-      return (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c}>
-          <rect x="5" y="11" width="14" height="9" rx="1" />
-          <path d="M8 11V8a4 4 0 018 0v3" />
-        </svg>
-      );
-    case "scan":
-      return (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c}>
-          <path d="M4 8V5h3M20 8V5h-3M4 16v3h3M20 16v3h-3" />
-          <path d="M4 12h16" />
-        </svg>
-      );
-    case "pulse":
-      return (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c}>
-          <path d="M3 12h4l2-6 4 12 2-6h6" />
-        </svg>
-      );
-    case "shield":
-      return (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c}>
-          <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z" />
-        </svg>
-      );
-  }
-}
-
 function CodeLine({
   n,
   parts,
