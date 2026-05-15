@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { SkinToneStrip } from "@/components/SkinToneStrip";
@@ -31,67 +31,6 @@ export const Route = createFileRoute("/solucoes/")({
 const TERRA = "oklch(0.58 0.16 30)";       // muted urucum (signal, not decoration)
 const HAIR  = "oklch(0.50 0.12 35 / 0.20)"; // hairline border
 const PANEL = "oklch(0.13 0.014 35 / 0.78)";
-
-/** Animated luminance histogram — small, technical */
-function MiniHistogram({ seed = 0 }: { seed?: number }) {
-  const bars = 28;
-  const [tick, setTick] = useState(0);
-  useEffect(() => {
-    const id = window.setInterval(() => setTick((t) => t + 1), 1400);
-    return () => window.clearInterval(id);
-  }, []);
-  // pseudo-random luminance distribution biased low (low-light scene)
-  const heights = Array.from({ length: bars }).map((_, i) => {
-    const x = (i / bars) * Math.PI;
-    const base = Math.sin(x) * 0.7 + 0.25;
-    const wob = Math.sin((i + tick + seed) * 0.6) * 0.08;
-    return Math.max(0.06, Math.min(1, base + wob));
-  });
-  return (
-    <svg viewBox="0 0 140 28" className="w-full h-7" aria-hidden>
-      {heights.map((h, i) => (
-        <rect
-          key={i}
-          x={i * 5}
-          y={28 - h * 26}
-          width="3"
-          height={h * 26}
-          fill={i > bars * 0.7 ? TERRA : "oklch(0.55 0.04 35 / 0.55)"}
-          style={{ transition: "all 1s ease" }}
-        />
-      ))}
-    </svg>
-  );
-}
-
-/** Cycling photometric reading — feels alive, not animated */
-function PhotometricStrip({ p }: { p: NonNullable<SolutionData["photometric"]> }) {
-  const items = [
-    ["EV", p.ev.replace("EV ", "")],
-    ["Y′", p.lum.replace("Y′ ", "")],
-    ["ISO", p.iso.replace("ISO ", "")],
-    ["WB", p.wb.replace("WB ", "")],
-    ["FITZ", p.fitz.replace("FITZ ", "")],
-  ];
-  return (
-    <div className="grid grid-cols-5 gap-px" style={{ background: HAIR }}>
-      {items.map(([k, v]) => (
-        <div
-          key={k}
-          className="px-2 py-1.5"
-          style={{ background: "oklch(0.10 0.012 35 / 0.92)" }}
-        >
-          <div className="text-[8px] font-mono tracking-[0.22em] uppercase text-foreground/35">
-            {k}
-          </div>
-          <div className="text-[10px] font-mono text-foreground/85 mt-0.5 tabular-nums">
-            {v}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 /** Capture viewport — animações pausadas; ativam só no hover do card */
 function CaptureViewport({ data }: { data: SolutionData }) {
