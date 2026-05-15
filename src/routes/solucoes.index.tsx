@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { SkinToneStrip } from "@/components/SkinToneStrip";
@@ -32,68 +32,7 @@ const TERRA = "oklch(0.58 0.16 30)";       // muted urucum (signal, not decorati
 const HAIR  = "oklch(0.50 0.12 35 / 0.20)"; // hairline border
 const PANEL = "oklch(0.13 0.014 35 / 0.78)";
 
-/** Animated luminance histogram — small, technical */
-function MiniHistogram({ seed = 0 }: { seed?: number }) {
-  const bars = 28;
-  const [tick, setTick] = useState(0);
-  useEffect(() => {
-    const id = window.setInterval(() => setTick((t) => t + 1), 1400);
-    return () => window.clearInterval(id);
-  }, []);
-  // pseudo-random luminance distribution biased low (low-light scene)
-  const heights = Array.from({ length: bars }).map((_, i) => {
-    const x = (i / bars) * Math.PI;
-    const base = Math.sin(x) * 0.7 + 0.25;
-    const wob = Math.sin((i + tick + seed) * 0.6) * 0.08;
-    return Math.max(0.06, Math.min(1, base + wob));
-  });
-  return (
-    <svg viewBox="0 0 140 28" className="w-full h-7" aria-hidden>
-      {heights.map((h, i) => (
-        <rect
-          key={i}
-          x={i * 5}
-          y={28 - h * 26}
-          width="3"
-          height={h * 26}
-          fill={i > bars * 0.7 ? TERRA : "oklch(0.55 0.04 35 / 0.55)"}
-          style={{ transition: "all 1s ease" }}
-        />
-      ))}
-    </svg>
-  );
-}
-
-/** Cycling photometric reading — feels alive, not animated */
-function PhotometricStrip({ p }: { p: NonNullable<SolutionData["photometric"]> }) {
-  const items = [
-    ["EV", p.ev.replace("EV ", "")],
-    ["Y′", p.lum.replace("Y′ ", "")],
-    ["ISO", p.iso.replace("ISO ", "")],
-    ["WB", p.wb.replace("WB ", "")],
-    ["FITZ", p.fitz.replace("FITZ ", "")],
-  ];
-  return (
-    <div className="grid grid-cols-5 gap-px" style={{ background: HAIR }}>
-      {items.map(([k, v]) => (
-        <div
-          key={k}
-          className="px-2 py-1.5"
-          style={{ background: "oklch(0.10 0.012 35 / 0.92)" }}
-        >
-          <div className="text-[8px] font-mono tracking-[0.22em] uppercase text-foreground/35">
-            {k}
-          </div>
-          <div className="text-[10px] font-mono text-foreground/85 mt-0.5 tabular-nums">
-            {v}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/** Capture viewport — bbox + scan + live + EV cycling */
+/** Capture viewport — animações pausadas; ativam só no hover do card */
 function CaptureViewport({ data }: { data: SolutionData }) {
   return (
     <div
@@ -104,23 +43,19 @@ function CaptureViewport({ data }: { data: SolutionData }) {
         border: `1px solid ${HAIR}`,
       }}
     >
-      {/* technical grid */}
-      <svg className="absolute inset-0 w-full h-full opacity-[0.18]" viewBox="0 0 200 125" preserveAspectRatio="none">
+      {/* technical grid — static */}
+      <svg className="absolute inset-0 w-full h-full opacity-[0.14]" viewBox="0 0 200 125" preserveAspectRatio="none">
         {Array.from({ length: 20 }).map((_, i) => (
           <line key={`v${i}`} x1={i * 10} y1="0" x2={i * 10} y2="125" stroke={TERRA} strokeWidth="0.15" />
         ))}
         {Array.from({ length: 12 }).map((_, i) => (
           <line key={`h${i}`} x1="0" y1={i * 10} x2="200" y2={i * 10} stroke={TERRA} strokeWidth="0.15" />
         ))}
-        {/* center reticle */}
         <line x1="100" y1="55" x2="100" y2="70" stroke={TERRA} strokeWidth="0.4" />
         <line x1="92" y1="62.5" x2="108" y2="62.5" stroke={TERRA} strokeWidth="0.4" />
       </svg>
 
-      {/* exposure-cycling tinted layer */}
-      <div className="absolute inset-0 animate-ev pointer-events-none" />
-
-      {/* corner crosshair markers */}
+      {/* corner crosshairs — static */}
       {[
         { c: "top-2 left-2",  r: "border-t-[1.5px] border-l-[1.5px]" },
         { c: "top-2 right-2", r: "border-t-[1.5px] border-r-[1.5px]" },
@@ -130,11 +65,11 @@ function CaptureViewport({ data }: { data: SolutionData }) {
         <span key={c} className={`absolute ${c} w-2.5 h-2.5 ${r}`} style={{ borderColor: TERRA }} />
       ))}
 
-      {/* bounding boxes */}
-      {data.overlays.slice(0, 4).map((o, i) => (
+      {/* bounding boxes — static, pulse só no hover */}
+      {data.overlays.slice(0, 3).map((o, i) => (
         <div
           key={i}
-          className="absolute animate-lock"
+          className="absolute [animation-play-state:paused] group-hover:[animation-play-state:running] animate-lock"
           style={{
             left: `${o.x}%`,
             top: `${o.y}%`,
@@ -153,26 +88,16 @@ function CaptureViewport({ data }: { data: SolutionData }) {
         </div>
       ))}
 
-      {/* scan line */}
+      {/* scan line — só no hover */}
       <div
-        className="absolute inset-x-0 h-[1px] animate-scan pointer-events-none"
-        style={{
-          background: `linear-gradient(90deg, transparent, ${TERRA}, transparent)`,
-          opacity: 0.5,
-        }}
+        className="absolute inset-x-0 h-[1px] opacity-0 group-hover:opacity-50 group-hover:animate-scan pointer-events-none transition-opacity duration-300"
+        style={{ background: `linear-gradient(90deg, transparent, ${TERRA}, transparent)` }}
       />
 
-      {/* HUD: live + caption */}
-      <div className="absolute top-2 right-2 flex items-center gap-1.5 px-1.5 py-[2px] font-mono text-[8px] tracking-[0.22em] uppercase text-foreground/75"
-        style={{ background: "oklch(0.10 0.012 35 / 0.85)", border: `1px solid ${HAIR}` }}
-      >
-        <span className="w-[5px] h-[5px] rounded-full animate-live" style={{ background: TERRA }} />
-        REC
-      </div>
-
+      {/* HUD bottom caption — static */}
       <div className="absolute bottom-1.5 left-2 right-2 flex justify-between items-center font-mono text-[8px] tracking-[0.22em] uppercase text-foreground/45">
         <span>{data.vizCaption}</span>
-        <span>{data.photometric?.shutter ?? "—"}  ·  {data.photometric?.iso ?? "—"}</span>
+        <span>{data.photometric?.ev ?? "—"}</span>
       </div>
     </div>
   );
@@ -185,22 +110,22 @@ function SolutionCard({ slug, data, index }: { slug: string; data: SolutionData;
     <Link
       to="/solucoes/$slug"
       params={{ slug }}
-      className="solution-card group relative block p-7 overflow-hidden"
+      className="group relative block p-7 overflow-hidden transition-all duration-500 hover:-translate-y-0.5"
       style={{
         background: PANEL,
         border: `1px solid ${HAIR}`,
         animation: `fade-in 0.7s ${index * 120}ms both`,
       }}
     >
-      {/* header — vertical id */}
+      {/* header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3 text-[9.5px] font-mono tracking-[0.36em] uppercase text-foreground/40">
           <span style={{ color: TERRA }}>{data.code}</span>
           <span className="text-foreground/25">/</span>
           <span>vertical · {String(index + 1).padStart(2, "0")}</span>
         </div>
-        <div className="text-[8.5px] font-mono tracking-[0.28em] uppercase text-foreground/35">
-          v1.4 · stable
+        <div className="text-[8.5px] font-mono tracking-[0.28em] uppercase text-foreground/30">
+          v1.4
         </div>
       </div>
 
@@ -211,49 +136,17 @@ function SolutionCard({ slug, data, index }: { slug: string; data: SolutionData;
         {data.audience}
       </div>
 
-      {/* capture viewport */}
+      {/* viewport */}
       <div className="mt-6">
         <CaptureViewport data={data} />
       </div>
 
-      {/* photometric strip */}
-      {data.photometric && (
-        <div className="mt-3">
-          <PhotometricStrip p={data.photometric} />
-        </div>
-      )}
-
-      {/* luminance histogram */}
-      <div className="mt-4">
-        <div className="flex items-center justify-between text-[8.5px] font-mono tracking-[0.26em] uppercase text-foreground/35">
-          <span>luminance · Y′ histogram</span>
-          <span>low-light bias</span>
-        </div>
-        <div className="mt-1.5">
-          <MiniHistogram seed={index * 7} />
-        </div>
-      </div>
-
-      {/* technical state badges */}
-      {data.states && (
-        <div className="mt-5 flex flex-wrap gap-1.5">
-          {data.states.map((s) => (
-            <span
-              key={s}
-              className="px-2 py-1 text-[9px] font-mono tracking-[0.18em] uppercase text-foreground/65"
-              style={{ background: "oklch(0.10 0.012 35 / 0.7)", border: `1px solid ${HAIR}` }}
-            >
-              {s}
-            </span>
-          ))}
-        </div>
-      )}
-
-      <div className="mt-7 pt-5 flex items-center justify-between" style={{ borderTop: `1px solid ${HAIR}` }}>
-        <p className="text-[12px] leading-[1.55] text-foreground/55 max-w-[34ch]">
+      {/* benefit + arrow */}
+      <div className="mt-6 pt-5 flex items-center justify-between gap-4" style={{ borderTop: `1px solid ${HAIR}` }}>
+        <p className="text-[12.5px] leading-[1.55] text-foreground/55 max-w-[34ch]">
           {data.benefit}
         </p>
-        <span className="shrink-0 ml-4 inline-flex items-center gap-2 text-[10px] font-mono tracking-[0.28em] uppercase text-foreground/70 group-hover:text-foreground transition-colors">
+        <span className="shrink-0 inline-flex items-center gap-2 text-[10px] font-mono tracking-[0.28em] uppercase text-foreground/60 group-hover:text-foreground transition-colors">
           abrir
           <span className="inline-block transition-transform duration-300 group-hover:translate-x-1" style={{ color: TERRA }}>→</span>
         </span>

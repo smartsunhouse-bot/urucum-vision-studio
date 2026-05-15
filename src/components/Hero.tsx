@@ -86,40 +86,35 @@ export function Hero() {
                 · 001
               </span>
             </div>
-            <p className="mt-7 font-serif text-xl md:text-[22px] text-foreground/75 leading-snug max-w-md">
-              Nós não geramos imagens.
-            </p>
           </div>
 
-          {/* headline */}
+          {/* headline — humano, direto */}
           <h1
-            className={`mt-9 font-serif font-light text-[44px] md:text-[64px] lg:text-[78px] leading-[0.98] tracking-[-0.025em] text-foreground/95 max-w-[14ch] transition-all duration-1000 ${
+            className={`mt-8 font-serif font-light text-[44px] md:text-[64px] lg:text-[76px] leading-[1.0] tracking-[-0.025em] text-foreground/95 max-w-[15ch] transition-all duration-1000 ${
               stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
             }`}
           >
-            Controlamos como o<br />
-            mundo aparece nos{" "}
+            Visão computacional que{" "}
             <span
               className="italic"
               style={{
                 color: "oklch(0.66 0.24 28)",
-                textShadow:
-                  "0 0 32px oklch(0.55 0.22 25 / 0.55), 0 1px 0 oklch(0 0 0 / 0.4)",
+                textShadow: "0 0 32px oklch(0.55 0.22 25 / 0.45)",
               }}
             >
-              dados.
+              enxerga todo mundo.
             </span>
           </h1>
 
-          {/* sub */}
+          {/* sub — técnico, uma linha */}
           <p
-            className={`mt-9 max-w-[42ch] text-[14.5px] md:text-[15.5px] leading-[1.7] text-foreground/60 transition-opacity duration-1000 ${
+            className={`mt-7 max-w-[46ch] text-[14.5px] md:text-[15.5px] leading-[1.65] text-foreground/60 transition-opacity duration-1000 ${
               stage >= 3 ? "opacity-100" : "opacity-0"
             }`}
           >
-            Infraestrutura para geração e modelagem de datasets visuais com
-            controle programável de tons de pele, iluminação, exposição e
-            contexto.
+            Infraestrutura de captura sintética calibrada por fototipo,
+            exposição e iluminação — para modelos que falham menos em pele
+            negra, baixa luz e cenários reais.
           </p>
 
           {/* buttons */}
@@ -138,7 +133,7 @@ export function Hero() {
                   "0 1px 0 oklch(0.78 0.18 30 / 0.45) inset, 0 0 0 1px oklch(0.32 0.14 24 / 0.6), 0 14px 38px -12px oklch(0.50 0.22 25 / 0.7)",
               }}
             >
-              <span className="relative z-10">Explorar plataforma</span>
+              <span className="relative z-10">Falar com a equipe</span>
               <span className="relative z-10 text-base leading-none transition-transform duration-500 group-hover:translate-x-1">
                 →
               </span>
@@ -151,7 +146,7 @@ export function Hero() {
               />
             </a>
             <a
-              href="#documentacao"
+              href="/solucoes"
               className="inline-flex items-center gap-2.5 text-[12.5px] tracking-[0.16em] uppercase font-mono px-5 py-3.5 rounded-[3px] text-foreground/70 hover:text-foreground/95 transition-colors duration-300"
               style={{
                 border: "1px solid oklch(0.55 0.18 35 / 0.22)",
@@ -160,7 +155,7 @@ export function Hero() {
               }}
             >
               <span className="w-1 h-1 rounded-full bg-foreground/40" />
-              Ver documentação
+              Ver soluções
             </a>
           </div>
 
