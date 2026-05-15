@@ -13,8 +13,9 @@ export function Hero() {
   const [stage, setStage] = useState(0);
   const [cap, setCap] = useState(0);
 
+  // Doherty: entrada rápida e progressiva (<400ms para sentir instantâneo)
   useEffect(() => {
-    const t = [200, 700, 1400, 2100, 2800].map((d, i) =>
+    const t = [80, 220, 380, 540].map((d, i) =>
       setTimeout(() => setStage((s) => Math.max(s, i + 1)), d),
     );
     return () => t.forEach(clearTimeout);
@@ -41,7 +42,7 @@ export function Hero() {
           "linear-gradient(180deg, oklch(0.115 0.014 38), oklch(0.085 0.010 32))",
       }}
     >
-      {/* layer 1 — deep red horizon glow (breathing) */}
+      {/* deep red horizon glow */}
       <div
         className="absolute -right-[20%] top-[10%] w-[80vw] h-[80vw] max-w-[1100px] max-h-[1100px] pointer-events-none animate-breathe"
         style={{
@@ -50,8 +51,7 @@ export function Hero() {
           filter: "blur(20px)",
         }}
       />
-
-      {/* layer 3 — vignette */}
+      {/* vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -59,120 +59,107 @@ export function Hero() {
             "radial-gradient(ellipse at 50% 45%, transparent 50%, oklch(0.06 0.008 30 / 0.85) 100%)",
         }}
       />
-
-      {/* layer 4 — sensor grain (animated, very fine) */}
+      {/* sensor grain */}
       <div className="absolute inset-0 grain-fine pointer-events-none" />
 
       {/* CONTENT */}
       <div className="relative max-w-[1320px] mx-auto px-6 lg:px-12 pt-32 lg:pt-36 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center min-h-screen">
-        {/* LEFT — text */}
+        {/* LEFT — bloco de texto coeso (Lei da Proximidade) */}
         <div className="lg:col-span-7 relative">
-          {/* label block */}
+          {/* eyebrow */}
           <div
-            className={`transition-all duration-700 ${stage >= 1 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+            className={`flex items-center gap-3 transition-all duration-500 ${
+              stage >= 1 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+            }`}
           >
-            <div className="flex items-center gap-3">
-              <span
-                className="inline-block w-1.5 h-1.5 rounded-full"
-                style={{
-                  background: "oklch(0.62 0.24 26)",
-                  boxShadow: "0 0 12px oklch(0.62 0.24 26 / 0.9)",
-                }}
-              />
-              <span className="text-[10.5px] font-mono tracking-[0.42em] uppercase text-foreground/55">
-                Vision Infrastructure
-              </span>
-            </div>
+            <span
+              className="inline-block w-1.5 h-1.5 rounded-full"
+              style={{
+                background: "oklch(0.62 0.24 26)",
+                boxShadow: "0 0 12px oklch(0.62 0.24 26 / 0.9)",
+              }}
+            />
+            <span className="text-[10.5px] font-mono tracking-[0.42em] uppercase text-foreground/55">
+              Vision Infrastructure
+            </span>
           </div>
 
-          {/* headline — humano, direto */}
-          <h1
-            className={`mt-8 font-serif font-light text-[44px] md:text-[64px] lg:text-[76px] leading-[1.0] tracking-[-0.025em] text-foreground/95 max-w-[15ch] transition-all duration-1000 ${
-              stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
-            }`}
-          >
-            Visão computacional que{" "}
-            <span
-              className="italic"
-              style={{
-                color: "oklch(0.66 0.24 28)",
-                textShadow: "0 0 32px oklch(0.55 0.22 25 / 0.45)",
-              }}
+          {/* headline + sub + CTA — agrupados (proximidade) */}
+          <div className="mt-5 space-y-5">
+            <h1
+              className={`font-serif font-light text-[44px] md:text-[64px] lg:text-[76px] leading-[1.0] tracking-[-0.025em] text-foreground/95 max-w-[15ch] transition-all duration-700 ${
+                stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+              }`}
             >
-              enxerga todo mundo.
-            </span>
-          </h1>
-
-          {/* sub — técnico, uma linha */}
-          <p
-            className={`mt-7 max-w-[46ch] text-[14.5px] md:text-[15.5px] leading-[1.65] text-foreground/60 transition-opacity duration-1000 ${
-              stage >= 3 ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            Infraestrutura de captura sintética calibrada por fototipo,
-            exposição e iluminação — para modelos que falham menos em pele
-            negra, baixa luz e cenários reais.
-          </p>
-
-          {/* buttons */}
-          <div
-            className={`mt-10 flex flex-wrap items-center gap-3 transition-all duration-1000 ${
-              stage >= 4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-            }`}
-          >
-            <a
-              href="#produto"
-              className="group relative inline-flex items-center gap-3 text-[13px] tracking-[0.08em] uppercase font-medium px-6 py-3.5 rounded-[3px] text-[oklch(0.97_0.02_80)] overflow-hidden"
-              style={{
-                background:
-                  "linear-gradient(180deg, oklch(0.58 0.23 26), oklch(0.42 0.19 24))",
-                boxShadow:
-                  "0 1px 0 oklch(0.78 0.18 30 / 0.45) inset, 0 0 0 1px oklch(0.32 0.14 24 / 0.6), 0 14px 38px -12px oklch(0.50 0.22 25 / 0.7)",
-              }}
-            >
-              <span className="relative z-10">Falar com a equipe</span>
-              <span className="relative z-10 text-base leading-none transition-transform duration-500 group-hover:translate-x-1">
-                →
-              </span>
+              Visão computacional que{" "}
               <span
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                className="italic"
+                style={{
+                  color: "oklch(0.66 0.24 28)",
+                  textShadow: "0 0 32px oklch(0.55 0.22 25 / 0.45)",
+                }}
+              >
+                enxerga todo mundo.
+              </span>
+            </h1>
+
+            <p
+              className={`max-w-[46ch] text-[14.5px] md:text-[15.5px] leading-[1.65] text-foreground/60 transition-opacity duration-700 ${
+                stage >= 3 ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              Infraestrutura de captura sintética calibrada por fototipo,
+              exposição e iluminação — para modelos que falham menos em pele
+              negra, baixa luz e cenários reais.
+            </p>
+
+            {/* CTAs — Lei da Similaridade: mesma altura, radius, tracking, padding */}
+            <div
+              className={`pt-2 flex flex-wrap items-center gap-3 transition-all duration-700 ${
+                stage >= 4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+              }`}
+            >
+              <a
+                href="#produto"
+                className="group relative inline-flex items-center gap-3 h-12 px-6 rounded-[3px] text-[12.5px] tracking-[0.14em] uppercase font-medium text-[oklch(0.97_0.02_80)] overflow-hidden"
                 style={{
                   background:
-                    "linear-gradient(180deg, oklch(0.66 0.24 28), oklch(0.48 0.21 24))",
+                    "linear-gradient(180deg, oklch(0.58 0.23 26), oklch(0.42 0.19 24))",
+                  boxShadow:
+                    "0 1px 0 oklch(0.78 0.18 30 / 0.45) inset, 0 0 0 1px oklch(0.32 0.14 24 / 0.6), 0 14px 38px -12px oklch(0.50 0.22 25 / 0.7)",
                 }}
-              />
-            </a>
-            <a
-              href="/solucoes"
-              className="inline-flex items-center gap-2.5 text-[12.5px] tracking-[0.16em] uppercase font-mono px-5 py-3.5 rounded-[3px] text-foreground/70 hover:text-foreground/95 transition-colors duration-300"
-              style={{
-                border: "1px solid oklch(0.55 0.18 35 / 0.22)",
-                background: "oklch(0.14 0.018 40 / 0.4)",
-                backdropFilter: "blur(4px)",
-              }}
-            >
-              <span className="w-1 h-1 rounded-full bg-foreground/40" />
-              Ver soluções
-            </a>
-          </div>
-
-          {/* tiny technical line */}
-          <div
-            className={`mt-12 flex items-center gap-5 text-[10px] font-mono tracking-[0.32em] uppercase text-foreground/35 transition-opacity duration-1000 ${
-              stage >= 5 ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <span>BT.709</span>
-            <span className="w-px h-3 bg-foreground/20" />
-            <span>EV −2.0 → +2.0</span>
-            <span className="w-px h-3 bg-foreground/20" />
-            <span>FRAME · VARIABLE</span>
+              >
+                <span className="relative z-10">Falar com a equipe</span>
+                <span className="relative z-10 text-base leading-none transition-transform duration-500 group-hover:translate-x-1">
+                  →
+                </span>
+                <span
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, oklch(0.66 0.24 28), oklch(0.48 0.21 24))",
+                  }}
+                />
+              </a>
+              <a
+                href="/solucoes"
+                className="inline-flex items-center gap-2.5 h-12 px-6 rounded-[3px] text-[12.5px] tracking-[0.14em] uppercase font-medium text-foreground/75 hover:text-foreground/95 transition-colors duration-300"
+                style={{
+                  border: "1px solid oklch(0.55 0.18 35 / 0.28)",
+                  background: "oklch(0.14 0.018 40 / 0.5)",
+                  backdropFilter: "blur(4px)",
+                }}
+              >
+                Ver soluções
+                <span className="text-base leading-none">→</span>
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* RIGHT — vision computacional panel */}
+        {/* RIGHT — peak moment: portrait + scanline */}
         <div
-          className={`lg:col-span-5 relative transition-all duration-1000 delay-200 ${
+          className={`lg:col-span-5 relative transition-all duration-700 delay-150 ${
             stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
@@ -231,42 +218,28 @@ export function Hero() {
                 }}
               />
 
-              {/* CV overlays — bounding box, landmarks, mesh */}
+              {/* CV overlays — bbox + landmarks */}
               <svg
                 className="absolute inset-0 w-full h-full pointer-events-none"
                 viewBox="0 0 100 100"
                 preserveAspectRatio="none"
                 aria-hidden
               >
-                {/* face bounding box */}
                 <g stroke="oklch(0.72 0.22 28)" fill="none">
                   <rect x="32" y="26" width="36" height="46" strokeWidth="0.18" opacity="0.55" />
-                  {/* corner brackets */}
                   <path d="M30 26 L30 32 M30 26 L36 26" strokeWidth="0.5" />
                   <path d="M70 26 L70 32 M70 26 L64 26" strokeWidth="0.5" />
                   <path d="M30 72 L30 66 M30 72 L36 72" strokeWidth="0.5" />
                   <path d="M70 72 L70 66 M70 72 L64 72" strokeWidth="0.5" />
                 </g>
-                {/* mesh — face triangulation hint */}
-                <g stroke="oklch(0.62 0.24 26 / 0.45)" strokeWidth="0.12" fill="none">
-                  <path d="M40 42 L50 50 L60 42 M44 56 L50 60 L56 56 M40 42 L44 56 M60 42 L56 56 M50 50 L50 60 M40 42 L50 60 M60 42 L50 60" />
-                  <path d="M36 38 Q50 30 64 38 M36 64 Q50 72 64 64" />
-                </g>
-                {/* landmarks (68-style key points) */}
                 <g fill="oklch(0.78 0.22 28)">
                   {[
                     [40, 42],[60, 42],[50, 50],[44, 56],[56, 56],[50, 60],
                     [38, 38],[42, 36],[46, 36],[54, 36],[58, 36],[62, 38],
                     [42, 64],[46, 66],[50, 67],[54, 66],[58, 64],
-                    [36, 50],[64, 50],[34, 46],[66, 46],
                   ].map(([x, y], i) => (
                     <circle key={i} cx={x} cy={y} r="0.55" />
                   ))}
-                </g>
-                {/* center crosshair */}
-                <g stroke="oklch(0.78 0.22 28 / 0.8)" strokeWidth="0.18">
-                  <line x1="50" y1="46" x2="50" y2="54" />
-                  <line x1="46" y1="50" x2="54" y2="50" />
                 </g>
               </svg>
 
@@ -281,54 +254,7 @@ export function Hero() {
               />
             </div>
 
-            {/* DETECTION badge — left side */}
-            <div className="absolute top-1/2 -left-2 -translate-y-1/2 hidden md:flex flex-col items-center gap-1 pointer-events-none">
-              <div className="w-px h-12 bg-gradient-to-b from-transparent to-[oklch(0.62_0.24_26)]/60" />
-              <div
-                className="px-1.5 py-3 text-[8.5px] font-mono font-bold tracking-[0.32em] uppercase text-[oklch(0.10_0.012_35)]"
-                style={{
-                  writingMode: "vertical-rl",
-                  background: "oklch(0.68 0.22 28)",
-                }}
-              >
-                Detected
-              </div>
-              <div className="w-px h-12 bg-gradient-to-t from-transparent to-[oklch(0.62_0.24_26)]/60" />
-            </div>
-
-            {/* HUD telemetry — top-left floating */}
-            <div
-              className="absolute -top-2 -left-2 hidden md:block font-mono text-[8.5px] uppercase tracking-[0.22em] p-2.5 pointer-events-none"
-              style={{
-                background: "oklch(0.10 0.012 35 / 0.85)",
-                border: "1px solid oklch(0.55 0.18 35 / 0.25)",
-                backdropFilter: "blur(8px)",
-              }}
-            >
-              <div className="flex justify-between gap-6 text-foreground/45">
-                <span>biometric_lock</span>
-                <span className="text-[oklch(0.78_0.20_28)]">99.42%</span>
-              </div>
-              <div className="flex justify-between gap-6 text-foreground/45 mt-1">
-                <span>landmarks</span>
-                <span className="text-foreground/85">68 / 68</span>
-              </div>
-              <div className="flex justify-between gap-6 text-foreground/45 mt-1">
-                <span>latency</span>
-                <span className="text-foreground/85">0.82 ms</span>
-              </div>
-            </div>
-
-            {/* HUD REC — top right */}
-            <div className="absolute -top-2 right-0 flex items-center gap-1.5 text-[9px] font-mono tracking-[0.32em] uppercase text-[oklch(0.68_0.26_27)] pointer-events-none">
-              <span
-                className="inline-block w-1.5 h-1.5 rounded-full bg-[oklch(0.62_0.26_27)] animate-breathe"
-                style={{ boxShadow: "0 0 8px oklch(0.62 0.26 27 / 0.9)" }}
-              />
-              REC · LIVE
-            </div>
-
-            {/* HUD bottom — STATE / EV */}
+            {/* HUD único — bottom: STATE / MODEL / EV (Miller: 1 painel só) */}
             <div
               className="absolute -bottom-2 inset-x-0 font-mono text-[9px] tracking-[0.28em] uppercase pointer-events-none px-3 py-2.5"
               style={{
@@ -356,7 +282,7 @@ export function Hero() {
                 </div>
               </div>
 
-              {/* exposure / confidence bar */}
+              {/* exposure bar */}
               <div className="mt-2.5 relative h-px w-full bg-foreground/15">
                 <div
                   className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full transition-all duration-1000"
@@ -368,16 +294,15 @@ export function Hero() {
                 />
               </div>
             </div>
-          </div>
 
-          {/* side telemetry — XYZ orientation */}
-          <div className="hidden xl:flex absolute -right-4 top-1/4 flex-col gap-1 font-mono text-[8.5px] uppercase tracking-[0.22em] text-foreground/35 pointer-events-none">
-            <span>x · 0.229</span>
-            <span>y · 1.882</span>
-            <span>z · −0.001</span>
-            <span className="w-6 h-px bg-foreground/20 my-1" />
-            <span>roll · 44.0</span>
-            <span>pitch · 12.8</span>
+            {/* HUD REC — top right (único acento secundário) */}
+            <div className="absolute -top-2 right-0 flex items-center gap-1.5 text-[9px] font-mono tracking-[0.32em] uppercase text-[oklch(0.68_0.26_27)] pointer-events-none">
+              <span
+                className="inline-block w-1.5 h-1.5 rounded-full bg-[oklch(0.62_0.26_27)] animate-breathe"
+                style={{ boxShadow: "0 0 8px oklch(0.62 0.26 27 / 0.9)" }}
+              />
+              REC · LIVE
+            </div>
           </div>
         </div>
       </div>
