@@ -146,7 +146,7 @@ export function Hero() {
               />
             </a>
             <a
-              href="#documentacao"
+              href="/solucoes"
               className="inline-flex items-center gap-2.5 text-[12.5px] tracking-[0.16em] uppercase font-mono px-5 py-3.5 rounded-[3px] text-foreground/70 hover:text-foreground/95 transition-colors duration-300"
               style={{
                 border: "1px solid oklch(0.55 0.18 35 / 0.22)",
