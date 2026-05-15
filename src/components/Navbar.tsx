@@ -4,7 +4,7 @@ const links: { href: string; label: string }[] = [
   { href: "/", label: "Home" },
   { href: "/solucoes", label: "Soluções" },
   { href: "/#produto", label: "Produto" },
-  { href: "/#tecnologia", label: "Tecnologia / Ética" },
+  { href: "/#tecnologia", label: "Tecnologia" },
   { href: "/#precos", label: "Preços" },
 ];
 
@@ -106,7 +106,7 @@ export function Navbar() {
               >
                 <a
                   href={l.href}
-                  className="inline-flex items-center gap-1.5 text-[11.5px] font-mono tracking-[0.22em] uppercase text-foreground/55 hover:text-foreground/95 transition-colors duration-500"
+                  className="inline-flex items-center gap-1.5 whitespace-nowrap text-[11.5px] font-mono tracking-[0.22em] uppercase text-foreground/55 hover:text-foreground/95 transition-colors duration-500"
                   aria-haspopup={dropdown ? true : undefined}
                   aria-expanded={dropdown ? isOpen : undefined}
                 >
