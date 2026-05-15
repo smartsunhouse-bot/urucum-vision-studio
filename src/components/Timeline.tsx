@@ -372,16 +372,67 @@ export function Timeline() {
         <ChapterScene key={c.year} chapter={c} index={i} />
       ))}
 
-      {/* Outro */}
-      <section className="relative py-40 lg:py-56 border-t border-border/40 overflow-hidden">
-        <div className="absolute inset-0 grain pointer-events-none" />
-        <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center reveal">
+      {/* Outro — câmara escura, citação como peça */}
+      <section
+        className="relative py-44 lg:py-60 overflow-hidden"
+        style={{
+          background:
+            "radial-gradient(900px 600px at 50% 40%, oklch(0.16 0.04 30 / 0.7), transparent 70%)," +
+            "linear-gradient(180deg, oklch(0.06 0.008 30), oklch(0.085 0.012 32) 50%, oklch(0.05 0.006 30))",
+          borderTop: "1px solid oklch(0.55 0.18 35 / 0.18)",
+        }}
+      >
+        {/* halo urucum atrás da citação */}
+        <div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          style={{
+            width: 760,
+            height: 760,
+            background:
+              "radial-gradient(circle, oklch(0.55 0.22 26 / 0.16), transparent 60%)",
+            filter: "blur(60px)",
+          }}
+        />
+        {/* feixe vertical de luz */}
+        <div
+          className="absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(180deg, transparent, oklch(0.65 0.18 32 / 0.35) 50%, transparent)",
+          }}
+        />
+        <div className="absolute inset-0 grain pointer-events-none opacity-70" />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 40%, oklch(0.04 0.006 30 / 0.85) 100%)",
+          }}
+        />
+
+        <div className="relative max-w-4xl mx-auto px-6 lg:px-10 text-center reveal">
+          <div
+            className="font-serif leading-none select-none pointer-events-none mb-2"
+            style={{
+              fontSize: "clamp(120px, 18vw, 220px)",
+              color: "transparent",
+              WebkitTextStroke: "1px oklch(0.62 0.22 28 / 0.35)",
+              textShadow: "0 0 60px oklch(0.55 0.22 26 / 0.25)",
+            }}
+          >
+            “
+          </div>
           <blockquote className="font-serif text-3xl md:text-[44px] leading-[1.18] tracking-[-0.01em] text-foreground/95">
-            “Quando pessoas negras dizem que foram apagadas, isso não é metáfora.
+            Quando pessoas negras dizem que foram apagadas, isso não é metáfora.
             <span className="block mt-5 text-foreground/65">
-              A câmera — símbolo de memória e existência — nunca foi calibrada para elas.”
+              A câmera — símbolo de memória e existência — nunca foi calibrada para elas.
             </span>
           </blockquote>
+          <div className="mt-12 flex items-center justify-center gap-4 text-[10px] font-mono tracking-[0.4em] uppercase text-foreground/40">
+            <span className="w-10 h-px bg-foreground/20" />
+            <span style={{ color: "oklch(0.78 0.16 38)" }}>fim · linha da invisibilidade</span>
+            <span className="w-10 h-px bg-foreground/20" />
+          </div>
         </div>
       </section>
     </>
