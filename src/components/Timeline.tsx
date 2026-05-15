@@ -96,18 +96,18 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
   return (
     <section
       ref={ref}
-      className="relative min-h-[220vh] border-t border-border/20"
+      className="relative min-h-[220vh] border-t border-border/10"
     >
       {/* Sticky cinematic scene */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-[oklch(0.06_0.008_30)]">
-        {/* Scene with parallax + slow zoom */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden bg-[oklch(0.05_0.006_30)]">
+        {/* PLANO 1 — background image (parallax + slow zoom + DOF leve) */}
         <div
           className="absolute inset-0 will-change-transform"
           style={{
-            transform: `translate3d(0, ${parallaxBg}px, 0) scale(${1.05 + progress * 0.08})`,
-            opacity: 0.4 + enter * 0.6,
-            transition: "opacity 600ms ease",
-            filter: `contrast(${1.05 + progress * 0.05}) saturate(${0.92 + progress * 0.12})`,
+            transform: `translate3d(0, ${parallaxBg}px, 0) scale(${1.06 + progress * 0.09})`,
+            opacity: 0.55 + enter * 0.4,
+            transition: "opacity 800ms ease",
+            filter: `contrast(1.18) saturate(1.10) brightness(0.92)`,
           }}
         >
           <img
@@ -120,118 +120,154 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
           />
         </div>
 
-        {/* atmospheric haze */}
-        <div
-          className="absolute inset-0 pointer-events-none mix-blend-screen"
-          style={{
-            background:
-              "radial-gradient(ellipse at 70% 30%, oklch(0.50 0.20 30 / 0.18), transparent 55%), radial-gradient(ellipse at 20% 80%, oklch(0.30 0.08 25 / 0.25), transparent 60%)",
-          }}
-        />
-
-        {/* film grain */}
-        <div className="absolute inset-0 grain pointer-events-none opacity-90" />
-
-        {/* deep vignette */}
+        {/* PLANO 1.5 — teal & orange grading: separa cromaticamente os planos */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse at center, transparent 45%, oklch(0.05 0.008 30 / 0.85) 100%)",
+              "linear-gradient(95deg, oklch(0.28 0.10 220 / 0.55) 0%, oklch(0.20 0.06 215 / 0.20) 35%, transparent 55%, oklch(0.30 0.14 30 / 0.22) 80%, oklch(0.40 0.18 28 / 0.45) 100%)",
+            mixBlendMode: "soft-light",
           }}
         />
-
-        {/* top + bottom scrim */}
+        {/* sombra à direita para destacar o painel glass */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-y-0 right-0 w-[55%] pointer-events-none"
           style={{
             background:
-              "linear-gradient(180deg, oklch(0.05 0.008 30 / 0.8) 0%, transparent 18%, transparent 60%, oklch(0.05 0.008 30 / 0.95) 100%)",
+              "linear-gradient(270deg, oklch(0.04 0.006 30 / 0.85) 0%, oklch(0.04 0.006 30 / 0.5) 40%, transparent 100%)",
+          }}
+        />
+        {/* sombra inferior */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-[40%] pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(180deg, transparent, oklch(0.04 0.006 30 / 0.92))",
+          }}
+        />
+        {/* sombra superior fina */}
+        <div
+          className="absolute inset-x-0 top-0 h-[20%] pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(180deg, oklch(0.04 0.006 30 / 0.7), transparent)",
           }}
         />
 
-        {/* cinematic letterbox bars */}
-        <div
-          className="absolute inset-x-0 top-0 pointer-events-none bg-[oklch(0.04_0.005_30)] transition-[height] duration-700 ease-out"
-          style={{ height: `${6 + enter * 6}vh` }}
-        />
-        <div
-          className="absolute inset-x-0 bottom-0 pointer-events-none bg-[oklch(0.04_0.005_30)] transition-[height] duration-700 ease-out"
-          style={{ height: `${6 + enter * 6}vh` }}
-        />
-
-        {/* lens flare */}
+        {/* halo teal frio (cinematic backlight) — substitui o lens flare âmbar */}
         <div
           className="absolute pointer-events-none rounded-full"
           style={{
-            width: 220,
-            height: 220,
-            top: `${22 + Math.sin(progress * 3.14) * 6}%`,
-            right: `${18 + Math.cos(progress * 2.4) * 5}%`,
+            width: 520,
+            height: 520,
+            top: "12%",
+            left: "8%",
             background:
-              "radial-gradient(circle, oklch(0.78 0.18 40 / 0.25), transparent 60%)",
-            filter: "blur(20px)",
-            opacity: 0.55 * enter,
+              "radial-gradient(circle, oklch(0.55 0.14 220 / 0.22), transparent 65%)",
+            filter: "blur(40px)",
+            opacity: 0.6 * enter,
+            transform: `translate3d(0, ${(1 - enter) * 20}px, 0)`,
+            transition: "opacity 900ms ease, transform 900ms ease",
           }}
         />
 
+        {/* film grain leve */}
+        <div className="absolute inset-0 grain pointer-events-none opacity-60" />
+
+        {/* vignette suave */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 50%, oklch(0.04 0.006 30 / 0.7) 100%)",
+          }}
+        />
+
+        {/* CONTEÚDO — composição em terços */}
         <div className="absolute inset-0 max-w-[1500px] mx-auto px-6 lg:px-20">
-          {/* Year + kicker */}
-          <div className="absolute left-6 lg:left-20 top-[18vh] flex items-baseline gap-6"
-               style={{ opacity: enter, transform: `translateY(${(1 - enter) * 12}px)`, transition: "all 700ms ease" }}>
-            <span
-              className="font-mono text-[11px] font-bold tracking-[0.45em] uppercase"
-              style={{
-                color: "oklch(0.86 0.20 45)",
-                textShadow:
-                  "0 1px 2px oklch(0 0 0 / 0.95), 0 0 14px oklch(0 0 0 / 0.7)",
-              }}
-            >
-              CAP. {String(index + 1).padStart(2, "0")} · {chapter.kicker}
-            </span>
-          </div>
+          {/* PLANO 2 — ano ghost outline (profundidade) */}
           <div
-            className="absolute left-6 lg:left-20 top-[22vh] font-serif font-light leading-[0.82] tracking-[-0.045em] text-foreground/95 tabular-nums select-none pointer-events-none"
+            className="absolute left-4 lg:left-16 top-[24vh] font-serif font-extralight leading-[0.82] tracking-[-0.05em] tabular-nums select-none pointer-events-none"
             style={{
-              fontSize: "clamp(72px, 11vw, 168px)",
+              fontSize: "clamp(140px, 22vw, 320px)",
               transform: `translate3d(0, ${parallaxYr}px, 0)`,
-              opacity: 0.22 + enter * 0.55,
-              textShadow: "0 30px 80px oklch(0 0 0 / 0.6)",
+              opacity: 0.10 + enter * 0.18,
+              color: "transparent",
+              WebkitTextStroke: "1px oklch(0.85 0.04 220 / 0.45)",
             }}
           >
             {chapter.year}
           </div>
 
-          {/* Text panel */}
-          <div className="absolute right-6 lg:right-20 bottom-[14vh] w-[min(92vw,560px)]">
+          {/* PLANO 3 — coluna editorial à esquerda (proximidade: bloco coeso) */}
+          <div
+            className="absolute left-6 lg:left-20 bottom-[18vh] w-[min(92vw,520px)]"
+            style={{
+              opacity: enter,
+              transform: `translateY(${(1 - enter) * 28}px)`,
+              transition: "all 800ms cubic-bezier(0.22, 1, 0.36, 1)",
+            }}
+          >
+            {/* eyebrow */}
+            <div className="flex items-center gap-3 mb-5">
+              <span
+                className="inline-block w-1.5 h-1.5 rounded-full"
+                style={{
+                  background: "oklch(0.72 0.18 220)",
+                  boxShadow: "0 0 12px oklch(0.62 0.18 220 / 0.9)",
+                }}
+              />
+              <span
+                className="font-mono text-[10.5px] font-semibold tracking-[0.42em] uppercase"
+                style={{ color: "oklch(0.78 0.10 220)" }}
+              >
+                Cap. {String(index + 1).padStart(2, "0")} · {chapter.kicker}
+              </span>
+            </div>
+
+            {/* ano sólido — foco */}
             <div
-              className="rounded-sm p-6 lg:p-7 backdrop-blur-md"
+              className="font-serif font-light leading-[0.9] tracking-[-0.04em] tabular-nums text-foreground"
               style={{
-                opacity: enter,
-                transform: `translateY(${(1 - enter) * 24}px)`,
-                transition: "all 800ms cubic-bezier(0.22, 1, 0.36, 1)",
-                background:
-                  "linear-gradient(180deg, oklch(0.05 0.008 30 / 0.78), oklch(0.04 0.006 30 / 0.92))",
-                borderLeft: "1px solid oklch(0.52 0.22 25 / 0.55)",
-                boxShadow: "0 40px 80px -30px oklch(0 0 0 / 0.85)",
+                fontSize: "clamp(48px, 6vw, 88px)",
+                textShadow: "0 8px 40px oklch(0 0 0 / 0.7)",
               }}
             >
-              <h3
-                className="font-serif text-[26px] md:text-[36px] leading-[1.08] tracking-[-0.015em] text-foreground"
-                style={{ textShadow: "0 2px 12px oklch(0 0 0 / 0.85)" }}
-              >
-                {chapter.title}
-              </h3>
-              <p className="mt-5 text-[15px] leading-[1.65] text-foreground/95">
+              {chapter.year}
+            </div>
+
+            {/* título serif */}
+            <h3
+              className="mt-4 font-serif text-[26px] md:text-[34px] leading-[1.1] tracking-[-0.015em] text-foreground/95 max-w-[20ch]"
+              style={{ textShadow: "0 2px 16px oklch(0 0 0 / 0.85)" }}
+            >
+              {chapter.title}
+            </h3>
+          </div>
+
+          {/* PLANO 4 — painel glass à direita (foreground) */}
+          <div className="absolute right-6 lg:right-20 top-1/2 -translate-y-1/2 w-[min(92vw,420px)] hidden md:block">
+            <div
+              className="p-7 backdrop-blur-xl"
+              style={{
+                opacity: enter,
+                transform: `translateY(${(1 - enter) * 18}px)`,
+                transition: "all 900ms cubic-bezier(0.22, 1, 0.36, 1)",
+                background:
+                  "linear-gradient(160deg, oklch(0.10 0.012 220 / 0.55), oklch(0.06 0.008 30 / 0.75))",
+                border: "1px solid oklch(0.55 0.10 220 / 0.20)",
+                borderLeft: "1px solid oklch(0.65 0.18 30 / 0.55)",
+                boxShadow:
+                  "0 50px 100px -40px oklch(0 0 0 / 0.95), inset 0 1px 0 oklch(1 0 0 / 0.04)",
+              }}
+            >
+              <p className="text-[14.5px] leading-[1.7] text-foreground/85">
                 {chapter.body}
               </p>
-              <div className="mt-6 pt-5 border-t border-border/60">
+              <div className="mt-6 pt-5 border-t border-foreground/10">
                 <p
-                  className="text-[11px] font-mono font-semibold uppercase tracking-[0.22em] leading-relaxed"
-                  style={{
-                    color: "oklch(0.80 0.18 38)",
-                    textShadow: "0 1px 2px oklch(0 0 0 / 0.7)",
-                  }}
+                  className="text-[11px] font-mono font-semibold uppercase tracking-[0.24em] leading-relaxed"
+                  style={{ color: "oklch(0.82 0.16 38)" }}
                 >
                   {chapter.detail}
                 </p>
@@ -239,20 +275,51 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
             </div>
           </div>
 
-          {/* Progress rail + timecode */}
-          <div className="absolute left-6 lg:left-20 bottom-[10vh] flex items-center gap-4 text-[10px] font-mono tracking-[0.3em] uppercase text-muted-foreground"
-               style={{ opacity: enter }}>
-            <span className="text-foreground/70">{String(index + 1).padStart(2, "0")} / {String(chapters.length).padStart(2, "0")}</span>
-            <div className="w-48 h-px bg-border relative overflow-hidden">
+          {/* mobile fallback — body abaixo */}
+          <div
+            className="absolute md:hidden left-6 right-6 bottom-[6vh] p-5 backdrop-blur-xl"
+            style={{
+              opacity: enter,
+              background:
+                "linear-gradient(160deg, oklch(0.10 0.012 220 / 0.6), oklch(0.06 0.008 30 / 0.8))",
+              border: "1px solid oklch(0.55 0.10 220 / 0.20)",
+            }}
+          >
+            <p className="text-[13.5px] leading-[1.65] text-foreground/85">
+              {chapter.body}
+            </p>
+          </div>
+
+          {/* régua técnica vertical no terço */}
+          <div
+            className="hidden lg:block absolute top-[12vh] bottom-[12vh] left-[33%] w-px pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(180deg, transparent, oklch(0.55 0.10 220 / 0.25), transparent)",
+              opacity: enter * 0.7,
+            }}
+          />
+
+          {/* Progress rail — limpo, sem REC/timecode falso */}
+          <div
+            className="absolute left-6 lg:left-20 bottom-[8vh] flex items-center gap-4 text-[10px] font-mono tracking-[0.3em] uppercase text-foreground/45"
+            style={{ opacity: enter, transition: "opacity 700ms ease" }}
+          >
+            <span className="text-foreground/70 tabular-nums">
+              {String(index + 1).padStart(2, "0")} / {String(chapters.length).padStart(2, "0")}
+            </span>
+            <div className="w-40 h-px bg-foreground/15 relative overflow-hidden">
               <div
-                className="absolute inset-y-0 left-0"
-                style={{ width: `${progress * 100}%`, background: "oklch(0.72 0.20 38)" }}
+                className="absolute inset-y-0 left-0 transition-[width] duration-300 ease-out"
+                style={{
+                  width: `${progress * 100}%`,
+                  background:
+                    "linear-gradient(90deg, oklch(0.55 0.14 220), oklch(0.78 0.18 38))",
+                  boxShadow: "0 0 12px oklch(0.62 0.18 220 / 0.6)",
+                }}
               />
             </div>
-            <span className="tabular-nums">
-              {String(Math.floor(progress * 59)).padStart(2, "0")}:{String(Math.floor((progress * 59 * 24) % 24)).padStart(2, "0")}
-            </span>
-            <span style={{ color: "oklch(0.62 0.26 27)", textShadow: "0 1px 2px oklch(0 0 0 / 0.9), 0 0 10px oklch(0.55 0.25 27 / 0.6)" }} className="font-bold">● REC</span>
+            <span className="text-foreground/50">linha da invisibilidade</span>
           </div>
         </div>
       </div>
