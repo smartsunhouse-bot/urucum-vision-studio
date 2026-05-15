@@ -193,7 +193,7 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
               transform: `translate3d(0, ${parallaxYr}px, 0)`,
               opacity: 0.10 + enter * 0.18,
               color: "transparent",
-              WebkitTextStroke: "1px oklch(0.85 0.04 220 / 0.45)",
+              WebkitTextStroke: "1px oklch(0.85 0.05 60 / 0.42)",
             }}
           >
             {chapter.year}
@@ -213,13 +213,13 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
               <span
                 className="inline-block w-1.5 h-1.5 rounded-full"
                 style={{
-                  background: "oklch(0.72 0.18 220)",
-                  boxShadow: "0 0 12px oklch(0.62 0.18 220 / 0.9)",
+                  background: "oklch(0.72 0.20 30)",
+                  boxShadow: "0 0 12px oklch(0.62 0.22 28 / 0.9)",
                 }}
               />
               <span
                 className="font-mono text-[10.5px] font-semibold tracking-[0.42em] uppercase"
-                style={{ color: "oklch(0.78 0.10 220)" }}
+                style={{ color: "oklch(0.82 0.08 55)" }}
               >
                 Cap. {String(index + 1).padStart(2, "0")} · {chapter.kicker}
               </span>
@@ -254,8 +254,8 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
                 transform: `translateY(${(1 - enter) * 18}px)`,
                 transition: "all 900ms cubic-bezier(0.22, 1, 0.36, 1)",
                 background:
-                  "linear-gradient(160deg, oklch(0.10 0.012 220 / 0.55), oklch(0.06 0.008 30 / 0.75))",
-                border: "1px solid oklch(0.55 0.10 220 / 0.20)",
+                  "linear-gradient(160deg, oklch(0.10 0.014 35 / 0.65), oklch(0.06 0.008 30 / 0.75))",
+                border: "1px solid oklch(0.55 0.12 35 / 0.22)",
                 borderLeft: "1px solid oklch(0.65 0.18 30 / 0.55)",
                 boxShadow:
                   "0 50px 100px -40px oklch(0 0 0 / 0.95), inset 0 1px 0 oklch(1 0 0 / 0.04)",
@@ -281,8 +281,8 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
             style={{
               opacity: enter,
               background:
-                "linear-gradient(160deg, oklch(0.10 0.012 220 / 0.6), oklch(0.06 0.008 30 / 0.8))",
-              border: "1px solid oklch(0.55 0.10 220 / 0.20)",
+                "linear-gradient(160deg, oklch(0.10 0.014 35 / 0.7), oklch(0.06 0.008 30 / 0.8))",
+              border: "1px solid oklch(0.55 0.12 35 / 0.22)",
             }}
           >
             <p className="text-[13.5px] leading-[1.65] text-foreground/85">
@@ -295,7 +295,7 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
             className="hidden lg:block absolute top-[12vh] bottom-[12vh] left-[33%] w-px pointer-events-none"
             style={{
               background:
-                "linear-gradient(180deg, transparent, oklch(0.55 0.10 220 / 0.25), transparent)",
+                "linear-gradient(180deg, transparent, oklch(0.55 0.12 35 / 0.28), transparent)",
               opacity: enter * 0.7,
             }}
           />
@@ -314,8 +314,8 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
                 style={{
                   width: `${progress * 100}%`,
                   background:
-                    "linear-gradient(90deg, oklch(0.55 0.14 220), oklch(0.78 0.18 38))",
-                  boxShadow: "0 0 12px oklch(0.62 0.18 220 / 0.6)",
+                    "linear-gradient(90deg, oklch(0.55 0.20 28), oklch(0.82 0.16 50))",
+                  boxShadow: "0 0 12px oklch(0.62 0.22 28 / 0.65)",
                 }}
               />
             </div>
