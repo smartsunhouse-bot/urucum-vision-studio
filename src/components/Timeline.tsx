@@ -120,21 +120,21 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
           />
         </div>
 
-        {/* PLANO 1.5 — teal & orange grading: separa cromaticamente os planos */}
+        {/* PLANO 1.5 — grading shadow→urucum (warm palette only) */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "linear-gradient(95deg, oklch(0.28 0.10 220 / 0.55) 0%, oklch(0.20 0.06 215 / 0.20) 35%, transparent 55%, oklch(0.30 0.14 30 / 0.22) 80%, oklch(0.40 0.18 28 / 0.45) 100%)",
+              "linear-gradient(95deg, oklch(0.06 0.010 30 / 0.70) 0%, oklch(0.08 0.012 30 / 0.30) 35%, transparent 55%, oklch(0.30 0.14 28 / 0.20) 80%, oklch(0.42 0.20 26 / 0.42) 100%)",
             mixBlendMode: "soft-light",
           }}
         />
-        {/* sombra à direita para destacar o painel glass */}
+        {/* sombra densa à direita para destacar o painel glass */}
         <div
           className="absolute inset-y-0 right-0 w-[55%] pointer-events-none"
           style={{
             background:
-              "linear-gradient(270deg, oklch(0.04 0.006 30 / 0.85) 0%, oklch(0.04 0.006 30 / 0.5) 40%, transparent 100%)",
+              "linear-gradient(270deg, oklch(0.04 0.006 30 / 0.88) 0%, oklch(0.04 0.006 30 / 0.5) 40%, transparent 100%)",
           }}
         />
         {/* sombra inferior */}
@@ -154,7 +154,7 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
           }}
         />
 
-        {/* halo teal frio (cinematic backlight) — substitui o lens flare âmbar */}
+        {/* halo cream warm (backlight cinematográfico — paleta urucum) */}
         <div
           className="absolute pointer-events-none rounded-full"
           style={{
@@ -163,7 +163,7 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
             top: "12%",
             left: "8%",
             background:
-              "radial-gradient(circle, oklch(0.55 0.14 220 / 0.22), transparent 65%)",
+              "radial-gradient(circle, oklch(0.78 0.08 60 / 0.18), transparent 65%)",
             filter: "blur(40px)",
             opacity: 0.6 * enter,
             transform: `translate3d(0, ${(1 - enter) * 20}px, 0)`,
@@ -193,7 +193,7 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
               transform: `translate3d(0, ${parallaxYr}px, 0)`,
               opacity: 0.10 + enter * 0.18,
               color: "transparent",
-              WebkitTextStroke: "1px oklch(0.85 0.04 220 / 0.45)",
+              WebkitTextStroke: "1px oklch(0.85 0.05 60 / 0.42)",
             }}
           >
             {chapter.year}
@@ -213,13 +213,13 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
               <span
                 className="inline-block w-1.5 h-1.5 rounded-full"
                 style={{
-                  background: "oklch(0.72 0.18 220)",
-                  boxShadow: "0 0 12px oklch(0.62 0.18 220 / 0.9)",
+                  background: "oklch(0.72 0.20 30)",
+                  boxShadow: "0 0 12px oklch(0.62 0.22 28 / 0.9)",
                 }}
               />
               <span
                 className="font-mono text-[10.5px] font-semibold tracking-[0.42em] uppercase"
-                style={{ color: "oklch(0.78 0.10 220)" }}
+                style={{ color: "oklch(0.82 0.08 55)" }}
               >
                 Cap. {String(index + 1).padStart(2, "0")} · {chapter.kicker}
               </span>
@@ -254,8 +254,8 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
                 transform: `translateY(${(1 - enter) * 18}px)`,
                 transition: "all 900ms cubic-bezier(0.22, 1, 0.36, 1)",
                 background:
-                  "linear-gradient(160deg, oklch(0.10 0.012 220 / 0.55), oklch(0.06 0.008 30 / 0.75))",
-                border: "1px solid oklch(0.55 0.10 220 / 0.20)",
+                  "linear-gradient(160deg, oklch(0.10 0.014 35 / 0.65), oklch(0.06 0.008 30 / 0.75))",
+                border: "1px solid oklch(0.55 0.12 35 / 0.22)",
                 borderLeft: "1px solid oklch(0.65 0.18 30 / 0.55)",
                 boxShadow:
                   "0 50px 100px -40px oklch(0 0 0 / 0.95), inset 0 1px 0 oklch(1 0 0 / 0.04)",
@@ -281,8 +281,8 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
             style={{
               opacity: enter,
               background:
-                "linear-gradient(160deg, oklch(0.10 0.012 220 / 0.6), oklch(0.06 0.008 30 / 0.8))",
-              border: "1px solid oklch(0.55 0.10 220 / 0.20)",
+                "linear-gradient(160deg, oklch(0.10 0.014 35 / 0.7), oklch(0.06 0.008 30 / 0.8))",
+              border: "1px solid oklch(0.55 0.12 35 / 0.22)",
             }}
           >
             <p className="text-[13.5px] leading-[1.65] text-foreground/85">
@@ -295,7 +295,7 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
             className="hidden lg:block absolute top-[12vh] bottom-[12vh] left-[33%] w-px pointer-events-none"
             style={{
               background:
-                "linear-gradient(180deg, transparent, oklch(0.55 0.10 220 / 0.25), transparent)",
+                "linear-gradient(180deg, transparent, oklch(0.55 0.12 35 / 0.28), transparent)",
               opacity: enter * 0.7,
             }}
           />
@@ -314,8 +314,8 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
                 style={{
                   width: `${progress * 100}%`,
                   background:
-                    "linear-gradient(90deg, oklch(0.55 0.14 220), oklch(0.78 0.18 38))",
-                  boxShadow: "0 0 12px oklch(0.62 0.18 220 / 0.6)",
+                    "linear-gradient(90deg, oklch(0.55 0.20 28), oklch(0.82 0.16 50))",
+                  boxShadow: "0 0 12px oklch(0.62 0.22 28 / 0.65)",
                 }}
               />
             </div>
@@ -372,16 +372,67 @@ export function Timeline() {
         <ChapterScene key={c.year} chapter={c} index={i} />
       ))}
 
-      {/* Outro */}
-      <section className="relative py-40 lg:py-56 border-t border-border/40 overflow-hidden">
-        <div className="absolute inset-0 grain pointer-events-none" />
-        <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center reveal">
+      {/* Outro — câmara escura, citação como peça */}
+      <section
+        className="relative py-44 lg:py-60 overflow-hidden"
+        style={{
+          background:
+            "radial-gradient(900px 600px at 50% 40%, oklch(0.16 0.04 30 / 0.7), transparent 70%)," +
+            "linear-gradient(180deg, oklch(0.06 0.008 30), oklch(0.085 0.012 32) 50%, oklch(0.05 0.006 30))",
+          borderTop: "1px solid oklch(0.55 0.18 35 / 0.18)",
+        }}
+      >
+        {/* halo urucum atrás da citação */}
+        <div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          style={{
+            width: 760,
+            height: 760,
+            background:
+              "radial-gradient(circle, oklch(0.55 0.22 26 / 0.16), transparent 60%)",
+            filter: "blur(60px)",
+          }}
+        />
+        {/* feixe vertical de luz */}
+        <div
+          className="absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(180deg, transparent, oklch(0.65 0.18 32 / 0.35) 50%, transparent)",
+          }}
+        />
+        <div className="absolute inset-0 grain pointer-events-none opacity-70" />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 40%, oklch(0.04 0.006 30 / 0.85) 100%)",
+          }}
+        />
+
+        <div className="relative max-w-4xl mx-auto px-6 lg:px-10 text-center reveal">
+          <div
+            className="font-serif leading-none select-none pointer-events-none mb-2"
+            style={{
+              fontSize: "clamp(120px, 18vw, 220px)",
+              color: "transparent",
+              WebkitTextStroke: "1px oklch(0.62 0.22 28 / 0.35)",
+              textShadow: "0 0 60px oklch(0.55 0.22 26 / 0.25)",
+            }}
+          >
+            “
+          </div>
           <blockquote className="font-serif text-3xl md:text-[44px] leading-[1.18] tracking-[-0.01em] text-foreground/95">
-            “Quando pessoas negras dizem que foram apagadas, isso não é metáfora.
+            Quando pessoas negras dizem que foram apagadas, isso não é metáfora.
             <span className="block mt-5 text-foreground/65">
-              A câmera — símbolo de memória e existência — nunca foi calibrada para elas.”
+              A câmera — símbolo de memória e existência — nunca foi calibrada para elas.
             </span>
           </blockquote>
+          <div className="mt-12 flex items-center justify-center gap-4 text-[10px] font-mono tracking-[0.4em] uppercase text-foreground/40">
+            <span className="w-10 h-px bg-foreground/20" />
+            <span style={{ color: "oklch(0.78 0.16 38)" }}>fim · linha da invisibilidade</span>
+            <span className="w-10 h-px bg-foreground/20" />
+          </div>
         </div>
       </section>
     </>
