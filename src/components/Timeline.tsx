@@ -120,21 +120,21 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
           />
         </div>
 
-        {/* PLANO 1.5 — teal & orange grading: separa cromaticamente os planos */}
+        {/* PLANO 1.5 — grading shadow→urucum (warm palette only) */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "linear-gradient(95deg, oklch(0.28 0.10 220 / 0.55) 0%, oklch(0.20 0.06 215 / 0.20) 35%, transparent 55%, oklch(0.30 0.14 30 / 0.22) 80%, oklch(0.40 0.18 28 / 0.45) 100%)",
+              "linear-gradient(95deg, oklch(0.06 0.010 30 / 0.70) 0%, oklch(0.08 0.012 30 / 0.30) 35%, transparent 55%, oklch(0.30 0.14 28 / 0.20) 80%, oklch(0.42 0.20 26 / 0.42) 100%)",
             mixBlendMode: "soft-light",
           }}
         />
-        {/* sombra à direita para destacar o painel glass */}
+        {/* sombra densa à direita para destacar o painel glass */}
         <div
           className="absolute inset-y-0 right-0 w-[55%] pointer-events-none"
           style={{
             background:
-              "linear-gradient(270deg, oklch(0.04 0.006 30 / 0.85) 0%, oklch(0.04 0.006 30 / 0.5) 40%, transparent 100%)",
+              "linear-gradient(270deg, oklch(0.04 0.006 30 / 0.88) 0%, oklch(0.04 0.006 30 / 0.5) 40%, transparent 100%)",
           }}
         />
         {/* sombra inferior */}
@@ -154,7 +154,7 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
           }}
         />
 
-        {/* halo teal frio (cinematic backlight) — substitui o lens flare âmbar */}
+        {/* halo cream warm (backlight cinematográfico — paleta urucum) */}
         <div
           className="absolute pointer-events-none rounded-full"
           style={{
@@ -163,7 +163,7 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
             top: "12%",
             left: "8%",
             background:
-              "radial-gradient(circle, oklch(0.55 0.14 220 / 0.22), transparent 65%)",
+              "radial-gradient(circle, oklch(0.78 0.08 60 / 0.18), transparent 65%)",
             filter: "blur(40px)",
             opacity: 0.6 * enter,
             transform: `translate3d(0, ${(1 - enter) * 20}px, 0)`,
