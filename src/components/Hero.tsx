@@ -82,9 +82,6 @@ export function Hero() {
               <span className="text-[10.5px] font-mono tracking-[0.42em] uppercase text-foreground/55">
                 Vision Infrastructure
               </span>
-              <span className="hidden md:inline text-[10.5px] font-mono tracking-[0.36em] uppercase text-foreground/30">
-                · 001
-              </span>
             </div>
           </div>
 
