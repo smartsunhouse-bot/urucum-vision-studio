@@ -428,10 +428,10 @@ export function Timeline() {
               A câmera — símbolo de memória e existência — nunca foi calibrada para elas.
             </span>
           </blockquote>
-          <div className="mt-12 flex items-center justify-center gap-4 text-[10px] font-mono tracking-[0.4em] uppercase text-foreground/40">
-            <span className="w-10 h-px bg-foreground/20" />
-            <span style={{ color: "oklch(0.78 0.16 38)" }}>fim · linha da invisibilidade</span>
-            <span className="w-10 h-px bg-foreground/20" />
+          <div className="mt-12 flex items-center justify-center gap-3 text-[9px] font-mono tracking-[0.2em] uppercase text-foreground/15">
+            <span className="w-5 h-px bg-foreground/10" />
+            <span>fim · linha da invisibilidade</span>
+            <span className="w-5 h-px bg-foreground/10" />
           </div>
         </div>
       </section>
