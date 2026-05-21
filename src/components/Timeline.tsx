@@ -4,6 +4,7 @@ import img1950 from "@/assets/timeline-1950.jpg";
 import img1977 from "@/assets/timeline-1977.jpg";
 import img2010 from "@/assets/timeline-2010.jpg";
 import imgToday from "@/assets/timeline-today.jpg";
+import imgTextureVsColor from "@/assets/texture-vs-colorswap.jpg";
 
 type Chapter = {
   year: string;
@@ -358,9 +359,9 @@ export function Timeline() {
               </p>
             </div>
             <div className="mt-10 flex items-center gap-4 text-[10px] font-mono tracking-[0.3em] uppercase text-muted-foreground">
-              <span>05 capítulos</span>
+              <span>06 capítulos</span>
               <span className="w-px h-3 bg-border" />
-              <span>1839 — hoje</span>
+              <span>1839 — a virada</span>
               <span className="w-px h-3 bg-border" />
               <span>scroll para avançar</span>
             </div>
@@ -371,6 +372,139 @@ export function Timeline() {
       {chapters.map((c, i) => (
         <ChapterScene key={c.year} chapter={c} index={i} />
       ))}
+
+      {/* CAPÍTULO 06 — A VIRADA — problema → solução */}
+      <section
+        className="relative min-h-screen overflow-hidden flex items-center"
+        style={{
+          background:
+            "radial-gradient(1200px 700px at 70% 40%, oklch(0.14 0.05 30 / 0.85), transparent 70%)," +
+            "linear-gradient(180deg, oklch(0.045 0.006 30), oklch(0.075 0.014 32) 55%, oklch(0.05 0.008 30))",
+          borderTop: "1px solid oklch(0.55 0.18 32 / 0.20)",
+        }}
+      >
+        <div className="absolute inset-0 grain pointer-events-none opacity-60" />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 45%, oklch(0.04 0.006 30 / 0.88) 100%)",
+          }}
+        />
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            width: 760,
+            height: 760,
+            top: "8%",
+            left: "-6%",
+            background:
+              "radial-gradient(circle, oklch(0.55 0.22 28 / 0.22), transparent 65%)",
+            filter: "blur(70px)",
+          }}
+        />
+        <div
+          className="hidden lg:block absolute top-[12vh] bottom-[12vh] left-[50%] w-px pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(180deg, transparent, oklch(0.55 0.12 35 / 0.30), transparent)",
+          }}
+        />
+
+        <div className="relative w-full max-w-[1500px] mx-auto px-6 lg:px-20 py-32 lg:py-44 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="lg:col-span-5 reveal">
+            <div className="flex items-center gap-3 mb-6">
+              <span
+                className="inline-block w-1.5 h-1.5 rounded-full"
+                style={{
+                  background: "oklch(0.72 0.20 30)",
+                  boxShadow: "0 0 14px oklch(0.62 0.22 28 / 0.95)",
+                }}
+              />
+              <span
+                className="font-mono text-[10.5px] font-semibold tracking-[0.42em] uppercase"
+                style={{ color: "oklch(0.82 0.16 38)" }}
+              >
+                Cap. 06 · A virada
+              </span>
+            </div>
+
+            <div
+              className="font-serif font-extralight leading-[0.86] tracking-[-0.04em] tabular-nums"
+              style={{
+                fontSize: "clamp(110px, 16vw, 230px)",
+                color: "transparent",
+                WebkitTextStroke: "1px oklch(0.85 0.05 60 / 0.55)",
+                textShadow: "0 0 80px oklch(0.55 0.22 26 / 0.35)",
+              }}
+            >
+              06
+            </div>
+
+            <h3
+              className="mt-6 font-serif font-light text-[40px] md:text-[58px] leading-[1.02] tracking-[-0.02em] text-foreground"
+              style={{ textShadow: "0 4px 24px oklch(0 0 0 / 0.7)" }}
+            >
+              A captura
+              <span className="italic text-foreground/70"> começa aqui.</span>
+            </h3>
+
+            <p className="mt-8 text-[15.5px] leading-[1.75] text-foreground/80 max-w-[44ch]">
+              Por 186 anos a imagem foi calibrada para um único corpo. A
+              correção nunca veio por reparação — veio por demanda. E quando
+              chegou aos dados, virou estatística.
+            </p>
+            <p className="mt-5 text-[15.5px] leading-[1.75] text-foreground/95 max-w-[44ch]">
+              Urucum é o primeiro ponto da linha em que essa lógica se quebra.
+              Não corrigimos a imagem.{" "}
+              <span style={{ color: "oklch(0.82 0.16 38)" }}>
+                Refazemos a captura.
+              </span>
+            </p>
+
+            <div className="mt-10 flex items-center gap-4 text-[10px] font-mono tracking-[0.32em] uppercase text-foreground/55">
+              <span className="w-8 h-px bg-foreground/25" />
+              <span>fim do diagnóstico</span>
+              <span className="w-px h-3 bg-foreground/20" />
+              <span style={{ color: "oklch(0.82 0.16 38)" }}>
+                início da infraestrutura
+              </span>
+            </div>
+          </div>
+
+          <div className="lg:col-span-7 reveal">
+            <div
+              className="relative overflow-hidden"
+              style={{
+                border: "1px solid oklch(0.55 0.12 35 / 0.28)",
+                borderLeft: "1px solid oklch(0.65 0.18 30 / 0.6)",
+                boxShadow:
+                  "0 60px 120px -40px oklch(0 0 0 / 0.95), inset 0 1px 0 oklch(1 0 0 / 0.04)",
+              }}
+            >
+              <img
+                src={imgTextureVsColor}
+                alt="Comparação técnica — color swap genérico vs texture synthesis Urucum"
+                loading="lazy"
+                width={1792}
+                height={1024}
+                className="block w-full h-auto"
+              />
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "linear-gradient(180deg, transparent 70%, oklch(0.04 0.006 30 / 0.55))",
+                }}
+              />
+            </div>
+            <div className="mt-4 flex items-center justify-between text-[10px] font-mono tracking-[0.28em] uppercase text-foreground/50">
+              <span>fig. 06 · texture synthesis vs color swap</span>
+              <span className="tabular-nums text-foreground/70">ITA I — VI</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Outro — câmara escura, citação como peça */}
       <section
