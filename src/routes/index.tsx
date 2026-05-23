@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { Timeline } from "@/components/Timeline";
+import { CostOfInvisibility } from "@/components/CostOfInvisibility";
+import { ScientificBase } from "@/components/ScientificBase";
+import { TimelineDisclosure } from "@/components/TimelineDisclosure";
 import { ExposureMatrix } from "@/components/ExposureMatrix";
 import { Product } from "@/components/Product";
 import { TechnicalGrid } from "@/components/TechnicalGrid";
@@ -40,12 +42,14 @@ function Index() {
       <SkinToneStrip />
       <Navbar />
       <Hero />
-      <Timeline />
-      <ExposureMatrix />
+      <CostOfInvisibility />
+      <ScientificBase />
       <Product />
+      <ExposureMatrix />
       <TechnicalGrid />
       <HowItWorks />
       <Results />
+      <TimelineDisclosure />
       <Docs />
       <Contact />
       <Footer />
