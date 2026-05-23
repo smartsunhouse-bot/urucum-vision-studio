@@ -129,7 +129,7 @@ export function Hero() {
                     "0 1px 0 oklch(0.78 0.18 30 / 0.45) inset, 0 0 0 1px oklch(0.32 0.14 24 / 0.6), 0 14px 38px -12px oklch(0.50 0.22 25 / 0.7)",
                 }}
               >
-                <span className="relative z-10">Falar com a equipe</span>
+                <span className="relative z-10">Ver Produto</span>
                 <span className="relative z-10 text-base leading-none transition-transform duration-500 group-hover:translate-x-1">
                   →
                 </span>
@@ -142,7 +142,7 @@ export function Hero() {
                 />
               </a>
               <a
-                href="/solucoes"
+                href="#entenda"
                 className="inline-flex items-center gap-2.5 h-12 px-6 rounded-[3px] text-[12.5px] tracking-[0.14em] uppercase font-medium text-foreground/75 hover:text-foreground/95 transition-colors duration-300"
                 style={{
                   border: "1px solid oklch(0.55 0.18 35 / 0.28)",
@@ -150,9 +150,10 @@ export function Hero() {
                   backdropFilter: "blur(4px)",
                 }}
               >
-                Ver soluções
-                <span className="text-base leading-none">→</span>
+                Entenda melhor
+                <span className="text-base leading-none">↓</span>
               </a>
+
             </div>
           </div>
         </div>
