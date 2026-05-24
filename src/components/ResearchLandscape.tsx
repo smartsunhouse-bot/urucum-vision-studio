@@ -1,9 +1,15 @@
 import { useRef, useState, useEffect } from "react";
-import faceLight from "@/assets/face-light.jpg";
-import faceMedium from "@/assets/face-medium.jpg";
-import faceMediumDark from "@/assets/face-mediumdark.jpg";
-import faceDeep from "@/assets/face-deep.jpg";
-import portrait from "@/assets/portrait.jpg";
+import imgMIT from "@/assets/refs/mit.jpg";
+import imgNIST from "@/assets/refs/nist.jpg";
+import imgGoogle from "@/assets/refs/google.jpg";
+import imgAmazon from "@/assets/refs/amazon.jpg";
+import imgCOMPAS from "@/assets/refs/compas.jpg";
+import imgAJL from "@/assets/refs/ajl.jpg";
+import imgIBM from "@/assets/refs/ibm.jpg";
+import imgStanford from "@/assets/refs/stanford.jpg";
+import bookOppression from "@/assets/refs/book-oppression.jpg";
+import bookRace from "@/assets/refs/book-race.jpg";
+import bookWeapons from "@/assets/refs/book-weapons.jpg";
 
 // Research & Context — reinterpretação premium de um "logo wall".
 // Cada card é uma referência real, clicável, com lockup monocromático,
