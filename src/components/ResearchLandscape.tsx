@@ -18,17 +18,20 @@ import bookWeapons from "@/assets/refs/book-weapons.jpg";
 
 type Kind = "paper" | "standard" | "case" | "book" | "lab";
 
+type Treatment = "photo" | "logo" | "cover";
+
 type Ref = {
   kind: Kind;
-  lockup: string;        // wordmark text (renderizado como logo monocromática)
-  sub?: string;          // sub-lockup (departamento / autor)
+  lockup: string;
+  sub?: string;
   year: string;
-  headline: string;      // editorial title
-  insight: string;       // micro-data point (HUGE number / short phrase)
-  insightLabel: string;  // unit / context
-  source: string;        // citation footer
+  headline: string;
+  insight: string;
+  insightLabel: string;
+  source: string;
   href: string;
   image: string;
+  treatment: Treatment;
 };
 
 const KIND_LABEL: Record<Kind, string> = {
@@ -50,7 +53,8 @@ const refs: Ref[] = [
     insightLabel: "erro em mulheres de pele escura vs. 0,8% em homens claros",
     source: "Buolamwini & Gebru · PMLR 81",
     href: "https://proceedings.mlr.press/v81/buolamwini18a.html",
-    image: faceDeep,
+    image: imgMIT,
+    treatment: "logo",
   },
   {
     kind: "standard",
@@ -62,7 +66,8 @@ const refs: Ref[] = [
     insightLabel: "diferença de falsos positivos entre grupos demográficos",
     source: "NIST IR 8280 · Part 3: Demographic Effects",
     href: "https://nvlpubs.nist.gov/nistpubs/ir/2019/NIST.IR.8280.pdf",
-    image: faceLight,
+    image: imgNIST,
+    treatment: "photo",
   },
   {
     kind: "case",
@@ -74,7 +79,8 @@ const refs: Ref[] = [
     insightLabel: "para reintroduzir a categoria sem regressão de bias",
     source: "BBC / Wired · auditoria pública",
     href: "https://www.theverge.com/2018/1/12/16882408/google-racist-gorillas-photo-recognition-algorithm-ai",
-    image: faceMediumDark,
+    image: imgGoogle,
+    treatment: "photo",
   },
   {
     kind: "case",
@@ -86,7 +92,8 @@ const refs: Ref[] = [
     insightLabel: "dos falsos matches eram pessoas negras (11% do Congresso)",
     source: "ACLU · Test of Amazon's Face Surveillance",
     href: "https://www.aclu.org/news/privacy-technology/amazons-face-recognition-falsely-matched-28",
-    image: faceMedium,
+    image: imgAmazon,
+    treatment: "photo",
   },
   {
     kind: "case",
@@ -98,7 +105,8 @@ const refs: Ref[] = [
     insightLabel: "mais chance de falso positivo para réus negros",
     source: "Angwin, Larson, Mattu, Kirchner · ProPublica",
     href: "https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing",
-    image: portrait,
+    image: imgCOMPAS,
+    treatment: "photo",
   },
   {
     kind: "lab",
@@ -110,7 +118,8 @@ const refs: Ref[] = [
     insightLabel: "vendors auditados sob o protocolo coded gaze",
     source: "ajl.org · MIT Media Lab spin-off",
     href: "https://www.ajl.org/",
-    image: faceDeep,
+    image: imgAJL,
+    treatment: "photo",
   },
   {
     kind: "lab",
@@ -122,7 +131,8 @@ const refs: Ref[] = [
     insightLabel: "imagens com 10 esquemas de codificação facial",
     source: "Merler et al. · IBM Research",
     href: "https://arxiv.org/abs/1901.10436",
-    image: faceMedium,
+    image: imgIBM,
+    treatment: "photo",
   },
   {
     kind: "lab",
@@ -134,7 +144,8 @@ const refs: Ref[] = [
     insightLabel: "dos benchmarks visuais não reportam paridade demográfica",
     source: "Stanford HAI · AI Index 2024",
     href: "https://hai.stanford.edu/ai-index",
-    image: faceLight,
+    image: imgStanford,
+    treatment: "logo",
   },
   {
     kind: "book",
@@ -146,7 +157,8 @@ const refs: Ref[] = [
     insightLabel: "leitura fundamental sobre vieses em sistemas comerciais",
     source: "ISBN 978-1479837243 · UCLA",
     href: "https://nyupress.org/9781479837243/algorithms-of-oppression/",
-    image: faceMediumDark,
+    image: bookOppression,
+    treatment: "cover",
   },
   {
     kind: "book",
@@ -158,7 +170,8 @@ const refs: Ref[] = [
     insightLabel: "framework para análise crítica de tecnologias preditivas",
     source: "ISBN 978-1509526406 · Princeton",
     href: "https://www.ruhabenjamin.com/race-after-technology",
-    image: faceDeep,
+    image: bookRace,
+    treatment: "cover",
   },
   {
     kind: "book",
@@ -170,7 +183,8 @@ const refs: Ref[] = [
     insightLabel: "referência sobre auditoria de modelos preditivos",
     source: "ISBN 978-0553418811",
     href: "https://weaponsofmathdestructionbook.com/",
-    image: portrait,
+    image: bookWeapons,
+    treatment: "cover",
   },
 ];
 
