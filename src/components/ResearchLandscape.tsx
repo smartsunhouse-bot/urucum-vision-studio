@@ -1,9 +1,15 @@
 import { useRef, useState, useEffect } from "react";
-import faceLight from "@/assets/face-light.jpg";
-import faceMedium from "@/assets/face-medium.jpg";
-import faceMediumDark from "@/assets/face-mediumdark.jpg";
-import faceDeep from "@/assets/face-deep.jpg";
-import portrait from "@/assets/portrait.jpg";
+import imgMIT from "@/assets/refs/mit.jpg";
+import imgNIST from "@/assets/refs/nist.jpg";
+import imgGoogle from "@/assets/refs/google.jpg";
+import imgAmazon from "@/assets/refs/amazon.jpg";
+import imgCOMPAS from "@/assets/refs/compas.jpg";
+import imgAJL from "@/assets/refs/ajl.jpg";
+import imgIBM from "@/assets/refs/ibm.jpg";
+import imgStanford from "@/assets/refs/stanford.jpg";
+import bookOppression from "@/assets/refs/book-oppression.jpg";
+import bookRace from "@/assets/refs/book-race.jpg";
+import bookWeapons from "@/assets/refs/book-weapons.jpg";
 
 // Research & Context — reinterpretação premium de um "logo wall".
 // Cada card é uma referência real, clicável, com lockup monocromático,
@@ -12,17 +18,20 @@ import portrait from "@/assets/portrait.jpg";
 
 type Kind = "paper" | "standard" | "case" | "book" | "lab";
 
+type Treatment = "photo" | "logo" | "cover";
+
 type Ref = {
   kind: Kind;
-  lockup: string;        // wordmark text (renderizado como logo monocromática)
-  sub?: string;          // sub-lockup (departamento / autor)
+  lockup: string;
+  sub?: string;
   year: string;
-  headline: string;      // editorial title
-  insight: string;       // micro-data point (HUGE number / short phrase)
-  insightLabel: string;  // unit / context
-  source: string;        // citation footer
+  headline: string;
+  insight: string;
+  insightLabel: string;
+  source: string;
   href: string;
   image: string;
+  treatment: Treatment;
 };
 
 const KIND_LABEL: Record<Kind, string> = {
@@ -44,7 +53,8 @@ const refs: Ref[] = [
     insightLabel: "erro em mulheres de pele escura vs. 0,8% em homens claros",
     source: "Buolamwini & Gebru · PMLR 81",
     href: "https://proceedings.mlr.press/v81/buolamwini18a.html",
-    image: faceDeep,
+    image: imgMIT,
+    treatment: "logo",
   },
   {
     kind: "standard",
@@ -56,7 +66,8 @@ const refs: Ref[] = [
     insightLabel: "diferença de falsos positivos entre grupos demográficos",
     source: "NIST IR 8280 · Part 3: Demographic Effects",
     href: "https://nvlpubs.nist.gov/nistpubs/ir/2019/NIST.IR.8280.pdf",
-    image: faceLight,
+    image: imgNIST,
+    treatment: "photo",
   },
   {
     kind: "case",
@@ -68,7 +79,8 @@ const refs: Ref[] = [
     insightLabel: "para reintroduzir a categoria sem regressão de bias",
     source: "BBC / Wired · auditoria pública",
     href: "https://www.theverge.com/2018/1/12/16882408/google-racist-gorillas-photo-recognition-algorithm-ai",
-    image: faceMediumDark,
+    image: imgGoogle,
+    treatment: "photo",
   },
   {
     kind: "case",
@@ -80,7 +92,8 @@ const refs: Ref[] = [
     insightLabel: "dos falsos matches eram pessoas negras (11% do Congresso)",
     source: "ACLU · Test of Amazon's Face Surveillance",
     href: "https://www.aclu.org/news/privacy-technology/amazons-face-recognition-falsely-matched-28",
-    image: faceMedium,
+    image: imgAmazon,
+    treatment: "photo",
   },
   {
     kind: "case",
@@ -92,7 +105,8 @@ const refs: Ref[] = [
     insightLabel: "mais chance de falso positivo para réus negros",
     source: "Angwin, Larson, Mattu, Kirchner · ProPublica",
     href: "https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing",
-    image: portrait,
+    image: imgCOMPAS,
+    treatment: "photo",
   },
   {
     kind: "lab",
@@ -104,7 +118,8 @@ const refs: Ref[] = [
     insightLabel: "vendors auditados sob o protocolo coded gaze",
     source: "ajl.org · MIT Media Lab spin-off",
     href: "https://www.ajl.org/",
-    image: faceDeep,
+    image: imgAJL,
+    treatment: "photo",
   },
   {
     kind: "lab",
@@ -116,7 +131,8 @@ const refs: Ref[] = [
     insightLabel: "imagens com 10 esquemas de codificação facial",
     source: "Merler et al. · IBM Research",
     href: "https://arxiv.org/abs/1901.10436",
-    image: faceMedium,
+    image: imgIBM,
+    treatment: "photo",
   },
   {
     kind: "lab",
@@ -128,7 +144,8 @@ const refs: Ref[] = [
     insightLabel: "dos benchmarks visuais não reportam paridade demográfica",
     source: "Stanford HAI · AI Index 2024",
     href: "https://hai.stanford.edu/ai-index",
-    image: faceLight,
+    image: imgStanford,
+    treatment: "logo",
   },
   {
     kind: "book",
@@ -140,7 +157,8 @@ const refs: Ref[] = [
     insightLabel: "leitura fundamental sobre vieses em sistemas comerciais",
     source: "ISBN 978-1479837243 · UCLA",
     href: "https://nyupress.org/9781479837243/algorithms-of-oppression/",
-    image: faceMediumDark,
+    image: bookOppression,
+    treatment: "cover",
   },
   {
     kind: "book",
@@ -152,7 +170,8 @@ const refs: Ref[] = [
     insightLabel: "framework para análise crítica de tecnologias preditivas",
     source: "ISBN 978-1509526406 · Princeton",
     href: "https://www.ruhabenjamin.com/race-after-technology",
-    image: faceDeep,
+    image: bookRace,
+    treatment: "cover",
   },
   {
     kind: "book",
@@ -164,7 +183,8 @@ const refs: Ref[] = [
     insightLabel: "referência sobre auditoria de modelos preditivos",
     source: "ISBN 978-0553418811",
     href: "https://weaponsofmathdestructionbook.com/",
-    image: portrait,
+    image: bookWeapons,
+    treatment: "cover",
   },
 ];
 
@@ -335,25 +355,43 @@ export function ResearchLandscape() {
               <span className="absolute bottom-2 right-2 w-2 h-px bg-foreground/30" />
               <span className="absolute bottom-2 right-2 w-px h-2 bg-foreground/30" />
 
-              {/* Image — human presence, editorial monochrome */}
-              <div className="relative h-[200px] overflow-hidden">
+              {/* Image — treatment varies: photo (monochrome editorial), logo (seal), cover (book) */}
+              <div
+                className="relative h-[200px] overflow-hidden"
+                style={{
+                  background:
+                    r.treatment === "photo"
+                      ? "oklch(0.085 0.010 32)"
+                      : "linear-gradient(180deg, oklch(0.12 0.014 34), oklch(0.085 0.010 32))",
+                }}
+              >
                 <img
                   src={r.image}
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+                  alt={r.lockup}
+                  className={
+                    "absolute inset-0 w-full h-full transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04] " +
+                    (r.treatment === "photo" ? "object-cover" : "object-contain p-6")
+                  }
                   style={{
-                    filter: "grayscale(1) contrast(1.05) brightness(0.62)",
+                    filter:
+                      r.treatment === "photo"
+                        ? "grayscale(1) contrast(1.05) brightness(0.62)"
+                        : r.treatment === "logo"
+                          ? "grayscale(1) brightness(0.95) invert(0.92) opacity(0.85)"
+                          : "contrast(1.02) brightness(0.92)",
                   }}
                 />
                 <div
-                  className="absolute inset-0"
+                  className="absolute inset-0 pointer-events-none"
                   style={{
                     background:
-                      "linear-gradient(180deg, oklch(0.10 0.01 32 / 0.2) 0%, oklch(0.085 0.01 32 / 0.95) 100%)",
+                      r.treatment === "photo"
+                        ? "linear-gradient(180deg, oklch(0.10 0.01 32 / 0.2) 0%, oklch(0.085 0.01 32 / 0.95) 100%)"
+                        : "linear-gradient(180deg, transparent 55%, oklch(0.085 0.01 32 / 0.85) 100%)",
                   }}
                 />
                 <div
-                  className="absolute inset-0 mix-blend-overlay opacity-30 transition-opacity duration-700 group-hover:opacity-50"
+                  className="absolute inset-0 mix-blend-overlay opacity-30 transition-opacity duration-700 group-hover:opacity-50 pointer-events-none"
                   style={{
                     background:
                       "radial-gradient(400px 200px at 50% 100%, oklch(0.55 0.20 28 / 0.5), transparent 70%)",
