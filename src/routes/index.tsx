@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { CostOfInvisibility } from "@/components/CostOfInvisibility";
+import { ResearchLandscape } from "@/components/ResearchLandscape";
 import { ScientificBase } from "@/components/ScientificBase";
 import { TimelineDisclosure } from "@/components/TimelineDisclosure";
 import { ExposureMatrix } from "@/components/ExposureMatrix";
@@ -42,7 +42,7 @@ function Index() {
       <SkinToneStrip />
       <Navbar />
       <Hero />
-      <CostOfInvisibility />
+      <ResearchLandscape />
       <ScientificBase />
       <Product />
       <ExposureMatrix />
