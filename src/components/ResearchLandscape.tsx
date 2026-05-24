@@ -355,25 +355,43 @@ export function ResearchLandscape() {
               <span className="absolute bottom-2 right-2 w-2 h-px bg-foreground/30" />
               <span className="absolute bottom-2 right-2 w-px h-2 bg-foreground/30" />
 
-              {/* Image — human presence, editorial monochrome */}
-              <div className="relative h-[200px] overflow-hidden">
+              {/* Image — treatment varies: photo (monochrome editorial), logo (seal), cover (book) */}
+              <div
+                className="relative h-[200px] overflow-hidden"
+                style={{
+                  background:
+                    r.treatment === "photo"
+                      ? "oklch(0.085 0.010 32)"
+                      : "linear-gradient(180deg, oklch(0.12 0.014 34), oklch(0.085 0.010 32))",
+                }}
+              >
                 <img
                   src={r.image}
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+                  alt={r.lockup}
+                  className={
+                    "absolute inset-0 w-full h-full transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04] " +
+                    (r.treatment === "photo" ? "object-cover" : "object-contain p-6")
+                  }
                   style={{
-                    filter: "grayscale(1) contrast(1.05) brightness(0.62)",
+                    filter:
+                      r.treatment === "photo"
+                        ? "grayscale(1) contrast(1.05) brightness(0.62)"
+                        : r.treatment === "logo"
+                          ? "grayscale(1) brightness(0.95) invert(0.92) opacity(0.85)"
+                          : "contrast(1.02) brightness(0.92)",
                   }}
                 />
                 <div
-                  className="absolute inset-0"
+                  className="absolute inset-0 pointer-events-none"
                   style={{
                     background:
-                      "linear-gradient(180deg, oklch(0.10 0.01 32 / 0.2) 0%, oklch(0.085 0.01 32 / 0.95) 100%)",
+                      r.treatment === "photo"
+                        ? "linear-gradient(180deg, oklch(0.10 0.01 32 / 0.2) 0%, oklch(0.085 0.01 32 / 0.95) 100%)"
+                        : "linear-gradient(180deg, transparent 55%, oklch(0.085 0.01 32 / 0.85) 100%)",
                   }}
                 />
                 <div
-                  className="absolute inset-0 mix-blend-overlay opacity-30 transition-opacity duration-700 group-hover:opacity-50"
+                  className="absolute inset-0 mix-blend-overlay opacity-30 transition-opacity duration-700 group-hover:opacity-50 pointer-events-none"
                   style={{
                     background:
                       "radial-gradient(400px 200px at 50% 100%, oklch(0.55 0.20 28 / 0.5), transparent 70%)",
