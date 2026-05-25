@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { ResearchLandscape } from "@/components/ResearchLandscape";
+import { OpticalHUD } from "@/components/optical/OpticalHUD";
+import { IncidentLog } from "@/components/IncidentLog";
 import { ScientificBase } from "@/components/ScientificBase";
 import { TimelineDisclosure } from "@/components/TimelineDisclosure";
 import { ExposureMatrix } from "@/components/ExposureMatrix";
@@ -39,10 +40,11 @@ function Index() {
   useReveal();
   return (
     <main className="relative">
+      <OpticalHUD />
       <SkinToneStrip />
       <Navbar />
       <Hero />
-      <ResearchLandscape />
+      <IncidentLog />
       <ScientificBase />
       <Product />
       <ExposureMatrix />

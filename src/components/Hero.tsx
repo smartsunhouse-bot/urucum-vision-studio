@@ -1,35 +1,52 @@
 import { useEffect, useState } from "react";
 import faceDeep from "@/assets/face-deep.jpg";
-import faceMediumDark from "@/assets/face-mediumdark.jpg";
-import faceMedium from "@/assets/face-medium.jpg";
+import { BoundingBox, ConfidenceBar, MonoMeta } from "./optical/primitives";
 
-const captures = [
-  { src: faceDeep,       state: "LOW-LIGHT",     ev: "−1.7 EV", frame: "0421" },
-  { src: faceMediumDark, state: "BALANCED",      ev: " 0.0 EV", frame: "0422" },
-  { src: faceMedium,     state: "UNDEREXPOSED",  ev: "−0.8 EV", frame: "0423" },
-];
-
+/**
+ * Hero "Detection Attempt"
+ * Câmera tentando detectar um rosto. Confidence oscila, bbox se redesenha,
+ * status alterna entre TRACKING / LOST. Headline em serif crítica.
+ * Microcopy em mono. Nada cyberpunk — frio, instrumental, documental.
+ */
 export function Hero() {
+  const [conf, setConf] = useState(87);
+  const [status, setStatus] = useState<"TRACKING" | "LOST" | "LOW CONFIDENCE">(
+    "TRACKING",
+  );
   const [stage, setStage] = useState(0);
-  const [cap, setCap] = useState(0);
 
-  // Doherty: entrada rápida e progressiva (<400ms para sentir instantâneo)
+  // staged entrance for the editorial text
   useEffect(() => {
-    const t = [80, 220, 380, 540].map((d, i) =>
-      setTimeout(() => setStage((s) => Math.max(s, i + 1)), d),
+    const t = [120, 280, 460, 640].map((d, i) =>
+      window.setTimeout(() => setStage((s) => Math.max(s, i + 1)), d),
     );
-    return () => t.forEach(clearTimeout);
+    return () => t.forEach(window.clearTimeout);
   }, []);
 
+  // confidence loop — tries to lock, drops, fails
   useEffect(() => {
-    const id = setInterval(
-      () => setCap((c) => (c + 1) % captures.length),
-      4600,
-    );
-    return () => clearInterval(id);
+    const seq: Array<[number, typeof status]> = [
+      [87, "TRACKING"],
+      [62, "LOW CONFIDENCE"],
+      [41, "LOW CONFIDENCE"],
+      [31, "LOW CONFIDENCE"],
+      [18, "LOST"],
+      [22, "LOST"],
+      [54, "LOW CONFIDENCE"],
+      [73, "TRACKING"],
+    ];
+    let i = 0;
+    const id = window.setInterval(() => {
+      const [v, s] = seq[i % seq.length];
+      setConf(v);
+      setStatus(s);
+      i++;
+    }, 1700);
+    return () => window.clearInterval(id);
   }, []);
 
-  const current = captures[cap];
+  const bboxState =
+    status === "LOST" ? "lost" : status === "TRACKING" ? "locked" : "tracking";
 
   return (
     <section
@@ -37,281 +54,215 @@ export function Hero() {
       className="relative min-h-screen w-full overflow-hidden"
       style={{
         background:
-          "radial-gradient(1200px 700px at 78% 38%, oklch(0.32 0.14 28 / 0.55), transparent 60%)," +
-          "radial-gradient(900px 600px at 12% 82%, oklch(0.20 0.06 25 / 0.55), transparent 65%)," +
-          "linear-gradient(180deg, oklch(0.115 0.014 38), oklch(0.085 0.010 32))",
+          "radial-gradient(900px 600px at 80% 30%, oklch(0.18 0.05 28 / 0.55), transparent 65%)," +
+          "linear-gradient(180deg, oklch(0.085 0.010 32), oklch(0.06 0.008 30))",
       }}
     >
-      {/* deep red horizon glow */}
+      {/* faint grid */}
       <div
-        className="absolute -right-[20%] top-[10%] w-[80vw] h-[80vw] max-w-[1100px] max-h-[1100px] pointer-events-none animate-breathe"
+        className="absolute inset-0 pointer-events-none opacity-[0.35]"
         style={{
-          background:
-            "radial-gradient(circle, oklch(0.55 0.22 25 / 0.28), oklch(0.30 0.12 26 / 0.10) 45%, transparent 70%)",
-          filter: "blur(20px)",
+          backgroundImage:
+            "linear-gradient(var(--grid-line) 1px, transparent 1px)," +
+            "linear-gradient(90deg, var(--grid-line) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+          maskImage:
+            "radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%)",
         }}
       />
-      {/* vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 45%, transparent 50%, oklch(0.06 0.008 30 / 0.85) 100%)",
-        }}
-      />
-      {/* sensor grain */}
       <div className="absolute inset-0 grain-fine pointer-events-none" />
 
-      {/* CONTENT */}
-      <div className="relative max-w-[1320px] mx-auto px-6 lg:px-12 pt-32 lg:pt-36 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center min-h-screen">
-        {/* LEFT — bloco de texto coeso (Lei da Proximidade) */}
+      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-12 pt-28 lg:pt-32 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center min-h-screen">
+        {/* LEFT — editorial */}
         <div className="lg:col-span-7 relative">
           {/* eyebrow */}
           <div
-            className={`flex items-center gap-3 transition-all duration-500 ${
-              stage >= 1 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+            className={`flex items-center gap-3 transition-opacity duration-500 ${
+              stage >= 1 ? "opacity-100" : "opacity-0"
             }`}
           >
             <span
-              className="inline-block w-1.5 h-1.5 rounded-full"
-              style={{
-                background: "oklch(0.62 0.24 26)",
-                boxShadow: "0 0 12px oklch(0.62 0.24 26 / 0.9)",
-              }}
-            />
-            <span className="text-[10.5px] font-mono tracking-[0.42em] uppercase text-foreground/55">
-              Vision Infrastructure
+              className="font-mono text-[10px] tracking-[0.42em] uppercase"
+              style={{ color: "var(--ink-dim)" }}
+            >
+              § 01 / DETECTION ATTEMPT
+            </span>
+            <span className="h-px flex-1 max-w-[120px]" style={{ background: "var(--grid-line-strong)" }} />
+            <span
+              className="font-mono text-[10px] tracking-[0.42em] uppercase tabular-nums"
+              style={{ color: "var(--signal-hot)" }}
+            >
+              SIG · {status}
             </span>
           </div>
 
-          {/* headline + sub + CTA — agrupados (proximidade) */}
-          <div className="mt-5 space-y-5">
-            <h1
-              className={`font-serif font-light text-[44px] md:text-[64px] lg:text-[76px] leading-[1.0] tracking-[-0.025em] text-foreground/95 max-w-[15ch] transition-all duration-700 ${
-                stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
-              }`}
-            >
-              Visão computacional que{" "}
-              <span
-                className="italic"
-                style={{
-                  color: "oklch(0.66 0.24 28)",
-                  textShadow: "0 0 32px oklch(0.55 0.22 25 / 0.45)",
-                }}
-              >
-                enxerga todo mundo.
-              </span>
-            </h1>
+          {/* headline */}
+          <h1
+            className={`mt-8 font-serif font-light text-[44px] md:text-[64px] lg:text-[84px] leading-[0.98] tracking-[-0.025em] text-foreground/95 max-w-[16ch] transition-all duration-700 ${
+              stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+            }`}
+          >
+            O sistema{" "}
+            <span className="italic animate-glitch" style={{ color: "var(--signal-hot)" }}>
+              não consegue
+            </span>{" "}
+            <br className="hidden md:block" />
+            te reconhecer.
+          </h1>
 
-            <p
-              className={`max-w-[46ch] text-[14.5px] md:text-[15.5px] leading-[1.65] text-foreground/60 transition-opacity duration-700 ${
-                stage >= 3 ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              Infraestrutura de captura sintética calibrada por fototipo,
-              exposição e iluminação — para modelos que falham menos em pele
-              negra, baixa luz e cenários reais.
-            </p>
-
-            {/* CTAs — Lei da Similaridade: mesma altura, radius, tracking, padding */}
-            <div
-              className={`pt-2 flex flex-wrap items-center gap-3 transition-all duration-700 ${
-                stage >= 4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-              }`}
-            >
-              <a
-                href="#produto"
-                className="group relative inline-flex items-center gap-3 h-12 px-6 rounded-[3px] text-[12.5px] tracking-[0.14em] uppercase font-medium text-[oklch(0.97_0.02_80)] overflow-hidden"
-                style={{
-                  background:
-                    "linear-gradient(180deg, oklch(0.58 0.23 26), oklch(0.42 0.19 24))",
-                  boxShadow:
-                    "0 1px 0 oklch(0.78 0.18 30 / 0.45) inset, 0 0 0 1px oklch(0.32 0.14 24 / 0.6), 0 14px 38px -12px oklch(0.50 0.22 25 / 0.7)",
-                }}
-              >
-                <span className="relative z-10">Ver Produto</span>
-                <span className="relative z-10 text-base leading-none transition-transform duration-500 group-hover:translate-x-1">
-                  →
-                </span>
-                <span
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, oklch(0.66 0.24 28), oklch(0.48 0.21 24))",
-                  }}
-                />
-              </a>
-              <a
-                href="#entenda"
-                className="inline-flex items-center gap-2.5 h-12 px-6 rounded-[3px] text-[12.5px] tracking-[0.14em] uppercase font-medium text-foreground/75 hover:text-foreground/95 transition-colors duration-300"
-                style={{
-                  border: "1px solid oklch(0.55 0.18 35 / 0.28)",
-                  background: "oklch(0.14 0.018 40 / 0.5)",
-                  backdropFilter: "blur(4px)",
-                }}
-              >
-                Entenda melhor
-                <span className="text-base leading-none">↓</span>
-              </a>
-
+          {/* mono log subtitle */}
+          <div
+            className={`mt-8 max-w-[58ch] space-y-2 font-mono text-[11.5px] leading-[1.85] tracking-[0.04em] transition-opacity duration-700 ${
+              stage >= 3 ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ color: "var(--ink-dim)" }}
+          >
+            <div>
+              <span className="text-foreground/30">&gt;</span>{" "}
+              FACIAL_DETECTION_FAILURE · GROUP=FITZPATRICK_V–VI
             </div>
+            <div>
+              <span className="text-foreground/30">&gt;</span>{" "}
+              SKIN_RESPONSE=FAILED · LIGHT_SCORE=LOW · BIAS=COMPOUNDING
+            </div>
+            <div>
+              <span className="text-foreground/30">&gt;</span>{" "}
+              URUCUM — infraestrutura de captura sintética calibrada por fototipo,
+              exposição e iluminação. Para que o sistema enxergue o que sempre
+              ignorou.
+            </div>
+          </div>
+
+          {/* CTAs */}
+          <div
+            className={`mt-10 flex flex-wrap items-center gap-3 transition-all duration-700 ${
+              stage >= 4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+            }`}
+          >
+            <a
+              href="#produto"
+              className="group inline-flex items-center gap-3 h-11 px-5 font-mono text-[11px] tracking-[0.28em] uppercase clip-notch-sm"
+              style={{
+                color: "var(--ink)",
+                background: "var(--signal-hot)",
+                boxShadow: "0 0 0 1px oklch(0.78 0.22 28 / 0.4)",
+              }}
+            >
+              <span
+                className="inline-block w-1.5 h-1.5"
+                style={{ background: "var(--ink)" }}
+              />
+              View System
+              <span className="transition-transform duration-500 group-hover:translate-x-1">→</span>
+            </a>
+            <a
+              href="#entenda"
+              className="inline-flex items-center gap-3 h-11 px-5 font-mono text-[11px] tracking-[0.28em] uppercase clip-notch-sm"
+              style={{
+                color: "var(--ink-dim)",
+                border: "1px solid var(--grid-line-strong)",
+                background: "oklch(0.10 0.012 35 / 0.5)",
+              }}
+            >
+              Read Incident Log
+              <span>↓</span>
+            </a>
           </div>
         </div>
 
-        {/* RIGHT — peak moment: portrait + scanline */}
+        {/* RIGHT — detection canvas */}
         <div
-          className={`lg:col-span-5 relative transition-all duration-700 delay-150 ${
+          className={`lg:col-span-5 relative transition-all duration-700 delay-200 ${
             stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
           <div
-            className="relative aspect-square w-full max-w-[460px] mx-auto"
-            style={{ filter: "drop-shadow(0 40px 90px oklch(0 0 0 / 0.7))" }}
+            className="relative aspect-[4/5] w-full max-w-[440px] mx-auto clip-notch overflow-hidden"
+            style={{
+              background: "oklch(0.07 0.008 30)",
+              border: "1px solid var(--grid-line-strong)",
+              boxShadow: "0 60px 120px -30px oklch(0 0 0 / 0.8)",
+            }}
           >
-            {/* orbital rings */}
-            <div
-              className="absolute inset-0 rounded-full pointer-events-none animate-[spin_80s_linear_infinite]"
-              style={{ border: "1px dashed oklch(0.55 0.18 35 / 0.14)", transform: "scale(1.12)" }}
-            />
-            <div
-              className="absolute inset-0 rounded-full pointer-events-none animate-[spin_120s_linear_infinite_reverse]"
-              style={{ border: "1px solid oklch(0.55 0.18 35 / 0.08)", transform: "scale(1.20)" }}
+            {/* portrait — grayscale, low light */}
+            <img
+              src={faceDeep}
+              alt="Tentativa de detecção facial em pele Fitzpatrick VI sob baixa luz"
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{
+                filter: "grayscale(0.4) brightness(0.55) contrast(1.15) saturate(0.7)",
+              }}
             />
 
-            {/* portrait disc */}
+            {/* dark vignette */}
             <div
-              className="absolute inset-0 rounded-full overflow-hidden"
+              className="absolute inset-0 pointer-events-none"
               style={{
                 background:
-                  "radial-gradient(circle at 50% 50%, oklch(0.14 0.018 35) 0%, oklch(0.085 0.010 32) 75%)",
-                boxShadow:
-                  "inset 0 0 90px 20px oklch(0.06 0.008 30 / 0.95), 0 0 0 1px oklch(0.55 0.18 35 / 0.18)",
+                  "radial-gradient(ellipse at 50% 40%, transparent 35%, oklch(0.06 0.008 30 / 0.85) 100%)",
               }}
-            >
-              {captures.map((c, i) => (
-                <img
-                  key={i}
-                  src={c.src}
-                  alt={`Captura técnica — ${c.state.toLowerCase()}`}
-                  className={`absolute inset-0 w-full h-full object-cover animate-ev transition-opacity duration-[1600ms] ease-out ${
-                    i === cap ? "opacity-[0.78]" : "opacity-0"
-                  }`}
-                  style={{
-                    filter: "contrast(0.95) saturate(0.78) brightness(0.92)",
-                    maskImage:
-                      "radial-gradient(circle at 50% 48%, black 38%, transparent 78%)",
-                    WebkitMaskImage:
-                      "radial-gradient(circle at 50% 48%, black 38%, transparent 78%)",
-                  }}
-                  width={1024}
-                  height={1024}
-                  loading="eager"
-                />
-              ))}
+            />
 
-              {/* warm glow + outer fade */}
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at 50% 80%, oklch(0.50 0.20 26 / 0.18), transparent 55%)," +
-                    "radial-gradient(circle at 50% 50%, transparent 44%, oklch(0.06 0.008 30 / 0.92) 80%)",
-                }}
-              />
+            {/* sensor noise */}
+            <div className="absolute inset-0 grain-fine pointer-events-none" />
 
-              {/* CV overlays — bbox + landmarks */}
-              <svg
-                className="absolute inset-0 w-full h-full pointer-events-none"
-                viewBox="0 0 100 100"
-                preserveAspectRatio="none"
-                aria-hidden
-              >
-                <g stroke="oklch(0.72 0.22 28)" fill="none">
-                  <rect x="32" y="26" width="36" height="46" strokeWidth="0.18" opacity="0.55" />
-                  <path d="M30 26 L30 32 M30 26 L36 26" strokeWidth="0.5" />
-                  <path d="M70 26 L70 32 M70 26 L64 26" strokeWidth="0.5" />
-                  <path d="M30 72 L30 66 M30 72 L36 72" strokeWidth="0.5" />
-                  <path d="M70 72 L70 66 M70 72 L64 72" strokeWidth="0.5" />
-                </g>
-                <g fill="oklch(0.78 0.22 28)">
-                  {[
-                    [40, 42],[60, 42],[50, 50],[44, 56],[56, 56],[50, 60],
-                    [38, 38],[42, 36],[46, 36],[54, 36],[58, 36],[62, 38],
-                    [42, 64],[46, 66],[50, 67],[54, 66],[58, 64],
-                  ].map(([x, y], i) => (
-                    <circle key={i} cx={x} cy={y} r="0.55" />
-                  ))}
-                </g>
-              </svg>
-
-              {/* scanline */}
-              <div
-                className="absolute left-0 right-0 h-px pointer-events-none animate-scan"
-                style={{
-                  background:
-                    "linear-gradient(90deg, transparent, oklch(0.72 0.20 28 / 0.7), transparent)",
-                  boxShadow: "0 0 18px oklch(0.62 0.24 26 / 0.7)",
-                }}
-              />
+            {/* bounding box — centered on face area */}
+            <div className="absolute" style={{ inset: "18% 22% 30% 22%" }}>
+              <BoundingBox label={status} state={bboxState} />
             </div>
 
-            {/* HUD único — bottom: STATE / MODEL / EV (Miller: 1 painel só) */}
+            {/* scanline */}
             <div
-              className="absolute -bottom-2 inset-x-0 font-mono text-[9px] tracking-[0.28em] uppercase pointer-events-none px-3 py-2.5"
+              className="absolute left-0 right-0 h-px pointer-events-none animate-scan"
               style={{
-                background: "oklch(0.10 0.012 35 / 0.85)",
-                border: "1px solid oklch(0.55 0.18 35 / 0.22)",
-                backdropFilter: "blur(8px)",
+                background:
+                  "linear-gradient(90deg, transparent, oklch(0.78 0.10 220 / 0.6), transparent)",
+              }}
+            />
+
+            {/* top HUD strip */}
+            <div className="absolute top-0 inset-x-0 flex items-center justify-between px-3 py-2 font-mono text-[9px] tracking-[0.32em] uppercase"
+                 style={{ color: "var(--ink-dim)", background: "oklch(0.06 0.008 30 / 0.5)" }}>
+              <span>CAM 01 · IR-OFF</span>
+              <span style={{ color: "var(--signal-hot)" }}>
+                <span className="inline-block w-1.5 h-1.5 mr-1.5 align-middle animate-live"
+                      style={{ background: "currentColor" }} />
+                REC
+              </span>
+            </div>
+
+            {/* bottom HUD — confidence + meta */}
+            <div
+              className="absolute bottom-0 inset-x-0 p-3 space-y-3"
+              style={{
+                background:
+                  "linear-gradient(180deg, transparent, oklch(0.05 0.008 30 / 0.95))",
               }}
             >
-              <div className="flex items-end justify-between">
-                <div className="space-y-1">
-                  <div className="text-foreground/40">state</div>
-                  <div key={cap} className="text-foreground/90 animate-fade-in">
-                    {current.state}
-                  </div>
-                </div>
-                <div className="space-y-1 text-center">
-                  <div className="text-foreground/40">model</div>
-                  <div className="text-[oklch(0.78_0.20_28)]">urucum-vision · v4</div>
-                </div>
-                <div className="space-y-1 text-right">
-                  <div className="text-foreground/40">ev · frame</div>
-                  <div key={`ev-${cap}`} className="text-foreground/90 tabular-nums animate-fade-in">
-                    {current.ev} · #{current.frame}
-                  </div>
-                </div>
-              </div>
-
-              {/* exposure bar */}
-              <div className="mt-2.5 relative h-px w-full bg-foreground/15">
-                <div
-                  className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full transition-all duration-1000"
-                  style={{
-                    left: `${[18, 50, 36][cap]}%`,
-                    background: "oklch(0.72 0.20 28)",
-                    boxShadow: "0 0 10px oklch(0.62 0.24 26 / 0.9)",
-                  }}
-                />
+              <ConfidenceBar value={conf} />
+              <div className="grid grid-cols-3 gap-3 pt-1">
+                <MonoMeta label="EV" value="−1.8" />
+                <MonoMeta label="ITA" value="VI" />
+                <MonoMeta label="MODEL" value="v4" accent />
               </div>
             </div>
+          </div>
 
-            {/* HUD REC — top right (único acento secundário) */}
-            <div className="absolute -top-2 right-0 flex items-center gap-1.5 text-[9px] font-mono tracking-[0.32em] uppercase text-[oklch(0.68_0.26_27)] pointer-events-none">
-              <span
-                className="inline-block w-1.5 h-1.5 rounded-full bg-[oklch(0.62_0.26_27)] animate-breathe"
-                style={{ boxShadow: "0 0 8px oklch(0.62 0.26 27 / 0.9)" }}
-              />
-              REC · LIVE
-            </div>
+          {/* below canvas — incident filename */}
+          <div className="mt-3 text-center font-mono text-[9.5px] tracking-[0.36em] uppercase"
+               style={{ color: "var(--ink-dim)" }}>
+            CAPTURE_URC-2024-0317.raw · 3840×4800 · 12-bit
           </div>
         </div>
       </div>
 
       {/* scroll indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[9.5px] font-mono tracking-[0.36em] text-foreground/40 uppercase">
-        <span>scroll</span>
-        <span className="w-px h-6 bg-foreground/25 animate-breathe" />
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 font-mono text-[9px] tracking-[0.42em] uppercase"
+           style={{ color: "var(--ink-dim)" }}>
+        SCROLL TO § 02
+        <span className="w-px h-8 animate-breathe" style={{ background: "var(--grid-line-strong)" }} />
       </div>
     </section>
   );

@@ -120,6 +120,15 @@
 
   --shadow-glow: 0 0 80px -10px oklch(0.55 0.18 35 / 0.5);
   --shadow-elegant: 0 30px 80px -20px oklch(0 0 0 / 0.6);
+
+  /* Optical Infrastructure tokens */
+  --signal-cold: oklch(0.78 0.10 220);
+  --signal-hot:  oklch(0.68 0.24 28);
+  --grid-line:   oklch(0.96 0.005 80 / 0.06);
+  --grid-line-strong: oklch(0.96 0.005 80 / 0.14);
+  --scanline:    oklch(0.96 0.005 80 / 0.03);
+  --ink:         oklch(0.96 0.005 80);
+  --ink-dim:     oklch(0.62 0.008 70);
 }
 
 @theme inline {
@@ -300,4 +309,67 @@
   /* card hover lift */
   .solution-card { transition: transform 600ms cubic-bezier(0.22,1,0.36,1), border-color 400ms ease, background 400ms ease; }
   .solution-card:hover { transform: translateY(-4px); }
+
+  /* === Optical Infrastructure === */
+
+  /* clipped-corner industrial card */
+  .clip-notch {
+    clip-path: polygon(
+      14px 0, 100% 0, 100% calc(100% - 14px),
+      calc(100% - 14px) 100%, 0 100%, 0 14px
+    );
+  }
+  .clip-notch-sm {
+    clip-path: polygon(
+      8px 0, 100% 0, 100% calc(100% - 8px),
+      calc(100% - 8px) 100%, 0 100%, 0 8px
+    );
+  }
+
+  /* full viewport horizontal scanline */
+  @keyframes hud-scan {
+    0%   { transform: translateY(-10vh); opacity: 0; }
+    8%   { opacity: 1; }
+    92%  { opacity: 1; }
+    100% { transform: translateY(110vh); opacity: 0; }
+  }
+  .animate-hud-scan { animation: hud-scan 9s linear infinite; }
+
+  /* bbox redraw (detection attempt) */
+  @keyframes bbox-redraw {
+    0%, 100% { stroke-dashoffset: 240; opacity: 0.25; }
+    10%      { stroke-dashoffset: 0;   opacity: 1; }
+    55%      { stroke-dashoffset: 0;   opacity: 1; }
+    65%      { opacity: 0.15; }
+    75%      { opacity: 0.9; }
+    85%      { opacity: 0.2; }
+  }
+  .animate-bbox { stroke-dasharray: 240; animation: bbox-redraw 5.4s ease-in-out infinite; }
+
+  /* glitch text — subtle */
+  @keyframes glitch-shift {
+    0%, 92%, 100% { transform: translate(0,0); }
+    93% { transform: translate(-1px, 0); }
+    95% { transform: translate(1px, 0); }
+    97% { transform: translate(0, 1px); }
+  }
+  .animate-glitch { animation: glitch-shift 6s steps(1) infinite; }
+
+  /* confidence bar tick */
+  @keyframes conf-tick {
+    0%, 100% { width: 31%; }
+    40%      { width: 31%; }
+    50%      { width: 18%; }
+    60%      { width: 41%; }
+    70%      { width: 22%; }
+  }
+  .animate-conf { animation: conf-tick 5.4s linear infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-hud-scan, .animate-bbox, .animate-glitch, .animate-conf,
+    .animate-breathe, .animate-drift, .animate-light, .animate-ev,
+    .animate-scan, .animate-scan-x, .animate-lock, .animate-live, .animate-grain {
+      animation: none !important;
+    }
+  }
 }
