@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
+import { OpticalHUD } from "@/components/optical/OpticalHUD";
 import { ResearchLandscape } from "@/components/ResearchLandscape";
 import { ScientificBase } from "@/components/ScientificBase";
 import { TimelineDisclosure } from "@/components/TimelineDisclosure";
