@@ -44,7 +44,7 @@ function Index() {
       <SkinToneStrip />
       <Navbar />
       <Hero />
-      <ResearchLandscape />
+      <IncidentLog />
       <ScientificBase />
       <Product />
       <ExposureMatrix />
