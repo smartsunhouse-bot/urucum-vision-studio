@@ -40,6 +40,7 @@ function Index() {
   useReveal();
   return (
     <main className="relative">
+      <OpticalHUD />
       <SkinToneStrip />
       <Navbar />
       <Hero />
