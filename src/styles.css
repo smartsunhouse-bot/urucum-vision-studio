@@ -120,6 +120,15 @@
 
   --shadow-glow: 0 0 80px -10px oklch(0.55 0.18 35 / 0.5);
   --shadow-elegant: 0 30px 80px -20px oklch(0 0 0 / 0.6);
+
+  /* Optical Infrastructure tokens */
+  --signal-cold: oklch(0.78 0.10 220);
+  --signal-hot:  oklch(0.68 0.24 28);
+  --grid-line:   oklch(0.96 0.005 80 / 0.06);
+  --grid-line-strong: oklch(0.96 0.005 80 / 0.14);
+  --scanline:    oklch(0.96 0.005 80 / 0.03);
+  --ink:         oklch(0.96 0.005 80);
+  --ink-dim:     oklch(0.62 0.008 70);
 }
 
 @theme inline {
