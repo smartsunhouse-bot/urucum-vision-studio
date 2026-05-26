@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { OpticalHUD } from "@/components/optical/OpticalHUD";
 import { IncidentLog } from "@/components/IncidentLog";
 import { ScientificBase } from "@/components/ScientificBase";
 import { TimelineDisclosure } from "@/components/TimelineDisclosure";
@@ -19,13 +18,13 @@ import { useReveal } from "@/hooks/use-reveal";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "URUCUM AI — Vision Infrastructure" },
+      { title: "URUCUM AI — Infraestrutura de Visão" },
       {
         name: "description",
         content:
           "Infraestrutura para geração e modelagem de datasets visuais com controle programável de tons de pele, iluminação, exposição e contexto.",
       },
-      { property: "og:title", content: "URUCUM AI — Vision Infrastructure" },
+      { property: "og:title", content: "URUCUM AI — Infraestrutura de Visão" },
       {
         property: "og:description",
         content:
@@ -40,7 +39,6 @@ function Index() {
   useReveal();
   return (
     <main className="relative">
-      <OpticalHUD />
       <SkinToneStrip />
       <Navbar />
       <Hero />
