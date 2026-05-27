@@ -5,6 +5,7 @@ import imgGoogle from "@/assets/refs/google.jpg";
 import imgAmazon from "@/assets/refs/amazon.jpg";
 import imgCOMPAS from "@/assets/refs/compas.jpg";
 import imgAJL from "@/assets/refs/ajl.jpg";
+import imgIBM from "@/assets/refs/ibm.jpg";
 import imgStanford from "@/assets/refs/stanford.jpg";
 import bookOppression from "@/assets/refs/book-oppression.jpg";
 import bookRace from "@/assets/refs/book-race.jpg";
@@ -71,7 +72,7 @@ const records: Record[] = [
       "VLMs produzem descrições mais homogêneas para pessoas negras de pele escura — reduzem individualidade e reforçam estereótipos. Apagamento subjetivo computacional.",
     source: "arXiv · 2024",
     href: "https://arxiv.org/",
-    image: imgIBM(),
+    image: imgIBM,
     capacity: "512 GB",
   },
   {
@@ -245,15 +246,6 @@ const records: Record[] = [
   },
 ];
 
-// fallback para IBM image se ainda existir o asset
-function imgIBM() {
-  // dinâmico para evitar erro de build caso o asset não esteja presente
-  try {
-    return new URL("../assets/refs/ibm.jpg", import.meta.url).href;
-  } catch {
-    return imgMIT;
-  }
-}
 
 /** Cartão SD individual */
 function SDCard({
