@@ -1,7 +1,10 @@
-// A Base Científica — autoridade epistêmica via citações.
+// A Base Científica — fichas de arquivo (dossiê) com aba superior + linha leve.
+// Substitui os antigos cards quadrados por silhuetas de "arquivo morto" /
+// pasta suspensa, mantendo a mesma informação editorial.
 
 const refs = [
   {
+    code: "DOC-01",
     title: "Race After Technology",
     author: "Ruha Benjamin",
     year: "2019",
@@ -10,6 +13,7 @@ const refs = [
     tag: "sociologia da tecnologia · Princeton",
   },
   {
+    code: "DOC-02",
     title: "Algorithms of Oppression",
     author: "Safiya Umoja Noble",
     year: "2018",
@@ -18,6 +22,7 @@ const refs = [
     tag: "data studies · UCLA",
   },
   {
+    code: "DOC-03",
     title: "Gender Shades",
     author: "Joy Buolamwini · Timnit Gebru",
     year: "2018",
@@ -26,6 +31,7 @@ const refs = [
     tag: "MIT Media Lab · auditoria comercial",
   },
   {
+    code: "DOC-04",
     title: "Pele Alvo",
     author: "Silvio Almeida",
     year: "2018",
@@ -58,7 +64,7 @@ export function ScientificBase() {
                 boxShadow: "0 0 12px oklch(0.62 0.24 26 / 0.9)",
               }}
             />
-            <span>03 · base científica</span>
+            <span>03 · base científica · arquivo</span>
           </div>
 
           <h2 className="mt-6 font-serif font-light text-[40px] md:text-[56px] lg:text-[64px] leading-[1.02] tracking-[-0.02em] text-foreground/95">
@@ -80,63 +86,82 @@ export function ScientificBase() {
           </p>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-px bg-foreground/8 border border-foreground/10">
-          {refs.map((r) => (
-            <article
-              key={r.title}
-              className="relative p-7 lg:p-10 bg-[oklch(0.092_0.012_34)] hover:bg-[oklch(0.102_0.014_34)] transition-colors duration-500 flex flex-col gap-6"
-            >
-              <span className="absolute top-2 left-2 w-2 h-px bg-foreground/25" />
-              <span className="absolute top-2 left-2 w-px h-2 bg-foreground/25" />
-
-              <div className="flex items-start justify-between gap-6">
-                {/* Minimal "book cover" */}
-                <div
-                  className="shrink-0 w-16 h-24 relative overflow-hidden"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, oklch(0.18 0.04 30), oklch(0.12 0.02 28))",
-                    boxShadow:
-                      "inset 0 0 0 1px oklch(0.55 0.18 35 / 0.25), 0 8px 24px -8px oklch(0 0 0 / 0.6)",
-                  }}
-                >
-                  <span
-                    className="absolute left-0 top-0 bottom-0 w-[3px]"
-                    style={{
-                      background: "oklch(0.62 0.24 26)",
-                      boxShadow: "0 0 12px oklch(0.62 0.24 26 / 0.6)",
-                    }}
-                  />
-                  <span className="absolute inset-x-2 bottom-2 text-[6.5px] font-mono tracking-[0.28em] uppercase text-foreground/55 leading-tight">
-                    {r.year}
-                  </span>
-                </div>
-
-                <div className="flex-1">
-                  <div className="text-[10px] font-mono tracking-[0.32em] uppercase text-foreground/40">
-                    referência · {r.year}
-                  </div>
-                  <h3
-                    className="mt-2 font-serif font-light text-[24px] lg:text-[28px] leading-[1.1] tracking-[-0.01em]"
-                    style={{ color: "oklch(0.94 0.03 35)" }}
-                  >
-                    {r.title}
-                  </h3>
-                  <div className="mt-1.5 text-[13px] text-foreground/65">
-                    {r.author}
-                  </div>
-                </div>
+        {/* Fichas de arquivo — silhueta de pasta com aba superior */}
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-14">
+          {refs.map((r, idx) => (
+            <article key={r.title} className="relative group">
+              {/* Aba (tab) do arquivo */}
+              <div className="absolute -top-3 left-6 flex items-center gap-2 px-3 h-6 font-mono text-[9.5px] tracking-[0.32em] uppercase z-10"
+                   style={{
+                     color: "var(--muted-foreground)",
+                     background: "oklch(0.105 0.014 34)",
+                     border: "1px solid oklch(0.55 0.18 35 / 0.25)",
+                     borderBottom: "none",
+                     clipPath:
+                       "polygon(0 0, calc(100% - 10px) 0, 100% 100%, 0 100%)",
+                   }}>
+                <span style={{ color: "oklch(0.66 0.24 28)" }}>{r.code}</span>
+                <span className="opacity-50">·</span>
+                <span>{r.year}</span>
               </div>
 
-              <blockquote
-                className="relative pl-5 text-[15px] leading-[1.7] text-foreground/80 italic font-serif"
-                style={{ borderLeft: "1px solid oklch(0.55 0.18 35 / 0.4)" }}
+              {/* Corpo da ficha — linha fina, sem preenchimento pesado */}
+              <div
+                className="relative pt-10 pb-9 pl-8 pr-7 transition-colors duration-500 group-hover:border-[oklch(0.55_0.18_35_/_0.45)]"
+                style={{
+                  border: "1px solid oklch(0.55 0.18 35 / 0.22)",
+                  background:
+                    "linear-gradient(180deg, oklch(0.105 0.014 34 / 0.6), oklch(0.092 0.012 32 / 0.4))",
+                }}
               >
-                “{r.quote}”
-              </blockquote>
+                {/* margem interna tipo formulário arquivado */}
+                <span
+                  className="absolute left-3 top-3 bottom-3 w-px"
+                  style={{ background: "oklch(0.55 0.18 35 / 0.18)" }}
+                />
+                {/* furos de fichário */}
+                <span className="absolute left-[5px] top-9 w-[3px] h-[3px] rounded-full"
+                      style={{ background: "oklch(0.55 0.18 35 / 0.5)" }} />
+                <span className="absolute left-[5px] top-1/2 w-[3px] h-[3px] rounded-full"
+                      style={{ background: "oklch(0.55 0.18 35 / 0.5)" }} />
+                <span className="absolute left-[5px] bottom-9 w-[3px] h-[3px] rounded-full"
+                      style={{ background: "oklch(0.55 0.18 35 / 0.5)" }} />
 
-              <div className="pt-4 border-t border-foreground/10 text-[10px] font-mono tracking-[0.22em] uppercase text-foreground/45">
-                {r.tag}
+                <div className="text-[10px] font-mono tracking-[0.32em] uppercase text-foreground/45">
+                  referência arquivada · vol. {String(idx + 1).padStart(2, "0")}
+                </div>
+                <h3
+                  className="mt-3 font-serif font-light text-[26px] lg:text-[32px] leading-[1.08] tracking-[-0.015em]"
+                  style={{ color: "oklch(0.94 0.03 35)" }}
+                >
+                  {r.title}
+                </h3>
+                <div className="mt-2 text-[13px] text-foreground/65 font-mono tracking-wide">
+                  {r.author}
+                </div>
+
+                <blockquote
+                  className="relative mt-7 pl-5 text-[15px] leading-[1.75] text-foreground/82 italic font-serif"
+                  style={{ borderLeft: "1px solid oklch(0.55 0.18 35 / 0.4)" }}
+                >
+                  “{r.quote}”
+                </blockquote>
+
+                <div className="mt-7 pt-4 flex items-center justify-between border-t border-foreground/10">
+                  <span className="text-[10px] font-mono tracking-[0.22em] uppercase text-foreground/45">
+                    {r.tag}
+                  </span>
+                  {/* carimbo "arquivado" */}
+                  <span
+                    className="font-mono text-[8.5px] tracking-[0.4em] uppercase px-2 py-0.5 rotate-[-4deg]"
+                    style={{
+                      color: "oklch(0.66 0.24 28 / 0.85)",
+                      border: "1px solid oklch(0.66 0.24 28 / 0.45)",
+                    }}
+                  >
+                    arquivado
+                  </span>
+                </div>
               </div>
             </article>
           ))}
