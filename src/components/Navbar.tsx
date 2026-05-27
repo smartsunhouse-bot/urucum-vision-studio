@@ -71,7 +71,7 @@ export function Navbar() {
           : ""
       }`}
     >
-      <nav className="max-w-[1320px] mx-auto px-6 lg:px-12 h-[84px] grid grid-cols-[auto_1fr_auto] items-center gap-10">
+      <nav className="max-w-[1320px] mx-auto px-6 lg:px-12 h-[104px] grid grid-cols-[auto_1fr_auto] items-center gap-10">
         {/* logo */}
         <a href="/" className="flex items-center gap-3 group">
           <img
