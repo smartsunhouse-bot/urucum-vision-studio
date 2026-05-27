@@ -12,7 +12,7 @@ import { Results } from "@/components/Results";
 import { Docs } from "@/components/Docs";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
-import { SkinToneStrip } from "@/components/SkinToneStrip";
+
 import { useReveal } from "@/hooks/use-reveal";
 
 export const Route = createFileRoute("/")({
@@ -39,7 +39,6 @@ function Index() {
   useReveal();
   return (
     <main className="relative">
-      <SkinToneStrip />
       <Navbar />
       <Hero />
       <IncidentLog />
