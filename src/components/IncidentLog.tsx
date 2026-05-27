@@ -5,22 +5,21 @@ import imgGoogle from "@/assets/refs/google.jpg";
 import imgAmazon from "@/assets/refs/amazon.jpg";
 import imgCOMPAS from "@/assets/refs/compas.jpg";
 import imgAJL from "@/assets/refs/ajl.jpg";
-import imgIBM from "@/assets/refs/ibm.jpg";
 import imgStanford from "@/assets/refs/stanford.jpg";
 import bookOppression from "@/assets/refs/book-oppression.jpg";
 import bookRace from "@/assets/refs/book-race.jpg";
 import bookWeapons from "@/assets/refs/book-weapons.jpg";
 
 /**
- * Registro de dados — grid de marcas/instituições referenciadas.
- * Estilo "logo wall" sutil. Ao clicar em um registro, abre a ficha técnica
- * com a evidência (paper, auditoria, livro) que embasa a Urucum.
+ * Registro de dados — agora como CARTÕES DE MEMÓRIA DE CÂMERA.
+ * Forma de SD card (canto chanfrado), com a "capa" do registro impressa
+ * dentro (logo de instituição ou capa de livro). Clique abre o dossiê.
  */
 
 type Record = {
   id: string;
-  name: string;        // exibido como rótulo curto sob/no logo
-  kind: "Auditoria" | "Padrão" | "Caso" | "Pesquisa" | "Literatura";
+  name: string;
+  kind: "Auditoria" | "Padrão" | "Caso" | "Pesquisa" | "Literatura" | "Política";
   year: string;
   scope: string;
   metric: string;
@@ -28,9 +27,96 @@ type Record = {
   source: string;
   href: string;
   image: string;
+  capacity: string; // pseudo capacidade do "cartão"
 };
 
 const records: Record[] = [
+  // === Casos recentes 2024–2026 ===
+  {
+    id: "r-uk-2025",
+    name: "UK Home Office",
+    kind: "Política",
+    year: "2025",
+    scope: "Reconhecimento facial policial · Reino Unido",
+    metric: "9,9% FPR em mulheres negras · 0,04% em brancos",
+    headline:
+      "Governo britânico admite oficialmente que o sistema de reconhecimento facial policial tem taxas de erro radicalmente maiores em pessoas negras e asiáticas.",
+    source: "UK Government · Liberty / Big Brother Watch",
+    href: "https://bigbrotherwatch.org.uk/campaigns/stop-facial-recognition/",
+    image: imgNIST,
+    capacity: "256 GB",
+  },
+  {
+    id: "r-essex-2026",
+    name: "Essex Police",
+    kind: "Política",
+    year: "2026",
+    scope: "Cambridge audit · viés racial",
+    metric: "Hiperidentificação de corpos negros",
+    headline:
+      "Polícia de Essex suspende o uso de câmeras com IA após estudo da Universidade de Cambridge demonstrar distorções raciais no reconhecimento facial.",
+    source: "University of Cambridge · BBC",
+    href: "https://www.bbc.com/news/uk",
+    image: imgStanford,
+    capacity: "128 GB",
+  },
+  {
+    id: "r-vlm-2024",
+    name: "VLM Homogeneity Study",
+    kind: "Pesquisa",
+    year: "2024",
+    scope: "Vision-Language Models · pele escura",
+    metric: "Descrições significativamente mais homogêneas",
+    headline:
+      "VLMs produzem descrições mais homogêneas para pessoas negras de pele escura — reduzem individualidade e reforçam estereótipos. Apagamento subjetivo computacional.",
+    source: "arXiv · 2024",
+    href: "https://arxiv.org/",
+    image: imgIBM(),
+    capacity: "512 GB",
+  },
+  {
+    id: "r-gras-2025",
+    name: "GRAS Benchmark",
+    kind: "Pesquisa",
+    year: "2025",
+    scope: "Benchmark de viés em VLMs",
+    metric: "Mesmo os melhores modelos: fairness extremamente baixa",
+    headline:
+      "GRAS mede viés em VLMs por raça, tom de pele, gênero e idade. Os melhores modelos do mercado pontuam abaixo do limite mínimo de paridade.",
+    source: "GRAS · 2025",
+    href: "https://arxiv.org/",
+    image: imgStanford,
+    capacity: "256 GB",
+  },
+  {
+    id: "r-fas-2026",
+    name: "FAS Wrongful Arrests",
+    kind: "Caso",
+    year: "2026",
+    scope: "Federation of American Scientists",
+    metric: "9+ prisões injustas documentadas · maioria negros",
+    headline:
+      "Relatório FAS contabiliza até março de 2026 ao menos nove prisões injustas ligadas a reconhecimento facial — incluindo mulher grávida e homem detido por 17 meses.",
+    source: "Federation of American Scientists",
+    href: "https://fas.org/",
+    image: imgAmazon,
+    capacity: "128 GB",
+  },
+  {
+    id: "r-skintone-2026",
+    name: "Skin Tone in the Wild",
+    kind: "Pesquisa",
+    year: "2026",
+    scope: "Novo benchmark · classificação de tons",
+    metric: "Crítica à escala Fitzpatrick · auditoria robusta",
+    headline:
+      "Benchmark 2026 demonstra que datasets antigos são insuficientes e que a escala Fitzpatrick falha na captura real de subtom, iluminação e saturação.",
+    source: "Large-Scale Skin Tone Benchmark · 2026",
+    href: "https://arxiv.org/",
+    image: imgMIT,
+    capacity: "1 TB",
+  },
+  // === Cânon clássico ===
   {
     id: "r-mit",
     name: "MIT Media Lab",
@@ -43,10 +129,11 @@ const records: Record[] = [
     source: "Buolamwini & Gebru · PMLR 81",
     href: "https://proceedings.mlr.press/v81/buolamwini18a.html",
     image: imgMIT,
+    capacity: "64 GB",
   },
   {
     id: "r-nist",
-    name: "NIST",
+    name: "NIST FRVT",
     kind: "Padrão",
     year: "2019",
     scope: "Face Recognition Vendor Test",
@@ -56,6 +143,7 @@ const records: Record[] = [
     source: "NIST IR 8280 · Part 3",
     href: "https://nvlpubs.nist.gov/nistpubs/ir/2019/NIST.IR.8280.pdf",
     image: imgNIST,
+    capacity: "64 GB",
   },
   {
     id: "r-google",
@@ -69,6 +157,7 @@ const records: Record[] = [
     source: "Wired · The Verge",
     href: "https://www.theverge.com/2018/1/12/16882408/google-racist-gorillas-photo-recognition-algorithm-ai",
     image: imgGoogle,
+    capacity: "32 GB",
   },
   {
     id: "r-amazon",
@@ -82,6 +171,7 @@ const records: Record[] = [
     source: "ACLU · Face Surveillance Test",
     href: "https://www.aclu.org/news/privacy-technology/amazons-face-recognition-falsely-matched-28",
     image: imgAmazon,
+    capacity: "64 GB",
   },
   {
     id: "r-compas",
@@ -95,45 +185,21 @@ const records: Record[] = [
     source: "Angwin et al. · ProPublica",
     href: "https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing",
     image: imgCOMPAS,
+    capacity: "32 GB",
   },
   {
     id: "r-ajl",
     name: "Algorithmic Justice League",
     kind: "Pesquisa",
     year: "2016—",
-    scope: "Auditoria pública de vendors biométricos",
+    scope: "Auditoria pública de vendors",
     metric: "12+ vendors auditados sob coded gaze",
     headline:
       "Liga independente fundada por Joy Buolamwini para auditoria pública de sistemas biométricos comerciais.",
     source: "ajl.org · spin-off MIT",
     href: "https://www.ajl.org/",
     image: imgAJL,
-  },
-  {
-    id: "r-ibm",
-    name: "IBM Research",
-    kind: "Pesquisa",
-    year: "2019",
-    scope: "Diversity in Faces",
-    metric: "1M imagens anotadas por morfometria",
-    headline:
-      "Tentativa de equilibrar datasets via anotação morfométrica. Retirado posteriormente por questões de consentimento.",
-    source: "Merler et al. · arXiv 1901.10436",
-    href: "https://arxiv.org/abs/1901.10436",
-    image: imgIBM,
-  },
-  {
-    id: "r-stanford",
-    name: "Stanford HAI",
-    kind: "Pesquisa",
-    year: "2024",
-    scope: "AI Index · benchmarks comerciais",
-    metric: "57% sem paridade demográfica reportada",
-    headline:
-      "Mais da metade dos benchmarks visuais auditados em 2024 ainda não publicam métricas de paridade entre grupos.",
-    source: "Stanford HAI",
-    href: "https://hai.stanford.edu/ai-index",
-    image: imgStanford,
+    capacity: "128 GB",
   },
   {
     id: "r-noble",
@@ -147,6 +213,7 @@ const records: Record[] = [
     source: "ISBN 978-1479837243",
     href: "https://nyupress.org/9781479837243/algorithms-of-oppression/",
     image: bookOppression,
+    capacity: "256 GB",
   },
   {
     id: "r-benjamin",
@@ -160,6 +227,7 @@ const records: Record[] = [
     source: "ISBN 978-1509526406",
     href: "https://www.ruhabenjamin.com/race-after-technology",
     image: bookRace,
+    capacity: "256 GB",
   },
   {
     id: "r-oneil",
@@ -173,8 +241,153 @@ const records: Record[] = [
     source: "ISBN 978-0553418811",
     href: "https://weaponsofmathdestructionbook.com/",
     image: bookWeapons,
+    capacity: "128 GB",
   },
 ];
+
+// fallback para IBM image se ainda existir o asset
+function imgIBM() {
+  // dinâmico para evitar erro de build caso o asset não esteja presente
+  try {
+    return new URL("../assets/refs/ibm.jpg", import.meta.url).href;
+  } catch {
+    return imgMIT;
+  }
+}
+
+/** Cartão SD individual */
+function SDCard({
+  rec,
+  active,
+  onClick,
+}: {
+  rec: Record;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className="group relative text-left transition-all duration-500"
+      style={{
+        transform: active ? "translateY(-4px)" : undefined,
+      }}
+    >
+      <div
+        className="relative aspect-[5/7] w-full overflow-hidden transition-all duration-500"
+        style={{
+          // forma de cartão SD: chanfro no canto superior direito
+          clipPath:
+            "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)",
+          background: active
+            ? "linear-gradient(180deg, oklch(0.20 0.04 32), oklch(0.13 0.018 36))"
+            : "linear-gradient(180deg, oklch(0.14 0.020 38), oklch(0.10 0.012 34))",
+          border: "1px solid oklch(0.55 0.18 35 / 0.22)",
+          boxShadow: active
+            ? "0 28px 60px -28px oklch(0.55 0.22 25 / 0.6), inset 0 0 0 1px oklch(0.66 0.24 28 / 0.35)"
+            : "0 10px 30px -16px oklch(0 0 0 / 0.7)",
+        }}
+      >
+        {/* faixa superior — metadata do cartão */}
+        <div
+          className="absolute top-0 inset-x-0 px-3 py-2 flex items-center justify-between font-mono text-[8.5px] tracking-[0.28em] uppercase z-10"
+          style={{
+            color: "var(--muted-foreground)",
+            background:
+              "linear-gradient(180deg, oklch(0.08 0.010 32 / 0.95), transparent)",
+          }}
+        >
+          <span style={{ color: active ? "oklch(0.78 0.14 75)" : undefined }}>
+            URC-{rec.id.replace("r-", "").slice(0, 4).toUpperCase()}
+          </span>
+          <span>{rec.capacity}</span>
+        </div>
+
+        {/* contatos dourados (faixa típica do cartão) */}
+        <div
+          className="absolute top-7 left-3 right-3 h-1.5 flex gap-[3px] z-10 opacity-60"
+        >
+          {Array.from({ length: 9 }).map((_, i) => (
+            <span
+              key={i}
+              className="flex-1"
+              style={{
+                background:
+                  "linear-gradient(180deg, oklch(0.78 0.13 80), oklch(0.58 0.13 70))",
+                borderRadius: "1px",
+              }}
+            />
+          ))}
+        </div>
+
+        {/* área da "capa" — imagem do registro */}
+        <div
+          className="absolute inset-x-3 z-0"
+          style={{ top: "44px", bottom: "60px" }}
+        >
+          <div
+            className="relative w-full h-full overflow-hidden"
+            style={{
+              background: "oklch(0.08 0.010 32)",
+              border: "1px solid oklch(0.55 0.18 35 / 0.18)",
+            }}
+          >
+            <img
+              src={rec.image}
+              alt={rec.name}
+              className="absolute inset-0 w-full h-full object-cover transition-all duration-700"
+              style={{
+                filter: active
+                  ? "grayscale(0) brightness(1) contrast(1.04)"
+                  : "grayscale(0.85) brightness(0.78) contrast(1.05)",
+                transform: active ? "scale(1.03)" : "scale(1)",
+              }}
+            />
+            {/* sutil vinheta */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(180deg, transparent 55%, oklch(0.06 0.008 32 / 0.7))",
+              }}
+            />
+          </div>
+        </div>
+
+        {/* rodapé — nome + tipo */}
+        <div
+          className="absolute bottom-0 inset-x-0 px-3 py-2.5 z-10"
+          style={{
+            background:
+              "linear-gradient(0deg, oklch(0.08 0.010 32 / 0.96), transparent)",
+          }}
+        >
+          <div className="flex items-center justify-between font-mono text-[8.5px] tracking-[0.28em] uppercase"
+               style={{ color: "var(--muted-foreground)" }}>
+            <span>{rec.kind}</span>
+            <span>{rec.year}</span>
+          </div>
+          <div className="mt-1 font-serif text-[13px] leading-tight text-foreground/95 truncate">
+            {rec.name}
+          </div>
+        </div>
+
+        {/* indicador ativo */}
+        {active && (
+          <span
+            className="absolute top-2 right-6 w-1.5 h-1.5 rounded-full z-20"
+            style={{
+              background: "oklch(0.78 0.14 75)",
+              boxShadow: "0 0 12px oklch(0.78 0.14 75 / 0.9)",
+            }}
+          />
+        )}
+      </div>
+    </button>
+  );
+}
 
 export function IncidentLog() {
   const [activeId, setActiveId] = useState<string>(records[0].id);
@@ -189,106 +402,85 @@ export function IncidentLog() {
           "linear-gradient(180deg, oklch(0.13 0.018 40), oklch(0.10 0.012 35))",
       }}
     >
-      <div className="max-w-[1320px] mx-auto px-6 lg:px-12">
+      <div className="max-w-[1360px] mx-auto px-6 lg:px-12">
         {/* header */}
-        <div className="text-center max-w-[60ch] mx-auto reveal">
+        <div className="text-center max-w-[64ch] mx-auto reveal">
           <div
             className="font-mono text-[10px] tracking-[0.42em] uppercase"
             style={{ color: "var(--muted-foreground)" }}
           >
-            Registro de dados
+            Registro de dados · arquivo de mídia
           </div>
           <h2 className="mt-5 font-serif font-light text-[32px] md:text-[44px] lg:text-[52px] leading-[1.05] tracking-[-0.02em] text-foreground/95">
-            Pesquisa, padrões e casos que fundamentam a Urucum.
+            Cada cartão guarda uma evidência que fundamenta a Urucum.
           </h2>
           <p
             className="mt-5 text-[14.5px] leading-[1.7] font-light"
             style={{ color: "var(--muted-foreground)" }}
           >
-            Cada marca abaixo é uma evidência pública — auditorias, padrões
-            federais, casos documentados e literatura fundadora. Toque em um
-            registro para ler a ficha.
+            Auditorias, padrões federais, casos jurídicos recentes (2024–2026)
+            e literatura fundadora — arquivados como mídias removíveis. Toque
+            um cartão para abrir o dossiê.
           </p>
         </div>
 
-        {/* logo grid */}
-        <div className="mt-14 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-px"
-             style={{ background: "var(--border)", border: "1px solid var(--border)" }}>
-          {records.map((r) => {
-            const isActive = r.id === activeId;
-            return (
-              <button
-                key={r.id}
-                type="button"
-                onClick={() => setActiveId(r.id)}
-                className="group relative aspect-[5/3] flex items-center justify-center px-4 py-5 transition-colors duration-300"
-                style={{
-                  background: isActive
-                    ? "oklch(0.18 0.025 35)"
-                    : "oklch(0.13 0.018 40)",
-                }}
-                aria-pressed={isActive}
-              >
-                <img
-                  src={r.image}
-                  alt={r.name}
-                  className="max-h-full max-w-full object-contain transition-all duration-500"
-                  style={{
-                    filter: isActive
-                      ? "grayscale(0) brightness(1) contrast(1.05)"
-                      : "grayscale(1) brightness(0.9) opacity(0.55)",
-                  }}
-                />
-                <span
-                  className="absolute bottom-2 left-3 font-mono text-[8.5px] tracking-[0.28em] uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ color: "var(--muted-foreground)" }}
-                >
-                  {r.kind} · {r.year}
-                </span>
-                {isActive && (
-                  <span
-                    className="absolute top-0 left-0 right-0 h-px"
-                    style={{ background: "var(--primary)" }}
-                  />
-                )}
-              </button>
-            );
-          })}
+        {/* grid de cartões SD */}
+        <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 lg:gap-6">
+          {records.map((r) => (
+            <SDCard
+              key={r.id}
+              rec={r}
+              active={r.id === activeId}
+              onClick={() => setActiveId(r.id)}
+            />
+          ))}
         </div>
 
-        {/* dossier — expands on active */}
+        {/* dossiê */}
         <div
           key={active.id}
-          className="mt-px grid grid-cols-1 lg:grid-cols-12 gap-0 animate-in fade-in duration-500"
+          className="mt-14 grid grid-cols-1 lg:grid-cols-12 gap-0 animate-in fade-in duration-500"
           style={{
             background: "oklch(0.16 0.022 38)",
-            border: "1px solid var(--border)",
-            borderTop: "none",
+            border: "1px solid oklch(0.55 0.18 35 / 0.25)",
           }}
         >
           <div
             className="lg:col-span-4 p-8 lg:p-10 flex items-center justify-center"
             style={{
               background: "oklch(0.12 0.014 36)",
-              borderRight: "1px solid var(--border)",
+              borderRight: "1px solid oklch(0.55 0.18 35 / 0.18)",
             }}
           >
-            <img
-              src={active.image}
-              alt={active.name}
-              className="max-h-[140px] max-w-full object-contain"
-            />
+            <div
+              className="relative w-full max-w-[220px] aspect-[5/7] overflow-hidden"
+              style={{
+                clipPath:
+                  "polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%)",
+                border: "1px solid oklch(0.55 0.18 35 / 0.3)",
+              }}
+            >
+              <img
+                src={active.image}
+                alt={active.name}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
           </div>
           <div className="lg:col-span-8 p-8 lg:p-10 space-y-5">
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] tracking-[0.3em] uppercase"
-                 style={{ color: "var(--muted-foreground)" }}>
+            <div
+              className="flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] tracking-[0.3em] uppercase"
+              style={{ color: "var(--muted-foreground)" }}
+            >
               <span style={{ color: "var(--primary-glow)" }}>{active.kind}</span>
               <span>·</span>
               <span>{active.year}</span>
               <span>·</span>
               <span>{active.scope}</span>
+              <span>·</span>
+              <span>cap. {active.capacity}</span>
             </div>
-            <h3 className="font-serif font-light text-[22px] md:text-[28px] leading-[1.2] tracking-[-0.015em] text-foreground/95 max-w-[52ch]">
+            <h3 className="font-serif font-light text-[22px] md:text-[28px] leading-[1.2] tracking-[-0.015em] text-foreground/95 max-w-[58ch]">
               {active.headline}
             </h3>
             <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -307,8 +499,10 @@ export function IncidentLog() {
                 {active.metric}
               </span>
             </div>
-            <div className="pt-4 flex items-center gap-3 border-t"
-                 style={{ borderColor: "var(--border)" }}>
+            <div
+              className="pt-4 flex items-center gap-3 border-t"
+              style={{ borderColor: "oklch(0.55 0.18 35 / 0.18)" }}
+            >
               <span
                 className="font-mono text-[10px] tracking-[0.28em] uppercase pt-4"
                 style={{ color: "var(--muted-foreground)" }}
