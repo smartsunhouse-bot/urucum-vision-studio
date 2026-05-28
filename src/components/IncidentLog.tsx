@@ -247,7 +247,7 @@ const records: Record[] = [
 ];
 
 
-/** Cartão SD individual */
+/** Cartão silencioso — apenas imagem + nome + ano. Sem chanfros, sem contatos dourados. */
 function SDCard({
   rec,
   active,
@@ -262,124 +262,58 @@ function SDCard({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="group relative text-left transition-all duration-500"
-      style={{
-        transform: active ? "translateY(-4px)" : undefined,
-      }}
+      className="group relative text-left"
     >
       <div
-        className="relative aspect-[5/7] w-full overflow-hidden transition-all duration-500"
+        className="relative aspect-[4/5] w-full overflow-hidden transition-all duration-500"
         style={{
-          // forma de cartão SD: chanfro no canto superior direito
-          clipPath:
-            "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)",
-          background: active
-            ? "linear-gradient(180deg, oklch(0.20 0.04 32), oklch(0.13 0.018 36))"
-            : "linear-gradient(180deg, oklch(0.14 0.020 38), oklch(0.10 0.012 34))",
-          border: "1px solid oklch(0.55 0.18 35 / 0.22)",
-          boxShadow: active
-            ? "0 28px 60px -28px oklch(0.55 0.22 25 / 0.6), inset 0 0 0 1px oklch(0.66 0.24 28 / 0.35)"
-            : "0 10px 30px -16px oklch(0 0 0 / 0.7)",
+          background: "oklch(0.10 0.012 34)",
+          border: active
+            ? "1px solid oklch(0.70 0.04 35 / 0.45)"
+            : "1px solid oklch(0.55 0.05 35 / 0.12)",
         }}
       >
-        {/* faixa superior — metadata do cartão */}
-        <div
-          className="absolute top-0 inset-x-0 px-3 py-2 flex items-center justify-between font-mono text-[8.5px] tracking-[0.28em] uppercase z-10"
+        <img
+          src={rec.image}
+          alt={rec.name}
+          className="absolute inset-0 w-full h-full object-cover transition-all duration-700"
           style={{
-            color: "var(--muted-foreground)",
-            background:
-              "linear-gradient(180deg, oklch(0.08 0.010 32 / 0.95), transparent)",
+            filter: active
+              ? "grayscale(0) brightness(0.95) contrast(1.02)"
+              : "grayscale(1) brightness(0.7) contrast(1.02)",
           }}
-        >
-          <span style={{ color: active ? "oklch(0.78 0.14 75)" : undefined }}>
-            URC-{rec.id.replace("r-", "").slice(0, 4).toUpperCase()}
-          </span>
-          <span>{rec.capacity}</span>
-        </div>
-
-        {/* contatos dourados (faixa típica do cartão) */}
+        />
         <div
-          className="absolute top-7 left-3 right-3 h-1.5 flex gap-[3px] z-10 opacity-60"
-        >
-          {Array.from({ length: 9 }).map((_, i) => (
-            <span
-              key={i}
-              className="flex-1"
-              style={{
-                background:
-                  "linear-gradient(180deg, oklch(0.78 0.13 80), oklch(0.58 0.13 70))",
-                borderRadius: "1px",
-              }}
-            />
-          ))}
-        </div>
-
-        {/* área da "capa" — imagem do registro */}
-        <div
-          className="absolute inset-x-3 z-0"
-          style={{ top: "44px", bottom: "60px" }}
-        >
-          <div
-            className="relative w-full h-full overflow-hidden"
-            style={{
-              background: "oklch(0.08 0.010 32)",
-              border: "1px solid oklch(0.55 0.18 35 / 0.18)",
-            }}
-          >
-            <img
-              src={rec.image}
-              alt={rec.name}
-              className="absolute inset-0 w-full h-full object-cover transition-all duration-700"
-              style={{
-                filter: active
-                  ? "grayscale(0) brightness(1) contrast(1.04)"
-                  : "grayscale(0.85) brightness(0.78) contrast(1.05)",
-                transform: active ? "scale(1.03)" : "scale(1)",
-              }}
-            />
-            {/* sutil vinheta */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(180deg, transparent 55%, oklch(0.06 0.008 32 / 0.7))",
-              }}
-            />
-          </div>
-        </div>
-
-        {/* rodapé — nome + tipo */}
-        <div
-          className="absolute bottom-0 inset-x-0 px-3 py-2.5 z-10"
+          className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "linear-gradient(0deg, oklch(0.08 0.010 32 / 0.96), transparent)",
+              "linear-gradient(180deg, transparent 50%, oklch(0.06 0.008 32 / 0.85))",
+          }}
+        />
+      </div>
+
+      <div className="mt-4 space-y-1">
+        <div
+          className="font-mono text-[9.5px] tracking-[0.32em] uppercase"
+          style={{
+            color: active ? "var(--foreground)" : "var(--muted-foreground)",
           }}
         >
-          <div className="flex items-center justify-between font-mono text-[8.5px] tracking-[0.28em] uppercase"
-               style={{ color: "var(--muted-foreground)" }}>
-            <span>{rec.kind}</span>
-            <span>{rec.year}</span>
-          </div>
-          <div className="mt-1 font-serif text-[13px] leading-tight text-foreground/95 truncate">
-            {rec.name}
-          </div>
+          {rec.year}
         </div>
-
-        {/* indicador ativo */}
-        {active && (
-          <span
-            className="absolute top-2 right-6 w-1.5 h-1.5 rounded-full z-20"
-            style={{
-              background: "oklch(0.78 0.14 75)",
-              boxShadow: "0 0 12px oklch(0.78 0.14 75 / 0.9)",
-            }}
-          />
-        )}
+        <div
+          className="font-serif text-[15px] leading-tight"
+          style={{
+            color: active ? "var(--foreground)" : "oklch(0.75 0.02 35)",
+          }}
+        >
+          {rec.name}
+        </div>
       </div>
     </button>
   );
 }
+
 
 export function IncidentLog() {
   const [activeId, setActiveId] = useState<string>(records[0].id);
@@ -388,36 +322,25 @@ export function IncidentLog() {
   return (
     <section
       id="incidentes"
-      className="relative w-full py-24 lg:py-32"
-      style={{
-        background:
-          "linear-gradient(180deg, oklch(0.13 0.018 40), oklch(0.10 0.012 35))",
-      }}
+      className="relative w-full py-32 lg:py-44"
+      style={{ background: "oklch(0.10 0.012 35)" }}
     >
-      <div className="max-w-[1360px] mx-auto px-6 lg:px-12">
-        {/* header */}
-        <div className="text-center max-w-[64ch] mx-auto reveal">
+      <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
+        {/* header silencioso, alinhado à esquerda */}
+        <div className="max-w-2xl">
           <div
             className="font-mono text-[10px] tracking-[0.42em] uppercase"
             style={{ color: "var(--muted-foreground)" }}
           >
-            Registro de dados · arquivo de mídia
+            Registro de dados
           </div>
-          <h2 className="mt-5 font-serif font-light text-[32px] md:text-[44px] lg:text-[52px] leading-[1.05] tracking-[-0.02em] text-foreground/95">
-            Cada cartão guarda uma evidência que fundamenta a Urucum.
+          <h2 className="mt-8 font-serif font-light text-[34px] md:text-[46px] lg:text-[54px] leading-[1.05] tracking-[-0.02em] text-foreground/95">
+            Evidências que fundamentam a Urucum.
           </h2>
-          <p
-            className="mt-5 text-[14.5px] leading-[1.7] font-light"
-            style={{ color: "var(--muted-foreground)" }}
-          >
-            Auditorias, padrões federais, casos jurídicos recentes (2024–2026)
-            e literatura fundadora — arquivados como mídias removíveis. Toque
-            um cartão para abrir o dossiê.
-          </p>
         </div>
 
-        {/* grid de cartões SD */}
-        <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 lg:gap-6">
+        {/* grid limpo, sem chanfros */}
+        <div className="mt-20 lg:mt-28 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-10 lg:gap-x-8 lg:gap-y-14">
           {records.map((r) => (
             <SDCard
               key={r.id}
@@ -428,30 +351,13 @@ export function IncidentLog() {
           ))}
         </div>
 
-        {/* dossiê */}
+        {/* dossiê — sem moldura pesada, sem borda vermelha */}
         <div
           key={active.id}
-          className="mt-14 grid grid-cols-1 lg:grid-cols-12 gap-0 animate-in fade-in duration-500"
-          style={{
-            background: "oklch(0.16 0.022 38)",
-            border: "1px solid oklch(0.55 0.18 35 / 0.25)",
-          }}
+          className="mt-24 lg:mt-32 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 animate-in fade-in duration-500"
         >
-          <div
-            className="lg:col-span-4 p-8 lg:p-10 flex items-center justify-center"
-            style={{
-              background: "oklch(0.12 0.014 36)",
-              borderRight: "1px solid oklch(0.55 0.18 35 / 0.18)",
-            }}
-          >
-            <div
-              className="relative w-full max-w-[220px] aspect-[5/7] overflow-hidden"
-              style={{
-                clipPath:
-                  "polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%)",
-                border: "1px solid oklch(0.55 0.18 35 / 0.3)",
-              }}
-            >
+          <div className="lg:col-span-4">
+            <div className="relative w-full aspect-[4/5] overflow-hidden">
               <img
                 src={active.image}
                 alt={active.name}
@@ -459,44 +365,32 @@ export function IncidentLog() {
               />
             </div>
           </div>
-          <div className="lg:col-span-8 p-8 lg:p-10 space-y-5">
+          <div className="lg:col-span-8 lg:pt-4 space-y-8">
             <div
-              className="flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] tracking-[0.3em] uppercase"
+              className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[10px] tracking-[0.3em] uppercase"
               style={{ color: "var(--muted-foreground)" }}
             >
-              <span style={{ color: "var(--primary-glow)" }}>{active.kind}</span>
+              <span>{active.kind}</span>
               <span>·</span>
               <span>{active.year}</span>
               <span>·</span>
               <span>{active.scope}</span>
-              <span>·</span>
-              <span>cap. {active.capacity}</span>
             </div>
-            <h3 className="font-serif font-light text-[22px] md:text-[28px] leading-[1.2] tracking-[-0.015em] text-foreground/95 max-w-[58ch]">
+            <h3 className="font-serif font-light text-[24px] md:text-[32px] leading-[1.2] tracking-[-0.015em] text-foreground/95 max-w-[58ch]">
               {active.headline}
             </h3>
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              <span
-                className="inline-flex items-center gap-2 px-3 py-1.5 font-mono text-[10px] tracking-[0.24em] uppercase rounded-[2px]"
-                style={{
-                  background: "oklch(0.22 0.06 30 / 0.55)",
-                  color: "var(--foreground)",
-                  border: "1px solid oklch(0.55 0.18 35 / 0.3)",
-                }}
-              >
-                <span
-                  className="inline-block w-1.5 h-1.5 rounded-full"
-                  style={{ background: "var(--primary-glow)" }}
-                />
-                {active.metric}
-              </span>
-            </div>
+            <p
+              className="text-[14px] leading-relaxed max-w-[52ch]"
+              style={{ color: "var(--muted-foreground)" }}
+            >
+              {active.metric}
+            </p>
             <div
-              className="pt-4 flex items-center gap-3 border-t"
-              style={{ borderColor: "oklch(0.55 0.18 35 / 0.18)" }}
+              className="pt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-t"
+              style={{ borderColor: "oklch(0.55 0.05 35 / 0.15)" }}
             >
               <span
-                className="font-mono text-[10px] tracking-[0.28em] uppercase pt-4"
+                className="font-mono text-[10px] tracking-[0.28em] uppercase pt-6"
                 style={{ color: "var(--muted-foreground)" }}
               >
                 Fonte · {active.source}
@@ -505,8 +399,7 @@ export function IncidentLog() {
                 href={active.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-auto inline-flex items-center gap-2 mt-4 font-mono text-[10px] tracking-[0.28em] uppercase hover:translate-x-0.5 transition-transform"
-                style={{ color: "var(--primary-glow)" }}
+                className="ml-auto inline-flex items-center gap-2 mt-6 font-mono text-[10px] tracking-[0.28em] uppercase text-foreground/80 hover:text-foreground transition-colors"
               >
                 Abrir referência ↗
               </a>
@@ -517,3 +410,4 @@ export function IncidentLog() {
     </section>
   );
 }
+
