@@ -97,10 +97,11 @@ export function Hero() {
             }`}
           >
             Se um sistema depende de imagem, ele depende de{" "}
-            <span className="italic" style={{ color: "var(--primary-glow)" }}>
+            <span className="italic text-foreground/80">
               como essa imagem foi construída.
             </span>
           </h1>
+
 
           <p
             className={`mt-7 max-w-[54ch] text-[15px] md:text-[17px] leading-[1.65] font-light transition-opacity duration-700 ${
