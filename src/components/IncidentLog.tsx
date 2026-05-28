@@ -247,7 +247,7 @@ const records: Record[] = [
 ];
 
 
-/** Cartão SD individual */
+/** Cartão silencioso — apenas imagem + nome + ano. Sem chanfros, sem contatos dourados. */
 function SDCard({
   rec,
   active,
@@ -262,124 +262,58 @@ function SDCard({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="group relative text-left transition-all duration-500"
-      style={{
-        transform: active ? "translateY(-4px)" : undefined,
-      }}
+      className="group relative text-left"
     >
       <div
-        className="relative aspect-[5/7] w-full overflow-hidden transition-all duration-500"
+        className="relative aspect-[4/5] w-full overflow-hidden transition-all duration-500"
         style={{
-          // forma de cartão SD: chanfro no canto superior direito
-          clipPath:
-            "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)",
-          background: active
-            ? "linear-gradient(180deg, oklch(0.20 0.04 32), oklch(0.13 0.018 36))"
-            : "linear-gradient(180deg, oklch(0.14 0.020 38), oklch(0.10 0.012 34))",
-          border: "1px solid oklch(0.55 0.18 35 / 0.22)",
-          boxShadow: active
-            ? "0 28px 60px -28px oklch(0.55 0.22 25 / 0.6), inset 0 0 0 1px oklch(0.66 0.24 28 / 0.35)"
-            : "0 10px 30px -16px oklch(0 0 0 / 0.7)",
+          background: "oklch(0.10 0.012 34)",
+          border: active
+            ? "1px solid oklch(0.70 0.04 35 / 0.45)"
+            : "1px solid oklch(0.55 0.05 35 / 0.12)",
         }}
       >
-        {/* faixa superior — metadata do cartão */}
-        <div
-          className="absolute top-0 inset-x-0 px-3 py-2 flex items-center justify-between font-mono text-[8.5px] tracking-[0.28em] uppercase z-10"
+        <img
+          src={rec.image}
+          alt={rec.name}
+          className="absolute inset-0 w-full h-full object-cover transition-all duration-700"
           style={{
-            color: "var(--muted-foreground)",
-            background:
-              "linear-gradient(180deg, oklch(0.08 0.010 32 / 0.95), transparent)",
+            filter: active
+              ? "grayscale(0) brightness(0.95) contrast(1.02)"
+              : "grayscale(1) brightness(0.7) contrast(1.02)",
           }}
-        >
-          <span style={{ color: active ? "oklch(0.78 0.14 75)" : undefined }}>
-            URC-{rec.id.replace("r-", "").slice(0, 4).toUpperCase()}
-          </span>
-          <span>{rec.capacity}</span>
-        </div>
-
-        {/* contatos dourados (faixa típica do cartão) */}
+        />
         <div
-          className="absolute top-7 left-3 right-3 h-1.5 flex gap-[3px] z-10 opacity-60"
-        >
-          {Array.from({ length: 9 }).map((_, i) => (
-            <span
-              key={i}
-              className="flex-1"
-              style={{
-                background:
-                  "linear-gradient(180deg, oklch(0.78 0.13 80), oklch(0.58 0.13 70))",
-                borderRadius: "1px",
-              }}
-            />
-          ))}
-        </div>
-
-        {/* área da "capa" — imagem do registro */}
-        <div
-          className="absolute inset-x-3 z-0"
-          style={{ top: "44px", bottom: "60px" }}
-        >
-          <div
-            className="relative w-full h-full overflow-hidden"
-            style={{
-              background: "oklch(0.08 0.010 32)",
-              border: "1px solid oklch(0.55 0.18 35 / 0.18)",
-            }}
-          >
-            <img
-              src={rec.image}
-              alt={rec.name}
-              className="absolute inset-0 w-full h-full object-cover transition-all duration-700"
-              style={{
-                filter: active
-                  ? "grayscale(0) brightness(1) contrast(1.04)"
-                  : "grayscale(0.85) brightness(0.78) contrast(1.05)",
-                transform: active ? "scale(1.03)" : "scale(1)",
-              }}
-            />
-            {/* sutil vinheta */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(180deg, transparent 55%, oklch(0.06 0.008 32 / 0.7))",
-              }}
-            />
-          </div>
-        </div>
-
-        {/* rodapé — nome + tipo */}
-        <div
-          className="absolute bottom-0 inset-x-0 px-3 py-2.5 z-10"
+          className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "linear-gradient(0deg, oklch(0.08 0.010 32 / 0.96), transparent)",
+              "linear-gradient(180deg, transparent 50%, oklch(0.06 0.008 32 / 0.85))",
+          }}
+        />
+      </div>
+
+      <div className="mt-4 space-y-1">
+        <div
+          className="font-mono text-[9.5px] tracking-[0.32em] uppercase"
+          style={{
+            color: active ? "var(--foreground)" : "var(--muted-foreground)",
           }}
         >
-          <div className="flex items-center justify-between font-mono text-[8.5px] tracking-[0.28em] uppercase"
-               style={{ color: "var(--muted-foreground)" }}>
-            <span>{rec.kind}</span>
-            <span>{rec.year}</span>
-          </div>
-          <div className="mt-1 font-serif text-[13px] leading-tight text-foreground/95 truncate">
-            {rec.name}
-          </div>
+          {rec.year}
         </div>
-
-        {/* indicador ativo */}
-        {active && (
-          <span
-            className="absolute top-2 right-6 w-1.5 h-1.5 rounded-full z-20"
-            style={{
-              background: "oklch(0.78 0.14 75)",
-              boxShadow: "0 0 12px oklch(0.78 0.14 75 / 0.9)",
-            }}
-          />
-        )}
+        <div
+          className="font-serif text-[15px] leading-tight"
+          style={{
+            color: active ? "var(--foreground)" : "oklch(0.75 0.02 35)",
+          }}
+        >
+          {rec.name}
+        </div>
       </div>
     </button>
   );
 }
+
 
 export function IncidentLog() {
   const [activeId, setActiveId] = useState<string>(records[0].id);
