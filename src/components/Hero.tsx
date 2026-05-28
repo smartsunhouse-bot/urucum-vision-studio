@@ -143,11 +143,11 @@ export function Hero() {
           >
             <a
               href="#produto"
-              className="group inline-flex items-center gap-3 h-12 px-6 font-mono text-[11px] tracking-[0.28em] uppercase rounded-[2px]"
+              className="group inline-flex items-center gap-3 h-12 px-6 font-mono text-[11px] tracking-[0.28em] uppercase rounded-[2px] transition-colors"
               style={{
-                color: "var(--primary-foreground)",
-                background: "var(--primary)",
-                boxShadow: "0 14px 40px -12px oklch(0.50 0.22 25 / 0.6)",
+                color: "var(--foreground)",
+                background: "transparent",
+                border: "1px solid oklch(0.55 0.10 35 / 0.55)",
               }}
             >
               Ver o produto
@@ -157,17 +157,14 @@ export function Hero() {
             </a>
             <a
               href="#incidentes"
-              className="inline-flex items-center gap-3 h-12 px-6 font-mono text-[11px] tracking-[0.28em] uppercase rounded-[2px] text-foreground/85 hover:text-foreground transition-colors"
-              style={{
-                border: "1px solid var(--border)",
-                background: "oklch(0.18 0.02 40 / 0.5)",
-              }}
+              className="inline-flex items-center gap-3 h-12 px-6 font-mono text-[11px] tracking-[0.28em] uppercase rounded-[2px] text-foreground/70 hover:text-foreground transition-colors"
             >
               Entenda melhor
               <span>↓</span>
             </a>
           </div>
         </div>
+
 
         {/* RIGHT — loop de duas cenas */}
         <div
