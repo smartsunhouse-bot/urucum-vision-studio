@@ -322,36 +322,25 @@ export function IncidentLog() {
   return (
     <section
       id="incidentes"
-      className="relative w-full py-24 lg:py-32"
-      style={{
-        background:
-          "linear-gradient(180deg, oklch(0.13 0.018 40), oklch(0.10 0.012 35))",
-      }}
+      className="relative w-full py-32 lg:py-44"
+      style={{ background: "oklch(0.10 0.012 35)" }}
     >
-      <div className="max-w-[1360px] mx-auto px-6 lg:px-12">
-        {/* header */}
-        <div className="text-center max-w-[64ch] mx-auto reveal">
+      <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
+        {/* header silencioso, alinhado à esquerda */}
+        <div className="max-w-2xl">
           <div
             className="font-mono text-[10px] tracking-[0.42em] uppercase"
             style={{ color: "var(--muted-foreground)" }}
           >
-            Registro de dados · arquivo de mídia
+            Registro de dados
           </div>
-          <h2 className="mt-5 font-serif font-light text-[32px] md:text-[44px] lg:text-[52px] leading-[1.05] tracking-[-0.02em] text-foreground/95">
-            Cada cartão guarda uma evidência que fundamenta a Urucum.
+          <h2 className="mt-8 font-serif font-light text-[34px] md:text-[46px] lg:text-[54px] leading-[1.05] tracking-[-0.02em] text-foreground/95">
+            Evidências que fundamentam a Urucum.
           </h2>
-          <p
-            className="mt-5 text-[14.5px] leading-[1.7] font-light"
-            style={{ color: "var(--muted-foreground)" }}
-          >
-            Auditorias, padrões federais, casos jurídicos recentes (2024–2026)
-            e literatura fundadora — arquivados como mídias removíveis. Toque
-            um cartão para abrir o dossiê.
-          </p>
         </div>
 
-        {/* grid de cartões SD */}
-        <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 lg:gap-6">
+        {/* grid limpo, sem chanfros */}
+        <div className="mt-20 lg:mt-28 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-10 lg:gap-x-8 lg:gap-y-14">
           {records.map((r) => (
             <SDCard
               key={r.id}
@@ -362,30 +351,13 @@ export function IncidentLog() {
           ))}
         </div>
 
-        {/* dossiê */}
+        {/* dossiê — sem moldura pesada, sem borda vermelha */}
         <div
           key={active.id}
-          className="mt-14 grid grid-cols-1 lg:grid-cols-12 gap-0 animate-in fade-in duration-500"
-          style={{
-            background: "oklch(0.16 0.022 38)",
-            border: "1px solid oklch(0.55 0.18 35 / 0.25)",
-          }}
+          className="mt-24 lg:mt-32 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 animate-in fade-in duration-500"
         >
-          <div
-            className="lg:col-span-4 p-8 lg:p-10 flex items-center justify-center"
-            style={{
-              background: "oklch(0.12 0.014 36)",
-              borderRight: "1px solid oklch(0.55 0.18 35 / 0.18)",
-            }}
-          >
-            <div
-              className="relative w-full max-w-[220px] aspect-[5/7] overflow-hidden"
-              style={{
-                clipPath:
-                  "polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%)",
-                border: "1px solid oklch(0.55 0.18 35 / 0.3)",
-              }}
-            >
+          <div className="lg:col-span-4">
+            <div className="relative w-full aspect-[4/5] overflow-hidden">
               <img
                 src={active.image}
                 alt={active.name}
@@ -393,44 +365,32 @@ export function IncidentLog() {
               />
             </div>
           </div>
-          <div className="lg:col-span-8 p-8 lg:p-10 space-y-5">
+          <div className="lg:col-span-8 lg:pt-4 space-y-8">
             <div
-              className="flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] tracking-[0.3em] uppercase"
+              className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[10px] tracking-[0.3em] uppercase"
               style={{ color: "var(--muted-foreground)" }}
             >
-              <span style={{ color: "var(--primary-glow)" }}>{active.kind}</span>
+              <span>{active.kind}</span>
               <span>·</span>
               <span>{active.year}</span>
               <span>·</span>
               <span>{active.scope}</span>
-              <span>·</span>
-              <span>cap. {active.capacity}</span>
             </div>
-            <h3 className="font-serif font-light text-[22px] md:text-[28px] leading-[1.2] tracking-[-0.015em] text-foreground/95 max-w-[58ch]">
+            <h3 className="font-serif font-light text-[24px] md:text-[32px] leading-[1.2] tracking-[-0.015em] text-foreground/95 max-w-[58ch]">
               {active.headline}
             </h3>
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              <span
-                className="inline-flex items-center gap-2 px-3 py-1.5 font-mono text-[10px] tracking-[0.24em] uppercase rounded-[2px]"
-                style={{
-                  background: "oklch(0.22 0.06 30 / 0.55)",
-                  color: "var(--foreground)",
-                  border: "1px solid oklch(0.55 0.18 35 / 0.3)",
-                }}
-              >
-                <span
-                  className="inline-block w-1.5 h-1.5 rounded-full"
-                  style={{ background: "var(--primary-glow)" }}
-                />
-                {active.metric}
-              </span>
-            </div>
+            <p
+              className="text-[14px] leading-relaxed max-w-[52ch]"
+              style={{ color: "var(--muted-foreground)" }}
+            >
+              {active.metric}
+            </p>
             <div
-              className="pt-4 flex items-center gap-3 border-t"
-              style={{ borderColor: "oklch(0.55 0.18 35 / 0.18)" }}
+              className="pt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-t"
+              style={{ borderColor: "oklch(0.55 0.05 35 / 0.15)" }}
             >
               <span
-                className="font-mono text-[10px] tracking-[0.28em] uppercase pt-4"
+                className="font-mono text-[10px] tracking-[0.28em] uppercase pt-6"
                 style={{ color: "var(--muted-foreground)" }}
               >
                 Fonte · {active.source}
@@ -439,8 +399,7 @@ export function IncidentLog() {
                 href={active.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-auto inline-flex items-center gap-2 mt-4 font-mono text-[10px] tracking-[0.28em] uppercase hover:translate-x-0.5 transition-transform"
-                style={{ color: "var(--primary-glow)" }}
+                className="ml-auto inline-flex items-center gap-2 mt-6 font-mono text-[10px] tracking-[0.28em] uppercase text-foreground/80 hover:text-foreground transition-colors"
               >
                 Abrir referência ↗
               </a>
@@ -451,3 +410,4 @@ export function IncidentLog() {
     </section>
   );
 }
+
