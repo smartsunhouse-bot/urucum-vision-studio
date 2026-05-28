@@ -162,8 +162,9 @@ export function Hero() {
               Entenda melhor
               <span>↓</span>
             </a>
-
+          </div>
         </div>
+
 
         {/* RIGHT — loop de duas cenas */}
         <div
