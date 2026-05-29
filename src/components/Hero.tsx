@@ -70,7 +70,7 @@ export function Hero() {
 
           {/* MINI-CARTÃO — preview flutuante (topo esquerdo) */}
           <div
-            className="absolute left-5 top-5 lg:left-7 lg:top-7 w-[230px] rounded-[18px] p-2.5 backdrop-blur-xl"
+            className="absolute left-5 top-5 lg:left-7 lg:top-7 w-[230px] rounded-[18px] p-2.5 backdrop-blur-xl z-20"
             style={{
               background: "oklch(0.10 0.012 35 / 0.78)",
               border: "1px solid oklch(1 0 0 / 0.10)",
@@ -137,8 +137,8 @@ export function Hero() {
 
           {/* HEADLINE — ancorada no rodapé-esquerdo */}
           <div className="relative z-10 h-full min-h-[inherit] flex flex-col justify-end p-6 lg:p-12">
-            <div className="max-w-[640px]">
-              <h1 className="font-serif font-light text-[40px] md:text-[56px] lg:text-[72px] leading-[0.98] tracking-[-0.025em] text-foreground/95">
+            <div className="max-w-[560px]">
+              <h1 className="font-serif font-light text-[34px] md:text-[46px] lg:text-[58px] leading-[1.02] tracking-[-0.025em] text-foreground/95">
                 Se um sistema depende de imagem,{" "}
                 <span className="italic text-foreground/70">
                   ele depende de como ela foi construída.
