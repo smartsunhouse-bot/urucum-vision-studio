@@ -138,7 +138,7 @@ export function Hero() {
           {/* HEADLINE — ancorada no rodapé-esquerdo */}
           <div className="relative z-10 h-full min-h-[inherit] flex flex-col justify-end p-6 lg:p-12">
             <div className="max-w-[560px]">
-              <h1 className="font-serif font-light text-[34px] md:text-[46px] lg:text-[58px] leading-[1.02] tracking-[-0.025em] text-foreground/95">
+              <h1 className="font-serif font-light text-[30px] md:text-[40px] lg:text-[48px] leading-[1.05] tracking-[-0.025em] text-foreground/95">
                 Se um sistema depende de imagem,{" "}
                 <span className="italic text-foreground/70">
                   ele depende de como ela foi construída.
