@@ -77,14 +77,13 @@ export function Navbar() {
           <img
             src={urucumLogo}
             alt="Urucum AI"
-            className="h-16 lg:h-20 w-auto select-none transition-transform duration-500 group-hover:scale-[1.04]"
-            style={{
-              mixBlendMode: "screen",
-              filter:
-                "drop-shadow(0 0 22px oklch(0.66 0.26 28 / 0.65)) drop-shadow(0 0 4px oklch(0.55 0.22 25 / 0.5))",
-            }}
+            className="h-14 lg:h-16 w-auto select-none transition-transform duration-500 group-hover:scale-[1.03]"
+            style={{ mixBlendMode: "screen" }}
             draggable={false}
           />
+          <span className="font-serif text-[22px] lg:text-[26px] leading-none tracking-[-0.01em] text-foreground/95">
+            urucum
+          </span>
         </a>
 
         {/* nav */}
