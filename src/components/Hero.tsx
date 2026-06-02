@@ -1,185 +1,338 @@
 import { useEffect, useState } from "react";
 import faceDeep from "@/assets/face-deep.jpg";
-import faceMediumDark from "@/assets/face-mediumdark.jpg";
+import { BoundingBox, ConfidenceBar, MonoMeta } from "./optical/primitives";
 
 /**
- * Hero — palco cinematográfico inspirado em layouts editoriais premium.
- * Container arredondado único: imagem ocupa o lado direito em altura cheia,
- * mini-cartão de preview flutua no topo-esquerdo, headline editorial
- * grande ancorada no rodapé-esquerdo, CTAs discretos abaixo.
+ * Hero — paleta Urucum.
+ * Lado direito: loop visual de 8s alternando duas cenas:
+ *   CENA A — Falha computacional (tracking instável, exposição baixa, clipping).
+ *   CENA B — Pipeline Urucum (equalização, reconstrução tonal, estabilização).
  */
 
+const techLabels = [
+  "HDR Reconstruction",
+  "Exposure Equalization",
+  "Radiance Mapping",
+  "Skin-aware Imaging",
+  "Computer Vision Infrastructure",
+];
+
 export function Hero() {
+  const [stage, setStage] = useState(0);
+  // 0 = CENA A (falha), 1 = CENA B (reconstrução)
   const [scene, setScene] = useState<0 | 1>(0);
+  const [conf, setConf] = useState(31);
+  const [status, setStatus] = useState<"TRACKING" | "LOST" | "LOW CONFIDENCE">(
+    "LOW CONFIDENCE",
+  );
 
   useEffect(() => {
-    const id = window.setInterval(() => setScene((s) => (s === 0 ? 1 : 0)), 5000);
-    return () => window.clearInterval(id);
+    const t = [120, 280, 460, 640, 820].map((d, i) =>
+      window.setTimeout(() => setStage((s) => Math.max(s, i + 1)), d),
+    );
+    return () => t.forEach(window.clearTimeout);
   }, []);
+
+  // Loop de 8s entre as duas cenas
+  useEffect(() => {
+    let raf = 0;
+    let start = performance.now();
+    const tick = (now: number) => {
+      const t = ((now - start) % 8000) / 8000; // 0..1 no ciclo
+      if (t < 0.5) {
+        // CENA A — falha
+        setScene(0);
+        const sub = t / 0.5; // 0..1
+        // confiança oscila baixa
+        const seq = [28, 41, 18, 33, 22, 47, 19];
+        const idx = Math.floor(sub * seq.length) % seq.length;
+        setConf(seq[idx]);
+        setStatus(seq[idx] < 25 ? "LOST" : "LOW CONFIDENCE");
+      } else {
+        // CENA B — reconstrução
+        setScene(1);
+        const sub = (t - 0.5) / 0.5; // 0..1
+        setConf(Math.round(35 + sub * 58)); // 35 → 93
+        setStatus(sub > 0.55 ? "TRACKING" : "LOW CONFIDENCE");
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  const bboxState =
+    status === "LOST" ? "lost" : status === "TRACKING" ? "locked" : "tracking";
 
   return (
     <section
       id="top"
-      className="relative w-full bg-hero overflow-hidden pt-28 lg:pt-32 pb-10"
+      className="relative min-h-screen w-full overflow-hidden bg-hero"
     >
-      <div className="absolute inset-0 grain pointer-events-none opacity-60" />
+      <div className="absolute inset-0 grain pointer-events-none" />
 
-      <div className="relative max-w-[1320px] mx-auto px-4 lg:px-6">
-        {/* PALCO */}
+      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-12 pt-32 lg:pt-40 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center min-h-screen">
+        {/* LEFT — editorial */}
+        <div className="lg:col-span-7 relative">
+          <div
+            className={`flex items-center gap-3 transition-opacity duration-500 ${
+              stage >= 1 ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <span
+              className="font-mono text-[10px] tracking-[0.42em] uppercase"
+              style={{ color: "var(--muted-foreground)" }}
+            >
+              Infraestrutura de visão
+            </span>
+            <span
+              className="h-px flex-1 max-w-[120px]"
+              style={{ background: "var(--border)" }}
+            />
+          </div>
+
+          <h1
+            className={`mt-8 font-serif font-light text-[40px] md:text-[56px] lg:text-[72px] leading-[1.0] tracking-[-0.025em] text-foreground/95 max-w-[22ch] transition-all duration-700 ${
+              stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+            }`}
+          >
+            Se um sistema depende de imagem, ele depende de{" "}
+            <span className="italic text-foreground/80">
+              como essa imagem foi construída.
+            </span>
+          </h1>
+
+
+          <p
+            className={`mt-7 max-w-[54ch] text-[15px] md:text-[17px] leading-[1.65] font-light transition-opacity duration-700 ${
+              stage >= 3 ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ color: "var(--muted-foreground)" }}
+          >
+            Se seu tom não está no dataset, ele não existe no modelo.
+          </p>
+
+          {/* Labels técnicos */}
+          <div
+            className={`mt-8 flex flex-wrap gap-x-5 gap-y-2 transition-opacity duration-700 ${
+              stage >= 4 ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            {techLabels.map((label, i) => (
+              <span
+                key={label}
+                className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.28em] uppercase"
+                style={{ color: "var(--muted-foreground)" }}
+              >
+                <span
+                  className="inline-block w-1 h-1 rounded-full"
+                  style={{
+                    background:
+                      i % 2 === 0 ? "var(--primary-glow)" : "var(--border)",
+                  }}
+                />
+                {label}
+              </span>
+            ))}
+          </div>
+
+          {/* CTAs */}
+          <div
+            className={`mt-10 flex flex-wrap items-center gap-3 transition-all duration-700 ${
+              stage >= 5 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+            }`}
+          >
+            <a
+              href="#produto"
+              className="group inline-flex items-center gap-3 h-12 px-6 font-mono text-[11px] tracking-[0.28em] uppercase rounded-[2px] transition-colors"
+              style={{
+                color: "var(--foreground)",
+                background: "transparent",
+                border: "1px solid oklch(0.55 0.10 35 / 0.55)",
+              }}
+            >
+              Ver o produto
+              <span className="transition-transform duration-500 group-hover:translate-x-1">
+                →
+              </span>
+            </a>
+            <a
+              href="#incidentes"
+              className="inline-flex items-center gap-3 h-12 px-6 font-mono text-[11px] tracking-[0.28em] uppercase rounded-[2px] text-foreground/70 hover:text-foreground transition-colors"
+            >
+              Entenda melhor
+              <span>↓</span>
+            </a>
+          </div>
+        </div>
+
+
+        {/* RIGHT — loop de duas cenas */}
         <div
-          className="relative rounded-[32px] overflow-hidden"
-          style={{
-            background: "oklch(0.11 0.014 35)",
-            border: "1px solid oklch(0.55 0.10 35 / 0.18)",
-            boxShadow:
-              "0 80px 160px -40px oklch(0 0 0 / 0.7), inset 0 1px 0 oklch(1 0 0 / 0.05)",
-            minHeight: "min(78vh, 720px)",
-          }}
+          className={`lg:col-span-5 relative transition-all duration-700 delay-200 ${
+            stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
         >
-          {/* IMAGEM — ocupa o palco inteiro, com gradiente que escurece a esquerda */}
-          <div className="absolute inset-0">
+          {/* Scene tag */}
+          <div className="flex items-center justify-between mb-3 font-mono text-[9.5px] tracking-[0.32em] uppercase"
+               style={{ color: "var(--muted-foreground)" }}>
+            <span>
+              <span style={{ color: "var(--primary-glow)" }}>● REC</span>
+              {"  "}— captura ao vivo
+            </span>
+            <span key={scene} className="animate-in fade-in duration-500">
+              {scene === 0 ? "cena 01 · falha" : "cena 02 · reconstrução"}
+            </span>
+          </div>
+
+          <div
+            className="relative aspect-[4/5] w-full max-w-[440px] mx-auto rounded-[3px] overflow-hidden"
+            style={{
+              background: "oklch(0.10 0.012 35)",
+              border: "1px solid var(--border)",
+              boxShadow: "0 60px 120px -30px oklch(0 0 0 / 0.6)",
+            }}
+          >
+            {/* base image — filtro muda por cena */}
             <img
               src={faceDeep}
               alt="Captura facial em pele Fitzpatrick VI"
-              className="absolute inset-0 w-full h-full object-cover transition-[filter,opacity] duration-[1800ms] ease-out"
+              className="absolute inset-0 w-full h-full object-cover transition-[filter] duration-[2000ms] ease-out"
               style={{
-                objectPosition: "70% center",
                 filter:
                   scene === 0
-                    ? "grayscale(0.5) brightness(0.45) contrast(1.3) saturate(0.55)"
-                    : "grayscale(0) brightness(0.95) contrast(1.05) saturate(1.05)",
+                    ? "grayscale(0.45) brightness(0.42) contrast(1.35) saturate(0.55)"
+                    : "grayscale(0) brightness(0.92) contrast(1.05) saturate(1.05)",
               }}
             />
-            {/* gradiente que esconde a metade esquerda para a tipografia respirar */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(90deg, oklch(0.08 0.010 32) 0%, oklch(0.08 0.010 32 / 0.92) 30%, oklch(0.08 0.010 32 / 0.55) 50%, transparent 75%)",
-              }}
-            />
-            {/* vinheta inferior */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(180deg, transparent 40%, oklch(0.06 0.008 32 / 0.7) 100%)",
-              }}
-            />
-          </div>
 
-          {/* MINI-CARTÃO — preview flutuante (topo esquerdo) */}
-          <div
-            className="absolute left-5 top-5 lg:left-7 lg:top-7 w-[230px] rounded-[18px] p-2.5 backdrop-blur-xl z-20"
-            style={{
-              background: "oklch(0.10 0.012 35 / 0.78)",
-              border: "1px solid oklch(1 0 0 / 0.10)",
-              boxShadow: "0 20px 40px -10px oklch(0 0 0 / 0.6)",
-            }}
-          >
+            {/* CENA A — clipping/vinheta escura */}
             <div
-              className="relative h-[120px] rounded-[12px] overflow-hidden mb-2.5"
-              style={{ background: "oklch(0.08 0.010 32)" }}
-            >
-              <img
-                src={faceMediumDark}
-                alt="Registro 0427"
-                className="absolute inset-0 w-full h-full object-cover"
-                style={{ filter: "grayscale(0.2) contrast(1.05)" }}
-              />
+              className="absolute inset-0 pointer-events-none transition-opacity duration-[1800ms]"
+              style={{
+                opacity: scene === 0 ? 1 : 0,
+                background:
+                  "radial-gradient(ellipse at 50% 40%, transparent 25%, oklch(0.05 0.008 32 / 0.85) 95%)",
+              }}
+            />
+
+            {/* CENA A — scanline de exposição instável */}
+            {scene === 0 && (
               <div
-                className="absolute inset-0"
+                className="absolute inset-x-0 h-[2px] pointer-events-none"
                 style={{
+                  top: "0%",
                   background:
-                    "linear-gradient(180deg, transparent 60%, oklch(0 0 0 / 0.6))",
+                    "linear-gradient(90deg, transparent, oklch(0.66 0.24 28 / 0.55), transparent)",
+                  animation: "scan-a 1.8s linear infinite",
+                  boxShadow: "0 0 10px oklch(0.66 0.24 28 / 0.5)",
                 }}
               />
-              <div className="absolute bottom-2 left-2.5 flex items-center gap-1.5">
-                <span
-                  className="inline-block w-1.5 h-1.5 rounded-full"
+            )}
+
+            {/* CENA B — varredura de reconstrução (linha azul-quente) */}
+            {scene === 1 && (
+              <>
+                <div
+                  className="absolute inset-x-0 h-[1px] pointer-events-none"
                   style={{
-                    background: "oklch(0.66 0.24 28)",
-                    boxShadow: "0 0 8px oklch(0.66 0.24 28 / 0.8)",
+                    top: "0%",
+                    background:
+                      "linear-gradient(90deg, transparent, oklch(0.78 0.14 75 / 0.85), transparent)",
+                    animation: "scan-b 3.4s ease-in-out infinite",
+                    boxShadow:
+                      "0 0 18px oklch(0.78 0.14 75 / 0.7), 0 4px 30px oklch(0.66 0.24 28 / 0.35)",
                   }}
                 />
-                <span
-                  className="font-mono text-[8.5px] tracking-[0.3em] uppercase text-foreground/90"
-                >
-                  registro · 0427
-                </span>
-              </div>
-            </div>
-            <div className="px-1">
-              <div className="font-serif text-[13px] leading-tight text-foreground/95">
-                Fototipo VI · captura crua
-              </div>
-              <p
-                className="mt-1 text-[10px] leading-[1.5] font-light"
-                style={{ color: "var(--muted-foreground)" }}
-              >
-                Modelo abaixo do limite operacional.
-              </p>
-            </div>
-          </div>
-
-          {/* META top-right */}
-          <div className="absolute right-6 top-7 hidden md:flex items-center gap-2 font-mono text-[10px] tracking-[0.32em] uppercase"
-               style={{ color: "var(--muted-foreground)" }}>
-            <span
-              className="inline-block w-1.5 h-1.5 rounded-full"
-              style={{
-                background: "oklch(0.66 0.24 28)",
-                boxShadow: "0 0 8px oklch(0.66 0.24 28 / 0.8)",
-              }}
-            />
-            ao vivo · pipeline {scene === 0 ? "01 · raw" : "02 · urucum"}
-          </div>
-
-          {/* HEADLINE — ancorada no rodapé-esquerdo */}
-          <div className="relative z-10 h-full min-h-[inherit] flex flex-col justify-end p-6 lg:p-12">
-            <div className="max-w-[560px]">
-              <h1 className="font-serif font-light text-[30px] md:text-[40px] lg:text-[48px] leading-[1.05] tracking-[-0.025em] text-foreground/95">
-                Se um sistema depende de imagem,{" "}
-                <span className="italic text-foreground/70">
-                  ele depende de como ela foi construída.
-                </span>
-              </h1>
-
-              <p
-                className="mt-6 max-w-[44ch] text-[14px] md:text-[15px] leading-[1.6] font-light"
-                style={{ color: "var(--muted-foreground)" }}
-              >
-                Se seu tom não está no dataset, ele não existe no modelo.
-              </p>
-
-              <div className="mt-7 flex flex-wrap items-center gap-3">
-                <a
-                  href="#produto"
-                  className="group inline-flex items-center gap-3 h-11 px-5 font-mono text-[11px] tracking-[0.28em] uppercase rounded-full transition-colors"
+                {/* grade leve indicando radiance mapping */}
+                <div
+                  className="absolute inset-0 pointer-events-none opacity-25"
                   style={{
-                    color: "var(--foreground)",
-                    background: "oklch(0.16 0.02 35 / 0.7)",
-                    border: "1px solid oklch(0.55 0.10 35 / 0.45)",
-                    backdropFilter: "blur(8px)",
+                    backgroundImage:
+                      "linear-gradient(oklch(0.78 0.14 75 / 0.18) 1px, transparent 1px), linear-gradient(90deg, oklch(0.78 0.14 75 / 0.18) 1px, transparent 1px)",
+                    backgroundSize: "32px 32px",
                   }}
-                >
-                  Ver o produto
-                  <span className="transition-transform duration-500 group-hover:translate-x-1">
-                    →
-                  </span>
-                </a>
-                <a
-                  href="#incidentes"
-                  className="inline-flex items-center gap-3 h-11 px-4 font-mono text-[11px] tracking-[0.28em] uppercase rounded-full text-foreground/65 hover:text-foreground transition-colors"
-                >
-                  Entenda melhor
-                  <span>↓</span>
-                </a>
+                />
+              </>
+            )}
+
+            {/* bounding box */}
+            <div className="absolute" style={{ inset: "18% 22% 30% 22%" }}>
+              <BoundingBox label={status} state={bboxState} />
+            </div>
+
+            {/* HUD bottom */}
+            <div
+              className="absolute bottom-0 inset-x-0 p-3 space-y-3"
+              style={{
+                background:
+                  "linear-gradient(180deg, transparent, oklch(0.08 0.010 32 / 0.95))",
+              }}
+            >
+              <ConfidenceBar value={conf} />
+              <div className="grid grid-cols-4 gap-2 pt-1">
+                <MonoMeta
+                  label="EV"
+                  value={scene === 0 ? "−2.4" : "−0.6"}
+                />
+                <MonoMeta label="ITA" value="VI" />
+                <MonoMeta
+                  label="PIPE"
+                  value={scene === 0 ? "RAW" : "URC"}
+                  accent={scene === 1}
+                />
+                <MonoMeta
+                  label="REC"
+                  value={scene === 0 ? "OFF" : "ON"}
+                  accent={scene === 1}
+                />
               </div>
+            </div>
+          </div>
+
+          {/* legendas das cenas */}
+          <div className="mt-3 grid grid-cols-2 gap-3 text-[10px] font-mono tracking-[0.22em] uppercase"
+               style={{ color: "var(--muted-foreground)" }}>
+            <div
+              className="px-3 py-2 rounded-[2px] transition-colors duration-500"
+              style={{
+                border: "1px solid var(--border)",
+                background:
+                  scene === 0 ? "oklch(0.20 0.04 30 / 0.55)" : "transparent",
+                color: scene === 0 ? "var(--foreground)" : undefined,
+              }}
+            >
+              01 · captura crua
+            </div>
+            <div
+              className="px-3 py-2 rounded-[2px] transition-colors duration-500"
+              style={{
+                border: "1px solid var(--border)",
+                background:
+                  scene === 1 ? "oklch(0.20 0.04 30 / 0.55)" : "transparent",
+                color: scene === 1 ? "var(--foreground)" : undefined,
+              }}
+            >
+              02 · pipeline urucum
             </div>
           </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes scan-a {
+          0%   { top: 8%;  opacity: 0; }
+          12%  { opacity: 1; }
+          88%  { opacity: 1; }
+          100% { top: 92%; opacity: 0; }
+        }
+        @keyframes scan-b {
+          0%   { top: 0%;   opacity: 0; }
+          10%  { opacity: 1; }
+          90%  { opacity: 1; }
+          100% { top: 100%; opacity: 0; }
+        }
+      `}</style>
     </section>
   );
 }
