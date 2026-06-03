@@ -113,7 +113,8 @@ const records: Record[] = [
   },
   {
     id: "compas",
-    name: "COMPAS",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/3/3c/ProPublica_logo.svg",
+    name: "COMPAS · ProPublica",
     kind: "Auditoria",
     year: "2016",
     scope: "Score de risco criminal · ProPublica",
