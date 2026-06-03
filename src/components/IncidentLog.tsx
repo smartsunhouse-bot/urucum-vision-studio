@@ -141,7 +141,7 @@ const records: Record[] = [
   },
   {
     id: "google",
-    logo: "https://cdn.simpleicons.org/google/EEEEEE",
+    Logo: GoogleLogo,
     name: "Google",
     kind: "Caso",
     year: "2015",
