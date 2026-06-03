@@ -105,7 +105,7 @@ const records: Record[] = [
   },
   {
     id: "nist",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/f/f7/NIST_logo.svg",
+    Logo: NistLogo,
     name: "NIST",
     kind: "Padrão federal",
     year: "2019",
