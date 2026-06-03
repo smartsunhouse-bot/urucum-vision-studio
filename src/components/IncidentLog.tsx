@@ -1,16 +1,80 @@
-import { useState } from "react";
+import { useState, type ComponentType, type SVGProps } from "react";
 
 /**
- * Registro de dados — formato "wall de fontes" inspirado em vitrines
- * de estudos de caso: uma faixa horizontal com os nomes das instituições
- * e, abaixo, um painel compacto com o caso em destaque.
+ * Registro de dados — wall de fontes inspirado em vitrines de estudos de caso.
  */
+
+type LogoProps = SVGProps<SVGSVGElement> & { className?: string };
+
+const MitLogo: ComponentType<LogoProps> = (props) => (
+  <svg viewBox="0 0 80 28" fill="currentColor" {...props}>
+    <rect x="0" y="4" width="6" height="20" />
+    <rect x="9" y="4" width="6" height="14" />
+    <rect x="18" y="10" width="6" height="14" />
+    <rect x="27" y="4" width="6" height="20" />
+    <rect x="36" y="4" width="20" height="6" />
+    <rect x="43" y="13" width="6" height="11" />
+    <text x="60" y="22" fontFamily="Georgia, serif" fontSize="18" fontWeight="700">
+      MIT
+    </text>
+  </svg>
+);
+
+const NistLogo: ComponentType<LogoProps> = (props) => (
+  <svg viewBox="0 0 90 28" fill="currentColor" {...props}>
+    <text x="0" y="22" fontFamily="Helvetica, Arial, sans-serif" fontSize="22" fontWeight="800" letterSpacing="1">
+      NIST
+    </text>
+  </svg>
+);
+
+const ProPublicaLogo: ComponentType<LogoProps> = (props) => (
+  <svg viewBox="0 0 160 28" fill="currentColor" {...props}>
+    <text x="0" y="22" fontFamily="Georgia, serif" fontSize="20" fontWeight="700" fontStyle="italic">
+      ProPublica
+    </text>
+  </svg>
+);
+
+const AmazonLogo: ComponentType<LogoProps> = (props) => (
+  <svg viewBox="0 0 120 32" fill="currentColor" {...props}>
+    <text x="0" y="22" fontFamily="Helvetica, Arial, sans-serif" fontSize="24" fontWeight="700" letterSpacing="-0.5">
+      amazon
+    </text>
+    <path d="M4 26 C 30 32, 60 32, 86 26" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+  </svg>
+);
+
+const GoogleLogo: ComponentType<LogoProps> = (props) => (
+  <svg viewBox="0 0 120 28" fill="currentColor" {...props}>
+    <text x="0" y="22" fontFamily="Arial, sans-serif" fontSize="24" fontWeight="500" letterSpacing="-0.5">
+      Google
+    </text>
+  </svg>
+);
+
+const IbmLogo: ComponentType<LogoProps> = (props) => (
+  <svg viewBox="0 0 80 28" fill="currentColor" {...props}>
+    {[0, 4, 8, 12, 16, 20, 24].map((y) => (
+      <g key={y}>
+        <rect x="0" y={y * 0 + 2 + (y % 8 === 0 ? 0 : 0)} width="0" height="0" />
+      </g>
+    ))}
+    {[2, 7, 12, 17, 22].map((y) => (
+      <g key={y}>
+        <rect x="0" y={y} width="24" height="2" />
+        <rect x="28" y={y} width="24" height="2" />
+        <rect x="56" y={y} width="20" height="2" />
+      </g>
+    ))}
+  </svg>
+);
 
 type Record = {
   id: string;
-  logo: string;       // URL para SVG/PNG da marca
-  name: string;        // nome (acessibilidade + fallback)
-  kind: string;        // ex.: "Auditoria", "Pesquisa"
+  Logo: ComponentType<LogoProps>;
+  name: string;
+  kind: string;
   year: string;
   scope: string;
   headline: string;
@@ -23,7 +87,7 @@ type Record = {
 const records: Record[] = [
   {
     id: "mit",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/0/0c/MIT_logo.svg",
+    Logo: MitLogo,
     name: "MIT Media Lab",
     kind: "Auditoria",
     year: "2018",
@@ -41,7 +105,7 @@ const records: Record[] = [
   },
   {
     id: "nist",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/f/f7/NIST_logo.svg",
+    Logo: NistLogo,
     name: "NIST",
     kind: "Padrão federal",
     year: "2019",
@@ -59,7 +123,7 @@ const records: Record[] = [
   },
   {
     id: "amazon",
-    logo: "https://cdn.simpleicons.org/amazon/EEEEEE",
+    Logo: AmazonLogo,
     name: "Amazon Rekognition",
     kind: "Caso",
     year: "2018",
@@ -77,7 +141,7 @@ const records: Record[] = [
   },
   {
     id: "google",
-    logo: "https://cdn.simpleicons.org/google/EEEEEE",
+    Logo: GoogleLogo,
     name: "Google",
     kind: "Caso",
     year: "2015",
@@ -95,7 +159,7 @@ const records: Record[] = [
   },
   {
     id: "ibm",
-    logo: "https://cdn.simpleicons.org/ibm/EEEEEE",
+    Logo: IbmLogo,
     name: "IBM",
     kind: "Política corporativa",
     year: "2020",
@@ -113,7 +177,7 @@ const records: Record[] = [
   },
   {
     id: "compas",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/3/3c/ProPublica_logo.svg",
+    Logo: ProPublicaLogo,
     name: "COMPAS · ProPublica",
     kind: "Auditoria",
     year: "2016",
@@ -148,17 +212,14 @@ function Wordmark({
       title={rec.name}
       className="group relative flex items-center justify-center px-5 py-4 h-[64px] min-w-[120px] transition-all duration-300"
     >
-      <img
-        src={rec.logo}
-        alt={rec.name}
-        className="max-h-8 md:max-h-9 w-auto object-contain transition-all duration-300"
+      <rec.Logo
+        aria-label={rec.name}
+        className="h-7 md:h-8 w-auto transition-all duration-300"
         style={{
-          opacity: active ? 1 : 0.5,
-          filter: active
-            ? "grayscale(0) brightness(1.05)"
-            : "grayscale(1) brightness(1.6)",
+          color: active
+            ? "oklch(0.95 0.04 60)"
+            : "oklch(0.70 0.025 35 / 0.55)",
         }}
-        draggable={false}
       />
       <span
         className="absolute left-3 right-3 -bottom-px h-px transition-opacity duration-300"
