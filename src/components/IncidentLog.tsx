@@ -87,7 +87,7 @@ type Record = {
 const records: Record[] = [
   {
     id: "mit",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/0/0c/MIT_logo.svg",
+    Logo: MitLogo,
     name: "MIT Media Lab",
     kind: "Auditoria",
     year: "2018",
