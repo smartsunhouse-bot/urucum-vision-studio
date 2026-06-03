@@ -59,6 +59,7 @@ const records: Record[] = [
   },
   {
     id: "amazon",
+    logo: "https://cdn.simpleicons.org/amazon/EEEEEE",
     name: "Amazon Rekognition",
     kind: "Caso",
     year: "2018",
