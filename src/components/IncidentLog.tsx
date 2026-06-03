@@ -123,7 +123,7 @@ const records: Record[] = [
   },
   {
     id: "amazon",
-    logo: "https://cdn.simpleicons.org/amazon/EEEEEE",
+    Logo: AmazonLogo,
     name: "Amazon Rekognition",
     kind: "Caso",
     year: "2018",
