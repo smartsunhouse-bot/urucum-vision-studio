@@ -159,7 +159,7 @@ const records: Record[] = [
   },
   {
     id: "ibm",
-    logo: "https://cdn.simpleicons.org/ibm/EEEEEE",
+    Logo: IbmLogo,
     name: "IBM",
     kind: "Política corporativa",
     year: "2020",
