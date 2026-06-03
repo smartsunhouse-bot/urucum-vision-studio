@@ -8,7 +8,8 @@ import { useState } from "react";
 
 type Record = {
   id: string;
-  name: string;        // wordmark exibido na faixa
+  logo: string;       // URL para SVG/PNG da marca
+  name: string;        // nome (acessibilidade + fallback)
   kind: string;        // ex.: "Auditoria", "Pesquisa"
   year: string;
   scope: string;
@@ -22,6 +23,7 @@ type Record = {
 const records: Record[] = [
   {
     id: "mit",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/0/0c/MIT_logo.svg",
     name: "MIT Media Lab",
     kind: "Auditoria",
     year: "2018",
@@ -39,6 +41,7 @@ const records: Record[] = [
   },
   {
     id: "nist",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/f/f7/NIST_logo.svg",
     name: "NIST",
     kind: "Padrão federal",
     year: "2019",
@@ -56,6 +59,7 @@ const records: Record[] = [
   },
   {
     id: "amazon",
+    logo: "https://cdn.simpleicons.org/amazon/EEEEEE",
     name: "Amazon Rekognition",
     kind: "Caso",
     year: "2018",
@@ -73,6 +77,7 @@ const records: Record[] = [
   },
   {
     id: "google",
+    logo: "https://cdn.simpleicons.org/google/EEEEEE",
     name: "Google",
     kind: "Caso",
     year: "2015",
@@ -90,6 +95,7 @@ const records: Record[] = [
   },
   {
     id: "ibm",
+    logo: "https://cdn.simpleicons.org/ibm/EEEEEE",
     name: "IBM",
     kind: "Política corporativa",
     year: "2020",
@@ -107,7 +113,8 @@ const records: Record[] = [
   },
   {
     id: "compas",
-    name: "COMPAS",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/3/3c/ProPublica_logo.svg",
+    name: "COMPAS · ProPublica",
     kind: "Auditoria",
     year: "2016",
     scope: "Score de risco criminal · ProPublica",
@@ -138,22 +145,25 @@ function Wordmark({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="group relative px-2 py-3 transition-all duration-300"
+      title={rec.name}
+      className="group relative flex items-center justify-center px-5 py-4 h-[64px] min-w-[120px] transition-all duration-300"
     >
-      <span
-        className="font-serif text-[15px] md:text-[17px] tracking-[-0.01em] whitespace-nowrap transition-colors duration-300"
+      <img
+        src={rec.logo}
+        alt={rec.name}
+        className="max-h-8 md:max-h-9 w-auto object-contain transition-all duration-300"
         style={{
-          color: active
-            ? "oklch(0.92 0.05 40)"
-            : "oklch(0.70 0.025 35 / 0.65)",
+          opacity: active ? 1 : 0.5,
+          filter: active
+            ? "grayscale(0) brightness(1.05)"
+            : "grayscale(1) brightness(1.6)",
         }}
-      >
-        {rec.name}
-      </span>
+        draggable={false}
+      />
       <span
-        className="absolute left-2 right-2 -bottom-px h-px transition-opacity duration-300"
+        className="absolute left-3 right-3 -bottom-px h-px transition-opacity duration-300"
         style={{
-          background: "oklch(0.78 0.10 40 / 0.7)",
+          background: "oklch(0.78 0.10 40 / 0.8)",
           opacity: active ? 1 : 0,
         }}
       />
