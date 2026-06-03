@@ -8,7 +8,8 @@ import { useState } from "react";
 
 type Record = {
   id: string;
-  name: string;        // wordmark exibido na faixa
+  logo: string;       // URL para SVG/PNG da marca
+  name: string;        // nome (acessibilidade + fallback)
   kind: string;        // ex.: "Auditoria", "Pesquisa"
   year: string;
   scope: string;
