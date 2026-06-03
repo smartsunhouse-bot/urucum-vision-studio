@@ -1,5 +1,4 @@
 import { useState, type ComponentType, type SVGProps } from "react";
-import { SiAmazon, SiGoogle, SiIbm } from "react-icons/si";
 
 /**
  * Registro de dados — wall de fontes inspirado em vitrines de estudos de caso.
