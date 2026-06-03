@@ -212,17 +212,14 @@ function Wordmark({
       title={rec.name}
       className="group relative flex items-center justify-center px-5 py-4 h-[64px] min-w-[120px] transition-all duration-300"
     >
-      <img
-        src={rec.logo}
-        alt={rec.name}
-        className="max-h-8 md:max-h-9 w-auto object-contain transition-all duration-300"
+      <rec.Logo
+        aria-label={rec.name}
+        className="h-7 md:h-8 w-auto transition-all duration-300"
         style={{
-          opacity: active ? 1 : 0.5,
-          filter: active
-            ? "grayscale(0) brightness(1.05)"
-            : "grayscale(1) brightness(1.6)",
+          color: active
+            ? "oklch(0.95 0.04 60)"
+            : "oklch(0.70 0.025 35 / 0.55)",
         }}
-        draggable={false}
       />
       <span
         className="absolute left-3 right-3 -bottom-px h-px transition-opacity duration-300"
