@@ -1,16 +1,47 @@
-import { useState } from "react";
+import { useState, type ComponentType, type SVGProps } from "react";
+import { SiAmazon, SiGoogle, SiIbm } from "react-icons/si";
 
 /**
- * Registro de dados — formato "wall de fontes" inspirado em vitrines
- * de estudos de caso: uma faixa horizontal com os nomes das instituições
- * e, abaixo, um painel compacto com o caso em destaque.
+ * Registro de dados — wall de fontes inspirado em vitrines de estudos de caso.
  */
+
+type LogoProps = SVGProps<SVGSVGElement> & { className?: string };
+
+const MitLogo: ComponentType<LogoProps> = (props) => (
+  <svg viewBox="0 0 80 28" fill="currentColor" {...props}>
+    <rect x="0" y="4" width="6" height="20" />
+    <rect x="9" y="4" width="6" height="14" />
+    <rect x="18" y="10" width="6" height="14" />
+    <rect x="27" y="4" width="6" height="20" />
+    <rect x="36" y="4" width="20" height="6" />
+    <rect x="43" y="13" width="6" height="11" />
+    <text x="60" y="22" fontFamily="Georgia, serif" fontSize="18" fontWeight="700">
+      MIT
+    </text>
+  </svg>
+);
+
+const NistLogo: ComponentType<LogoProps> = (props) => (
+  <svg viewBox="0 0 90 28" fill="currentColor" {...props}>
+    <text x="0" y="22" fontFamily="Helvetica, Arial, sans-serif" fontSize="22" fontWeight="800" letterSpacing="1">
+      NIST
+    </text>
+  </svg>
+);
+
+const ProPublicaLogo: ComponentType<LogoProps> = (props) => (
+  <svg viewBox="0 0 160 28" fill="currentColor" {...props}>
+    <text x="0" y="22" fontFamily="Georgia, serif" fontSize="20" fontWeight="700" fontStyle="italic">
+      ProPublica
+    </text>
+  </svg>
+);
 
 type Record = {
   id: string;
-  logo: string;       // URL para SVG/PNG da marca
-  name: string;        // nome (acessibilidade + fallback)
-  kind: string;        // ex.: "Auditoria", "Pesquisa"
+  Logo: ComponentType<LogoProps>;
+  name: string;
+  kind: string;
   year: string;
   scope: string;
   headline: string;
