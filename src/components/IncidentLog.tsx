@@ -177,7 +177,7 @@ const records: Record[] = [
   },
   {
     id: "compas",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/3/3c/ProPublica_logo.svg",
+    Logo: ProPublicaLogo,
     name: "COMPAS · ProPublica",
     kind: "Auditoria",
     year: "2016",
