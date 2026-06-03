@@ -76,13 +76,13 @@ export function Navbar() {
         <a href="/" className="flex items-center gap-3 group">
           <img
             src={urucumLogo}
-            alt="Urucum AI"
-            className="h-14 lg:h-16 w-auto select-none transition-transform duration-500 group-hover:scale-[1.03]"
+            alt="Urucum IA"
+            className="h-[72px] lg:h-[84px] w-auto select-none transition-transform duration-500 group-hover:scale-[1.03]"
             style={{ mixBlendMode: "screen" }}
             draggable={false}
           />
-          <span className="font-serif text-[22px] lg:text-[26px] leading-none tracking-[-0.01em] text-foreground/95">
-            urucum
+          <span className="font-sans font-bold uppercase text-[20px] lg:text-[24px] leading-none tracking-[0.08em] text-foreground">
+            Urucum IA
           </span>
         </a>
 
