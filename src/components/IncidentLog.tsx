@@ -145,22 +145,25 @@ function Wordmark({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="group relative px-2 py-3 transition-all duration-300"
+      title={rec.name}
+      className="group relative flex items-center justify-center px-5 py-4 h-[64px] min-w-[120px] transition-all duration-300"
     >
-      <span
-        className="font-serif text-[15px] md:text-[17px] tracking-[-0.01em] whitespace-nowrap transition-colors duration-300"
+      <img
+        src={rec.logo}
+        alt={rec.name}
+        className="max-h-8 md:max-h-9 w-auto object-contain transition-all duration-300"
         style={{
-          color: active
-            ? "oklch(0.92 0.05 40)"
-            : "oklch(0.70 0.025 35 / 0.65)",
+          opacity: active ? 1 : 0.5,
+          filter: active
+            ? "grayscale(0) brightness(1.05)"
+            : "grayscale(1) brightness(1.6)",
         }}
-      >
-        {rec.name}
-      </span>
+        draggable={false}
+      />
       <span
-        className="absolute left-2 right-2 -bottom-px h-px transition-opacity duration-300"
+        className="absolute left-3 right-3 -bottom-px h-px transition-opacity duration-300"
         style={{
-          background: "oklch(0.78 0.10 40 / 0.7)",
+          background: "oklch(0.78 0.10 40 / 0.8)",
           opacity: active ? 1 : 0,
         }}
       />
