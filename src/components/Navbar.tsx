@@ -73,16 +73,17 @@ export function Navbar() {
     >
       <nav className="max-w-[1320px] mx-auto px-6 lg:px-12 h-[104px] grid grid-cols-[auto_1fr_auto] items-center gap-10">
         {/* logo */}
-        <a href="/" className="flex items-center gap-3 group">
+        <a href="/" className="flex items-center gap-3 group leading-none">
           <img
             src={urucumLogo}
-            alt="Urucum IA"
-            className="h-[72px] lg:h-[84px] w-auto select-none transition-transform duration-500 group-hover:scale-[1.03]"
+            alt=""
+            aria-hidden="true"
+            className="h-12 lg:h-[56px] w-auto select-none block transition-transform duration-500 group-hover:scale-[1.03]"
             style={{ mixBlendMode: "screen" }}
             draggable={false}
           />
-          <span className="font-sans font-bold uppercase text-[20px] lg:text-[24px] leading-none tracking-[0.08em] text-foreground">
-            Urucum IA
+          <span className="font-sans font-bold uppercase text-[18px] lg:text-[22px] leading-none tracking-[0.16em] text-foreground translate-y-[1px]">
+            URUCUM <span style={{ color: "oklch(0.66 0.24 28)" }}>IA</span>
           </span>
         </a>
 
