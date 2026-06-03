@@ -42,7 +42,6 @@ function Index() {
       <Navbar />
       <Hero />
       <IncidentLog />
-      <ScientificBase />
       <Product />
       <ExposureMatrix />
       <TechnicalGrid />
