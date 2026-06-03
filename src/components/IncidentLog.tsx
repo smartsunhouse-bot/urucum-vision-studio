@@ -36,6 +36,40 @@ const ProPublicaLogo: ComponentType<LogoProps> = (props) => (
   </svg>
 );
 
+const AmazonLogo: ComponentType<LogoProps> = (props) => (
+  <svg viewBox="0 0 120 32" fill="currentColor" {...props}>
+    <text x="0" y="22" fontFamily="Helvetica, Arial, sans-serif" fontSize="24" fontWeight="700" letterSpacing="-0.5">
+      amazon
+    </text>
+    <path d="M4 26 C 30 32, 60 32, 86 26" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+  </svg>
+);
+
+const GoogleLogo: ComponentType<LogoProps> = (props) => (
+  <svg viewBox="0 0 120 28" fill="currentColor" {...props}>
+    <text x="0" y="22" fontFamily="Arial, sans-serif" fontSize="24" fontWeight="500" letterSpacing="-0.5">
+      Google
+    </text>
+  </svg>
+);
+
+const IbmLogo: ComponentType<LogoProps> = (props) => (
+  <svg viewBox="0 0 80 28" fill="currentColor" {...props}>
+    {[0, 4, 8, 12, 16, 20, 24].map((y) => (
+      <g key={y}>
+        <rect x="0" y={y * 0 + 2 + (y % 8 === 0 ? 0 : 0)} width="0" height="0" />
+      </g>
+    ))}
+    {[2, 7, 12, 17, 22].map((y) => (
+      <g key={y}>
+        <rect x="0" y={y} width="24" height="2" />
+        <rect x="28" y={y} width="24" height="2" />
+        <rect x="56" y={y} width="20" height="2" />
+      </g>
+    ))}
+  </svg>
+);
+
 type Record = {
   id: string;
   Logo: ComponentType<LogoProps>;
