@@ -72,19 +72,30 @@ export function Navbar() {
       }`}
     >
       <nav className="max-w-[1320px] mx-auto px-6 lg:px-12 h-[84px] grid grid-cols-[auto_1fr_auto] items-center gap-10">
-        {/* logo */}
-        <a href="/" aria-label="Urucum — página inicial" className="flex items-center gap-3 group leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm">
+        {/* logo lockup — wordmark é protagonista, logo é selo */}
+        <a
+          href="/"
+          aria-label="URUCUM IA — página inicial"
+          className="flex items-center gap-3 group leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+        >
+          <span
+            className="font-semibold uppercase leading-none text-[22px] lg:text-[26px]"
+            style={{
+              fontFamily: "'Playfair Display', 'Fraunces', Georgia, serif",
+              letterSpacing: "-0.01em",
+              color: "#E2E8F0",
+            }}
+          >
+            URUCUM <span style={{ color: "#C2410C" }}>IA</span>
+          </span>
           <img
             src={urucumLogo}
             alt=""
             aria-hidden="true"
-            className="h-10 lg:h-11 w-auto select-none block transition-transform duration-500 group-hover:scale-[1.03]"
-            style={{ mixBlendMode: "screen" }}
             draggable={false}
+            className="h-7 lg:h-8 w-auto select-none block transition-transform duration-500 group-hover:scale-[1.04]"
+            style={{ mixBlendMode: "screen", opacity: 0.65 }}
           />
-          <span className="font-serif text-[22px] lg:text-[26px] leading-none tracking-[-0.01em] text-foreground">
-            Urucum
-          </span>
         </a>
 
         {/* nav */}
