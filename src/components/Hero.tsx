@@ -1,20 +1,18 @@
 import { useEffect, useState } from "react";
 import faceDeep from "@/assets/face-deep.jpg";
 import { BoundingBox, ConfidenceBar, MonoMeta } from "./optical/primitives";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 /**
  * Hero — paleta Urucum.
- * Lado direito: loop visual de 8s alternando duas cenas:
- *   CENA A — Falha computacional (tracking instável, exposição baixa, clipping).
- *   CENA B — Pipeline Urucum (equalização, reconstrução tonal, estabilização).
  */
 
-const techLabels = [
-  "HDR Reconstruction",
-  "Exposure Equalization",
-  "Radiance Mapping",
-  "Skin-aware Imaging",
-  "Computer Vision Infrastructure",
+const techLabels: { label: string; gloss: string }[] = [
+  { label: "Reconstrução HDR", gloss: "Recupera detalhe em altas-luzes e sombras profundas, evitando perda de informação em peles retintas." },
+  { label: "Equalização de Exposição", gloss: "Ajusta brilho cena a cena para que tons escuros não sejam subexpostos pelo sensor." },
+  { label: "Mapeamento de Radiância", gloss: "Modela como a luz se reflete sobre diferentes fototipos antes da imagem virar dado." },
+  { label: "Imagem Skin-aware", gloss: "Pipeline que reconhece e preserva fielmente o tom de pele em vez de tratá-lo como ruído." },
+  { label: "Infra de Visão Computacional", gloss: "Camada base que sustenta sistemas de biometria, diagnóstico e vigilância." },
 ];
 
 export function Hero() {
@@ -118,21 +116,28 @@ export function Hero() {
               stage >= 4 ? "opacity-100" : "opacity-0"
             }`}
           >
-            {techLabels.map((label, i) => (
-              <span
-                key={label}
-                className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.28em] uppercase"
-                style={{ color: "var(--muted-foreground)" }}
-              >
-                <span
-                  className="inline-block w-1 h-1 rounded-full"
-                  style={{
-                    background:
-                      i % 2 === 0 ? "var(--primary-glow)" : "var(--border)",
-                  }}
-                />
-                {label}
-              </span>
+            {techLabels.map((item, i) => (
+              <Tooltip key={item.label}>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-2 text-[11px] tracking-wide text-foreground/70 hover:text-foreground transition-colors decoration-dotted underline-offset-4 underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+                    aria-label={`${item.label} — definição`}
+                  >
+                    <span
+                      className="inline-block w-1 h-1 rounded-full"
+                      style={{
+                        background:
+                          i % 2 === 0 ? "var(--primary-glow)" : "var(--border)",
+                      }}
+                    />
+                    {item.label}
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent className="max-w-[260px] text-[12px] leading-snug">
+                  {item.gloss}
+                </TooltipContent>
+              </Tooltip>
             ))}
           </div>
 

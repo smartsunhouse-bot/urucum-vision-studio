@@ -71,19 +71,19 @@ export function Navbar() {
           : ""
       }`}
     >
-      <nav className="max-w-[1320px] mx-auto px-6 lg:px-12 h-[104px] grid grid-cols-[auto_1fr_auto] items-center gap-10">
+      <nav className="max-w-[1320px] mx-auto px-6 lg:px-12 h-[84px] grid grid-cols-[auto_1fr_auto] items-center gap-10">
         {/* logo */}
-        <a href="/" className="flex items-center gap-3 group leading-none">
+        <a href="/" aria-label="Urucum — página inicial" className="flex items-center gap-3 group leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm">
           <img
             src={urucumLogo}
             alt=""
             aria-hidden="true"
-            className="h-12 lg:h-[56px] w-auto select-none block transition-transform duration-500 group-hover:scale-[1.03]"
+            className="h-10 lg:h-11 w-auto select-none block transition-transform duration-500 group-hover:scale-[1.03]"
             style={{ mixBlendMode: "screen" }}
             draggable={false}
           />
-          <span className="font-sans font-bold uppercase text-[18px] lg:text-[22px] leading-none tracking-[0.16em] text-foreground translate-y-[1px]">
-            URUCUM <span style={{ color: "oklch(0.66 0.24 28)" }}>IA</span>
+          <span className="font-serif text-[22px] lg:text-[26px] leading-none tracking-[-0.01em] text-foreground">
+            Urucum
           </span>
         </a>
 
@@ -106,7 +106,7 @@ export function Navbar() {
               >
                 <a
                   href={l.href}
-                  className="inline-flex items-center gap-1.5 whitespace-nowrap text-[11.5px] font-mono tracking-[0.22em] uppercase text-foreground/55 hover:text-foreground/95 transition-colors duration-500"
+                  className="inline-flex items-center gap-1.5 whitespace-nowrap text-[12px] tracking-wide text-foreground/75 hover:text-foreground transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm py-1"
                   aria-haspopup={dropdown ? true : undefined}
                   aria-expanded={dropdown ? isOpen : undefined}
                 >
@@ -160,17 +160,15 @@ export function Navbar() {
 
         <a
           href="/#contato"
-          className="inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.22em] uppercase px-4 py-2 rounded-[2px] text-foreground/85 hover:text-foreground transition-colors duration-500"
+          className="inline-flex items-center gap-2 text-[13px] font-medium px-5 py-2.5 rounded-md transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           style={{
-            border: "1px solid oklch(0.55 0.18 35 / 0.32)",
-            background: "oklch(0.14 0.018 40 / 0.5)",
+            background: "var(--primary)",
+            color: "var(--primary-foreground)",
+            boxShadow: "0 1px 0 oklch(1 0 0 / 0.08) inset, 0 8px 24px -10px oklch(0.55 0.22 25 / 0.55)",
           }}
         >
-          <span
-            className="inline-block w-1 h-1 rounded-full"
-            style={{ background: "oklch(0.66 0.24 28)" }}
-          />
           Solicitar acesso
+          <span aria-hidden="true">→</span>
         </a>
       </nav>
     </header>
