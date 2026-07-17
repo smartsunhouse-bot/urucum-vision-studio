@@ -8,11 +8,11 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
  */
 
 const techLabels: { label: string; gloss: string }[] = [
-  { label: "Reconstrução HDR", gloss: "Recupera detalhe em altas-luzes e sombras profundas, evitando perda de informação em peles retintas." },
-  { label: "Equalização de Exposição", gloss: "Ajusta brilho cena a cena para que tons escuros não sejam subexpostos pelo sensor." },
-  { label: "Mapeamento de Radiância", gloss: "Modela como a luz se reflete sobre diferentes fototipos antes da imagem virar dado." },
-  { label: "Imagem Skin-aware", gloss: "Pipeline que reconhece e preserva fielmente o tom de pele em vez de tratá-lo como ruído." },
-  { label: "Infra de Visão Computacional", gloss: "Camada base que sustenta sistemas de biometria, diagnóstico e vigilância." },
+  { label: "Radiometria Adaptativa", gloss: "Ajusta a resposta do sensor à luz real da cena antes da imagem virar dado." },
+  { label: "Preservação Fotométrica", gloss: "Mantém a fidelidade de brilho, cor e tom ao longo de todo o pipeline visual." },
+  { label: "Processamento Local (Edge)", gloss: "Correção acontece no dispositivo, sem enviar imagem crua para a nuvem." },
+  { label: "Infraestrutura para Visão Computacional", gloss: "Camada base que sustenta biometria, diagnóstico, vigilância e robótica." },
+  { label: "Integração via API", gloss: "Encaixa em qualquer stack de captura, ETL visual ou modelo de IA existente." },
 ];
 
 export function Hero() {
@@ -102,12 +102,13 @@ export function Hero() {
 
 
           <p
-            className={`mt-7 max-w-[54ch] text-[15px] md:text-[17px] leading-[1.65] font-light transition-opacity duration-700 ${
+            className={`mt-7 max-w-[56ch] text-[15px] md:text-[17px] leading-[1.65] font-light transition-opacity duration-700 ${
               stage >= 3 ? "opacity-100" : "opacity-0"
             }`}
             style={{ color: "var(--muted-foreground)" }}
           >
-            Se seu tom não está no dataset, ele não existe no modelo.
+            Infraestrutura para melhorar dados visuais antes que alimentem
+            sistemas de visão computacional e inteligência artificial.
           </p>
 
           {/* Labels técnicos */}
@@ -151,21 +152,22 @@ export function Hero() {
               href="#produto"
               className="group inline-flex items-center gap-3 h-12 px-6 font-mono text-[11px] tracking-[0.28em] uppercase rounded-[2px] transition-colors"
               style={{
-                color: "var(--foreground)",
-                background: "transparent",
-                border: "1px solid oklch(0.55 0.10 35 / 0.55)",
+                color: "var(--primary-foreground)",
+                background: "var(--primary)",
+                boxShadow: "0 1px 0 oklch(1 0 0 / 0.08) inset, 0 10px 28px -12px oklch(0.55 0.22 25 / 0.55)",
               }}
             >
-              Ver o produto
+              Ver plataforma
               <span className="transition-transform duration-500 group-hover:translate-x-1">
                 →
               </span>
             </a>
             <a
-              href="#incidentes"
-              className="inline-flex items-center gap-3 h-12 px-6 font-mono text-[11px] tracking-[0.28em] uppercase rounded-[2px] text-foreground/70 hover:text-foreground transition-colors"
+              href="#tecnologia"
+              className="inline-flex items-center gap-3 h-12 px-6 font-mono text-[11px] tracking-[0.28em] uppercase rounded-[2px] text-foreground/75 hover:text-foreground transition-colors"
+              style={{ border: "1px solid oklch(0.55 0.10 35 / 0.45)" }}
             >
-              Entenda melhor
+              Explorar tecnologia
               <span>↓</span>
             </a>
           </div>
