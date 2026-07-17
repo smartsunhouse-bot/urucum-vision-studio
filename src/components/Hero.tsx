@@ -152,21 +152,22 @@ export function Hero() {
               href="#produto"
               className="group inline-flex items-center gap-3 h-12 px-6 font-mono text-[11px] tracking-[0.28em] uppercase rounded-[2px] transition-colors"
               style={{
-                color: "var(--foreground)",
-                background: "transparent",
-                border: "1px solid oklch(0.55 0.10 35 / 0.55)",
+                color: "var(--primary-foreground)",
+                background: "var(--primary)",
+                boxShadow: "0 1px 0 oklch(1 0 0 / 0.08) inset, 0 10px 28px -12px oklch(0.55 0.22 25 / 0.55)",
               }}
             >
-              Ver o produto
+              Ver plataforma
               <span className="transition-transform duration-500 group-hover:translate-x-1">
                 →
               </span>
             </a>
             <a
-              href="#incidentes"
-              className="inline-flex items-center gap-3 h-12 px-6 font-mono text-[11px] tracking-[0.28em] uppercase rounded-[2px] text-foreground/70 hover:text-foreground transition-colors"
+              href="#tecnologia"
+              className="inline-flex items-center gap-3 h-12 px-6 font-mono text-[11px] tracking-[0.28em] uppercase rounded-[2px] text-foreground/75 hover:text-foreground transition-colors"
+              style={{ border: "1px solid oklch(0.55 0.10 35 / 0.45)" }}
             >
-              Entenda melhor
+              Explorar tecnologia
               <span>↓</span>
             </a>
           </div>
