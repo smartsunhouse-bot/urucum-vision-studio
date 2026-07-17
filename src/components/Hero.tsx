@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import faceDeep from "@/assets/face-deep.jpg";
-import { BoundingBox, ConfidenceBar, MonoMeta } from "./optical/primitives";
+import sensorMacro from "@/assets/sensor-macro.jpg";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 /**
@@ -8,11 +7,11 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
  */
 
 const techLabels: { label: string; gloss: string }[] = [
-  { label: "Radiometria Adaptativa", gloss: "Ajusta a resposta do sensor à luz real da cena antes da imagem virar dado." },
-  { label: "Preservação Fotométrica", gloss: "Mantém a fidelidade de brilho, cor e tom ao longo de todo o pipeline visual." },
-  { label: "Processamento Local (Edge)", gloss: "Correção acontece no dispositivo, sem enviar imagem crua para a nuvem." },
+  { label: "Infraestrutura Radiométrica Adaptativa", gloss: "Ajusta a resposta do sensor à luz real da cena antes da imagem virar dado." },
+  { label: "Preservação de Textura Cutânea (Fiel à Realidade)", gloss: "Mantém brilho, cor e microtextura de peles escuras sem perda no pipeline." },
+  { label: "Processamento Local (Edge & Firmware Integrado)", gloss: "Correção acontece no dispositivo, sem enviar imagem crua para a nuvem." },
   { label: "Infraestrutura para Visão Computacional", gloss: "Camada base que sustenta biometria, diagnóstico, vigilância e robótica." },
-  { label: "Integração via API", gloss: "Encaixa em qualquer stack de captura, ETL visual ou modelo de IA existente." },
+  { label: "Integração Plug-and-Play via API", gloss: "Encaixa em qualquer stack de captura, ETL visual ou modelo de IA existente." },
 ];
 
 export function Hero() {
