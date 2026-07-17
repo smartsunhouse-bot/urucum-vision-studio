@@ -8,11 +8,11 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
  */
 
 const techLabels: { label: string; gloss: string }[] = [
-  { label: "Reconstrução HDR", gloss: "Recupera detalhe em altas-luzes e sombras profundas, evitando perda de informação em peles retintas." },
-  { label: "Equalização de Exposição", gloss: "Ajusta brilho cena a cena para que tons escuros não sejam subexpostos pelo sensor." },
-  { label: "Mapeamento de Radiância", gloss: "Modela como a luz se reflete sobre diferentes fototipos antes da imagem virar dado." },
-  { label: "Imagem Skin-aware", gloss: "Pipeline que reconhece e preserva fielmente o tom de pele em vez de tratá-lo como ruído." },
-  { label: "Infra de Visão Computacional", gloss: "Camada base que sustenta sistemas de biometria, diagnóstico e vigilância." },
+  { label: "Radiometria Adaptativa", gloss: "Ajusta a resposta do sensor à luz real da cena antes da imagem virar dado." },
+  { label: "Preservação Fotométrica", gloss: "Mantém a fidelidade de brilho, cor e tom ao longo de todo o pipeline visual." },
+  { label: "Processamento Local (Edge)", gloss: "Correção acontece no dispositivo, sem enviar imagem crua para a nuvem." },
+  { label: "Infraestrutura para Visão Computacional", gloss: "Camada base que sustenta biometria, diagnóstico, vigilância e robótica." },
+  { label: "Integração via API", gloss: "Encaixa em qualquer stack de captura, ETL visual ou modelo de IA existente." },
 ];
 
 export function Hero() {
