@@ -102,12 +102,13 @@ export function Hero() {
 
 
           <p
-            className={`mt-7 max-w-[54ch] text-[15px] md:text-[17px] leading-[1.65] font-light transition-opacity duration-700 ${
+            className={`mt-7 max-w-[56ch] text-[15px] md:text-[17px] leading-[1.65] font-light transition-opacity duration-700 ${
               stage >= 3 ? "opacity-100" : "opacity-0"
             }`}
             style={{ color: "var(--muted-foreground)" }}
           >
-            Se seu tom não está no dataset, ele não existe no modelo.
+            Infraestrutura para melhorar dados visuais antes que alimentem
+            sistemas de visão computacional e inteligência artificial.
           </p>
 
           {/* Labels técnicos */}
