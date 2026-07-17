@@ -16,12 +16,6 @@ const techLabels: { label: string; gloss: string }[] = [
 
 export function Hero() {
   const [stage, setStage] = useState(0);
-  // 0 = CENA A (falha), 1 = CENA B (reconstrução)
-  const [scene, setScene] = useState<0 | 1>(0);
-  const [conf, setConf] = useState(31);
-  const [status, setStatus] = useState<"TRACKING" | "LOST" | "LOW CONFIDENCE">(
-    "LOW CONFIDENCE",
-  );
 
   useEffect(() => {
     const t = [120, 280, 460, 640, 820].map((d, i) =>
@@ -29,37 +23,6 @@ export function Hero() {
     );
     return () => t.forEach(window.clearTimeout);
   }, []);
-
-  // Loop de 8s entre as duas cenas
-  useEffect(() => {
-    let raf = 0;
-    let start = performance.now();
-    const tick = (now: number) => {
-      const t = ((now - start) % 8000) / 8000; // 0..1 no ciclo
-      if (t < 0.5) {
-        // CENA A — falha
-        setScene(0);
-        const sub = t / 0.5; // 0..1
-        // confiança oscila baixa
-        const seq = [28, 41, 18, 33, 22, 47, 19];
-        const idx = Math.floor(sub * seq.length) % seq.length;
-        setConf(seq[idx]);
-        setStatus(seq[idx] < 25 ? "LOST" : "LOW CONFIDENCE");
-      } else {
-        // CENA B — reconstrução
-        setScene(1);
-        const sub = (t - 0.5) / 0.5; // 0..1
-        setConf(Math.round(35 + sub * 58)); // 35 → 93
-        setStatus(sub > 0.55 ? "TRACKING" : "LOW CONFIDENCE");
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
-  const bboxState =
-    status === "LOST" ? "lost" : status === "TRACKING" ? "locked" : "tracking";
 
   return (
     <section
@@ -93,26 +56,27 @@ export function Hero() {
               stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
             }`}
           >
-            Se um sistema depende de imagem, ele depende de{" "}
+            Se a sua IA depende de imagem, ela depende de{" "}
             <span className="italic text-foreground/80">
-              como essa imagem foi construída.
+              como o sensor captura o mundo.
             </span>
           </h1>
 
-
           <p
-            className={`mt-7 max-w-[56ch] text-[15px] md:text-[17px] leading-[1.65] font-light transition-opacity duration-700 ${
+            className={`mt-7 max-w-[58ch] text-[15px] md:text-[17px] leading-[1.65] font-light transition-opacity duration-700 ${
               stage >= 3 ? "opacity-100" : "opacity-0"
             }`}
             style={{ color: "var(--muted-foreground)" }}
           >
-            Infraestrutura para melhorar dados visuais antes que alimentem
-            sistemas de visão computacional e inteligência artificial.
+            Calibração paramétrica adaptativa local, direto na captura. Corrige
+            viés de cor e preserva a textura de peles escuras na raiz do
+            sensor — reduzindo custo com processamento pesado e modelos
+            sobrecarregados a jusante.
           </p>
 
           {/* Labels técnicos */}
           <div
-            className={`mt-8 flex flex-wrap gap-x-5 gap-y-2 transition-opacity duration-700 ${
+            className={`mt-8 flex flex-col gap-2 transition-opacity duration-700 ${
               stage >= 4 ? "opacity-100" : "opacity-0"
             }`}
           >
@@ -121,17 +85,22 @@ export function Hero() {
                 <TooltipTrigger asChild>
                   <button
                     type="button"
-                    className="inline-flex items-center gap-2 text-[11px] tracking-wide text-foreground/70 hover:text-foreground transition-colors decoration-dotted underline-offset-4 underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+                    className="group inline-flex items-center gap-3 text-left text-[12px] md:text-[13px] tracking-wide text-foreground/75 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
                     aria-label={`${item.label} — definição`}
                   >
                     <span
-                      className="inline-block w-1 h-1 rounded-full"
-                      style={{
-                        background:
-                          i % 2 === 0 ? "var(--primary-glow)" : "var(--border)",
-                      }}
+                      className="font-mono text-[10px] tabular-nums tracking-[0.2em]"
+                      style={{ color: "var(--primary-glow)" }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      className="h-px w-4"
+                      style={{ background: "var(--border)" }}
                     />
-                    {item.label}
+                    <span className="decoration-dotted underline-offset-4 group-hover:underline">
+                      {item.label}
+                    </span>
                   </button>
                 </TooltipTrigger>
                 <TooltipContent className="max-w-[260px] text-[12px] leading-snug">
@@ -141,14 +110,14 @@ export function Hero() {
             ))}
           </div>
 
-          {/* CTAs */}
+          {/* CTA único — foco em conversão */}
           <div
             className={`mt-10 flex flex-wrap items-center gap-3 transition-all duration-700 ${
               stage >= 5 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
             }`}
           >
             <a
-              href="#produto"
+              href="#contato"
               className="group inline-flex items-center gap-3 h-12 px-6 font-mono text-[11px] tracking-[0.28em] uppercase rounded-[2px] transition-colors"
               style={{
                 color: "var(--primary-foreground)",
@@ -156,39 +125,26 @@ export function Hero() {
                 boxShadow: "0 1px 0 oklch(1 0 0 / 0.08) inset, 0 10px 28px -12px oklch(0.55 0.22 25 / 0.55)",
               }}
             >
-              Ver plataforma
+              Agendar demonstração técnico-científica
               <span className="transition-transform duration-500 group-hover:translate-x-1">
                 →
               </span>
             </a>
-            <a
-              href="#tecnologia"
-              className="inline-flex items-center gap-3 h-12 px-6 font-mono text-[11px] tracking-[0.28em] uppercase rounded-[2px] text-foreground/75 hover:text-foreground transition-colors"
-              style={{ border: "1px solid oklch(0.55 0.10 35 / 0.45)" }}
-            >
-              Explorar tecnologia
-              <span>↓</span>
-            </a>
           </div>
         </div>
 
-
-        {/* RIGHT — loop de duas cenas */}
+        {/* RIGHT — sensor macro */}
         <div
           className={`lg:col-span-5 relative transition-all duration-700 delay-200 ${
             stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          {/* Scene tag */}
           <div className="flex items-center justify-between mb-3 font-mono text-[9.5px] tracking-[0.32em] uppercase"
                style={{ color: "var(--muted-foreground)" }}>
             <span>
-              <span style={{ color: "var(--primary-glow)" }}>● REC</span>
-              {"  "}— captura ao vivo
+              <span style={{ color: "var(--primary-glow)" }}>●</span>{"  "}sensor · cmos macro
             </span>
-            <span key={scene} className="animate-in fade-in duration-500">
-              {scene === 0 ? "cena 01 · falha" : "cena 02 · reconstrução"}
-            </span>
+            <span>λ · radiância</span>
           </div>
 
           <div
@@ -199,139 +155,54 @@ export function Hero() {
               boxShadow: "0 60px 120px -30px oklch(0 0 0 / 0.6)",
             }}
           >
-            {/* base image — filtro muda por cena */}
             <img
-              src={faceDeep}
-              alt="Captura facial em pele Fitzpatrick VI"
-              className="absolute inset-0 w-full h-full object-cover transition-[filter] duration-[2000ms] ease-out"
+              src={sensorMacro}
+              alt="Macro de sensor CMOS com resposta radiométrica visível"
+              className="absolute inset-0 w-full h-full object-cover"
+              width={800}
+              height={1000}
+            />
+
+            {/* varredura sutil */}
+            <div
+              className="absolute inset-x-0 h-[1px] pointer-events-none"
               style={{
-                filter:
-                  scene === 0
-                    ? "grayscale(0.45) brightness(0.42) contrast(1.35) saturate(0.55)"
-                    : "grayscale(0) brightness(0.92) contrast(1.05) saturate(1.05)",
+                top: "0%",
+                background:
+                  "linear-gradient(90deg, transparent, oklch(0.78 0.14 75 / 0.7), transparent)",
+                animation: "scan-b 4.2s ease-in-out infinite",
+                boxShadow: "0 0 14px oklch(0.78 0.14 75 / 0.55)",
               }}
             />
 
-            {/* CENA A — clipping/vinheta escura */}
+            {/* legenda técnica minimalista */}
             <div
-              className="absolute inset-0 pointer-events-none transition-opacity duration-[1800ms]"
+              className="absolute bottom-0 inset-x-0 p-4 flex items-end justify-between font-mono text-[10px] tracking-[0.24em] uppercase"
               style={{
-                opacity: scene === 0 ? 1 : 0,
+                color: "var(--foreground)",
                 background:
-                  "radial-gradient(ellipse at 50% 40%, transparent 25%, oklch(0.05 0.008 32 / 0.85) 95%)",
-              }}
-            />
-
-            {/* CENA A — scanline de exposição instável */}
-            {scene === 0 && (
-              <div
-                className="absolute inset-x-0 h-[2px] pointer-events-none"
-                style={{
-                  top: "0%",
-                  background:
-                    "linear-gradient(90deg, transparent, oklch(0.66 0.24 28 / 0.55), transparent)",
-                  animation: "scan-a 1.8s linear infinite",
-                  boxShadow: "0 0 10px oklch(0.66 0.24 28 / 0.5)",
-                }}
-              />
-            )}
-
-            {/* CENA B — varredura de reconstrução (linha azul-quente) */}
-            {scene === 1 && (
-              <>
-                <div
-                  className="absolute inset-x-0 h-[1px] pointer-events-none"
-                  style={{
-                    top: "0%",
-                    background:
-                      "linear-gradient(90deg, transparent, oklch(0.78 0.14 75 / 0.85), transparent)",
-                    animation: "scan-b 3.4s ease-in-out infinite",
-                    boxShadow:
-                      "0 0 18px oklch(0.78 0.14 75 / 0.7), 0 4px 30px oklch(0.66 0.24 28 / 0.35)",
-                  }}
-                />
-                {/* grade leve indicando radiance mapping */}
-                <div
-                  className="absolute inset-0 pointer-events-none opacity-25"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(oklch(0.78 0.14 75 / 0.18) 1px, transparent 1px), linear-gradient(90deg, oklch(0.78 0.14 75 / 0.18) 1px, transparent 1px)",
-                    backgroundSize: "32px 32px",
-                  }}
-                />
-              </>
-            )}
-
-            {/* bounding box */}
-            <div className="absolute" style={{ inset: "18% 22% 30% 22%" }}>
-              <BoundingBox label={status} state={bboxState} />
-            </div>
-
-            {/* HUD bottom */}
-            <div
-              className="absolute bottom-0 inset-x-0 p-3 space-y-3"
-              style={{
-                background:
-                  "linear-gradient(180deg, transparent, oklch(0.08 0.010 32 / 0.95))",
+                  "linear-gradient(180deg, transparent, oklch(0.06 0.008 32 / 0.92))",
               }}
             >
-              <ConfidenceBar value={conf} />
-              <div className="grid grid-cols-4 gap-2 pt-1">
-                <MonoMeta
-                  label="EV"
-                  value={scene === 0 ? "−2.4" : "−0.6"}
-                />
-                <MonoMeta label="ITA" value="VI" />
-                <MonoMeta
-                  label="PIPE"
-                  value={scene === 0 ? "RAW" : "URC"}
-                  accent={scene === 1}
-                />
-                <MonoMeta
-                  label="REC"
-                  value={scene === 0 ? "OFF" : "ON"}
-                  accent={scene === 1}
-                />
+              <div>
+                <div style={{ color: "var(--muted-foreground)" }}>pipeline</div>
+                <div className="mt-1">URC · edge</div>
+              </div>
+              <div className="text-right">
+                <div style={{ color: "var(--muted-foreground)" }}>ita</div>
+                <div className="mt-1">I — VI</div>
               </div>
             </div>
           </div>
 
-          {/* legendas das cenas */}
-          <div className="mt-3 grid grid-cols-2 gap-3 text-[10px] font-mono tracking-[0.22em] uppercase"
-               style={{ color: "var(--muted-foreground)" }}>
-            <div
-              className="px-3 py-2 rounded-[2px] transition-colors duration-500"
-              style={{
-                border: "1px solid var(--border)",
-                background:
-                  scene === 0 ? "oklch(0.20 0.04 30 / 0.55)" : "transparent",
-                color: scene === 0 ? "var(--foreground)" : undefined,
-              }}
-            >
-              01 · captura crua
-            </div>
-            <div
-              className="px-3 py-2 rounded-[2px] transition-colors duration-500"
-              style={{
-                border: "1px solid var(--border)",
-                background:
-                  scene === 1 ? "oklch(0.20 0.04 30 / 0.55)" : "transparent",
-                color: scene === 1 ? "var(--foreground)" : undefined,
-              }}
-            >
-              02 · pipeline urucum
-            </div>
-          </div>
+          <p className="mt-4 max-w-[380px] mx-auto text-center text-[11px] tracking-[0.18em] uppercase font-mono"
+             style={{ color: "var(--muted-foreground)" }}>
+            correção na raiz — antes do dado alimentar o modelo
+          </p>
         </div>
       </div>
 
       <style>{`
-        @keyframes scan-a {
-          0%   { top: 8%;  opacity: 0; }
-          12%  { opacity: 1; }
-          88%  { opacity: 1; }
-          100% { top: 92%; opacity: 0; }
-        }
         @keyframes scan-b {
           0%   { top: 0%;   opacity: 0; }
           10%  { opacity: 1; }
