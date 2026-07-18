@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import sensorMacro from "@/assets/sensor-macro.jpg";
+import sensorMacro from "@/assets/hero-biometria-falha.jpg";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 /**
