@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import sensorMacro from "@/assets/hero-biometria-falha.jpg";
+import heroVideo from "@/assets/hero-biometria-falha.mp4.asset.json";
+import heroPoster from "@/assets/hero-biometria-falha.jpg";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 /**
@@ -31,7 +32,7 @@ export function Hero() {
     >
       <div className="absolute inset-0 grain pointer-events-none" />
 
-      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-12 pt-32 lg:pt-40 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center min-h-screen">
+      <div className="relative max-w-[1400px] mx-auto px-5 sm:px-6 lg:px-12 pt-24 sm:pt-28 lg:pt-40 pb-16 sm:pb-24 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-center min-h-screen">
         {/* LEFT — editorial */}
         <div className="lg:col-span-7 relative">
           <div
@@ -52,7 +53,7 @@ export function Hero() {
           </div>
 
           <h1
-            className={`mt-8 font-serif font-light text-[40px] md:text-[56px] lg:text-[72px] leading-[1.0] tracking-[-0.025em] text-foreground/95 max-w-[22ch] transition-all duration-700 ${
+            className={`mt-6 sm:mt-8 font-serif font-light text-[30px] sm:text-[40px] md:text-[56px] lg:text-[72px] leading-[1.05] tracking-[-0.02em] text-foreground/95 max-w-[22ch] transition-all duration-700 ${
               stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
             }`}
           >
@@ -63,7 +64,7 @@ export function Hero() {
           </h1>
 
           <p
-            className={`mt-7 max-w-[58ch] text-[15px] md:text-[17px] leading-[1.65] font-light transition-opacity duration-700 ${
+            className={`mt-5 sm:mt-7 max-w-[58ch] text-[14px] sm:text-[15px] md:text-[17px] leading-[1.6] font-light transition-opacity duration-700 ${
               stage >= 3 ? "opacity-100" : "opacity-0"
             }`}
             style={{ color: "var(--muted-foreground)" }}
@@ -155,13 +156,18 @@ export function Hero() {
               boxShadow: "0 60px 120px -30px oklch(0 0 0 / 0.6)",
             }}
           >
-            <img
-              src={sensorMacro}
-              alt="Homem negro tentando autenticação facial sob luz doméstica hostil — sensor falhando"
+            <video
+              src={heroVideo.url}
+              poster={heroPoster}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
               className="absolute inset-0 w-full h-full object-cover"
-              width={800}
-              height={1000}
+              aria-label="Homem negro tentando autenticação facial sob luz doméstica hostil — sensor falhando"
             />
+
 
             {/* varredura sutil */}
             <div
