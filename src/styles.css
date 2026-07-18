@@ -164,7 +164,60 @@
     background: oklch(0.55 0.18 35 / 0.4);
     color: oklch(0.96 0.02 80);
   }
+
+  /* Accessibility — visible keyboard focus ring on all interactive elements */
+  :focus-visible {
+    outline: 2px solid oklch(0.72 0.22 28);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Skip link — invisible until focused */
+  .skip-link {
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    background: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+    transform: translateY(-150%);
+    transition: transform 200ms ease;
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+
+  /* Mobile legibility floor — micro labels stay readable */
+  @media (max-width: 640px) {
+    [class*="text-["][class*="px]"] {
+      /* fallback nudge; specific overrides below */
+    }
+    .text-\[8px\], .text-\[8\.5px\], .text-\[9px\], .text-\[9\.5px\] {
+      font-size: 11px !important;
+      letter-spacing: 0.14em !important;
+    }
+    .text-\[10px\], .text-\[10\.5px\] {
+      font-size: 12px !important;
+    }
+    .text-\[11px\], .text-\[11\.5px\], .text-\[12px\], .text-\[12\.5px\] {
+      font-size: 13px !important;
+      line-height: 1.55 !important;
+    }
+  }
+
+  /* Contrast floor for low-opacity foreground text */
+  .text-foreground\/30, .text-foreground\/35, .text-foreground\/40, .text-foreground\/45 {
+    color: oklch(0.72 0.03 70) !important;
+  }
+  .text-foreground\/50, .text-foreground\/55 {
+    color: oklch(0.80 0.03 70) !important;
+  }
 }
+
 
 @layer utilities {
   .font-serif { font-family: var(--font-serif); }
