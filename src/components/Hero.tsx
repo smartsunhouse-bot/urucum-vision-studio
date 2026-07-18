@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import sensorMacro from "@/assets/sensor-macro.jpg";
+import sensorMacro from "@/assets/hero-biometria-falha.jpg";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 /**
@@ -157,7 +157,7 @@ export function Hero() {
           >
             <img
               src={sensorMacro}
-              alt="Macro de sensor CMOS com resposta radiométrica visível"
+              alt="Homem negro tentando autenticação facial sob luz doméstica hostil — sensor falhando"
               className="absolute inset-0 w-full h-full object-cover"
               width={800}
               height={1000}
