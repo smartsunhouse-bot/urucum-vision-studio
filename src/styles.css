@@ -422,8 +422,11 @@
   @media (prefers-reduced-motion: reduce) {
     .animate-hud-scan, .animate-bbox, .animate-glitch, .animate-conf,
     .animate-breathe, .animate-drift, .animate-light, .animate-ev,
-    .animate-scan, .animate-scan-x, .animate-lock, .animate-live, .animate-grain {
+    .animate-scan, .animate-scan-x, .animate-lock, .animate-live, .animate-grain,
+    .text-shimmer, .caret::after {
       animation: none !important;
     }
+    html { scroll-behavior: auto; }
   }
 }
+
