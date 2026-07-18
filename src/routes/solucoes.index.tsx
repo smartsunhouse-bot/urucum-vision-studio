@@ -161,7 +161,7 @@ function SolucoesIndex() {
   const ref = useRef<HTMLDivElement>(null);
 
   return (
-    <main className="relative bg-background text-foreground">
+    <main id="main" className="relative bg-background text-foreground">
       <SkinToneStrip />
       <Navbar />
 

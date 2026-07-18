@@ -1,179 +1,66 @@
 
-# Crítica de Direção de Arte — Urucum AI
+# Auditoria Mobile — Contraste, Fonte e Teclado
 
-## 1. Diagnóstico do estado atual
+Escopo: revisar o site (foco no viewport 384px atual) e corrigir problemas de acessibilidade em três eixos, sem alterar identidade visual (urucum, Playfair, tokens já definidos).
 
-O site hoje carrega o discurso certo, mas veste o uniforme errado. Ele fala de invisibilidade algorítmica usando a gramática visual de uma SaaS B2B genérica: cards retangulares com `rounded-md`, hierarquia de blog (H2 + parágrafo + CTA), seções empilhadas com respiro uniforme, ícones decorativos, sem tensão óptica. O resultado é um site **legível mas inerte** — não causa o desconforto que o tema exige.
+## 1. Achados confirmados (via leitura de código)
 
-Problemas concretos identificados:
+**Contraste (WCAG AA — mínimo 4.5:1 para texto normal, 3:1 para large text)**
+- Uso repetido de `text-foreground/30`, `/35`, `/40`, `/45` em labels mono uppercase (Hero, Product, ResearchLandscape, IncidentLog, solucoes.index, Timeline). Sobre `--background` escuro, essas opacidades caem para ~2:1–3:1. Falha AA.
+- `text-urucum/85` em labels pequenos sobre fundo escuro — validar; provável borderline.
+- Placeholders e texto de suporte com `text-foreground/55` em fontes ≤11px falham AA (só passam como large text quando ≥18.66px bold / 24px regular).
 
-- **Cards homogêneos**: `Product`, `TechnicalGrid`, `Results`, `HowItWorks` e `ScientificBase` usam a mesma anatomia (border 1px, padding 24-32, título + corpo). Vira ruído visual repetido.
-- **Hero passivo**: headline + subheadline + dois botões. Não há "câmera tentando ver". Não há tempo, não há falha, não há vigilância. Só copy boa.
-- **"Notícias/Research" como blog**: `ResearchLandscape` ficou editorial-elegante, mas o usuário pediu **incident reports**, não revista.
-- **Falta gramática de visão computacional**: zero bounding boxes reais, zero HUD, zero scanlines integradas ao conteúdo, zero metadata óptica (frame ID, confidence, light score) usada como ornamento estrutural.
-- **Excesso de centralização**: tudo é `mx-auto max-w-*`. Falta assimetria, deslocamentos, sangrias industriais.
-- **Tipografia única**: sem contraste entre voz institucional (serif crítica) e voz de máquina (mono técnico). Tudo é sans neutro.
-- **Animação ausente**: o site é estático. Para um produto sobre captura em tempo real, isso é uma traição ao discurso.
+**Tamanho de fonte / legibilidade mobile**
+- Blocos de texto informativo em `text-[8px]` a `text-[10.5px]` no Product.tsx, IncidentLog, solucoes.index, ResearchLandscape. Em 384px CSS isso fica <11px físico — abaixo do mínimo confortável (12px) e do recomendado (14–16px para corpo).
+- Corpo (`<p>`) em `text-[11.5px]` a `text-[12.5px]` no Product/solucoes — deveria ser ≥14px em mobile.
+- Headline Hero já ajustada (30px mobile) — ok.
 
----
+**Teclado / navegação**
+- Vários `onClick` estão em elementos `<button>` reais (bom), mas alguns cards clicáveis em IncidentLog/solucoes.index usam `<button>` sem `focus-visible` explícito → depender do default do browser em fundo escuro é invisível.
+- Sem `Skip to content` link.
+- Navbar mobile: verificar se o menu hambúrguer (se existir) tem `aria-expanded`, `aria-controls`, e foco trapado quando aberto.
+- Tap targets: botões mono uppercase com padding pequeno (`py-3 px-4` em Product footer) — validar 44×44.
+- Tooltips do Hero (glossário): abrem em hover; em mobile precisam abrir também em focus/tap (Radix Tooltip já cobre focus, mas confirmar que não bloqueia leitura).
+- Vídeo do Hero: `autoplay muted loop` sem `aria-hidden` e sem controles — se puramente decorativo, marcar `aria-hidden="true"` e garantir `prefers-reduced-motion` respeitado.
 
-## 2. Nova direção: "Optical Infrastructure"
+## 2. Correções propostas (uma passada de acessibilidade)
 
-Linguagem visual derivada de **firmware de câmera industrial + relatórios desclassificados + interfaces de pesquisa NVIDIA/Blackmagic**. Não é cyberpunk. É **frio, documental, instrumental**.
+**A. Contraste**
+- Substituir opacidades <60 em texto informativo por tokens: `text-muted-foreground` (ajustar variável no `src/styles.css` para garantir ≥4.5:1 sobre `--background`) ou `text-foreground/70` como piso.
+- Labels mono decorativos que precisam ficar discretos: manter `/55` mas apenas quando não carregam informação essencial; caso contrário subir para `/75`.
+- Auditar `text-urucum/85` sobre preto — subir para `/100` (o próprio urucum #C2410C já tem contraste ok).
 
-### Princípios
-1. **Toda informação tem coordenadas.** IDs, hashes, timestamps, frame counters acompanham títulos como metadata permanente.
-2. **A câmera está sempre ligada.** Microanimações contínuas em background (scanline lenta, ruído de sensor, crosshair que respira) sem nunca virar showreel.
-3. **Falha como estética.** Glitches sutis, dropouts de confidence, tracking quebrado aparecem como decoração funcional, não efeito.
-4. **Assimetria industrial.** Grids de 12 colunas com sangrias, recortes diagonais, módulos de larguras diferentes. Nada centralizado por default.
-5. **Duas vozes tipográficas.**
-   - **Editorial crítica**: serif display (Instrument Serif) para manifesto e citações.
-   - **Instrumental/máquina**: mono (JetBrains Mono) para metadata, IDs, status.
-   - Body em sans neutro discreto (Inter) — peso 300/400 apenas.
+**B. Tipografia mobile**
+- Piso de 12px para labels mono e 14px para corpo em `<640px`. Ajustes com breakpoint: `text-[11px] sm:text-[9.5px]` (aumenta no mobile, reduz no desktop, ao contrário do padrão atual).
+- Componentes a ajustar: `Hero.tsx` (legenda), `Product.tsx` (todos os labels e corpo), `IncidentLog.tsx` (dossier bars/labels), `ResearchLandscape.tsx` (cards), `solucoes.index.tsx` (cards e hero).
 
-### Paleta refinada (tokens em `src/styles.css`)
-- `--bg`: `oklch(0.08 0.012 30)` — preto com undertone quente quase imperceptível
-- `--bg-elevated`: `oklch(0.11 0.014 30)`
-- `--ink`: `oklch(0.96 0.005 80)` — off-white papel
-- `--ink-dim`: `oklch(0.62 0.008 70)`
-- `--signal`: `oklch(0.68 0.19 32)` — urucum/ember, usado com extrema parcimônia (apenas confidence/alertas)
-- `--signal-cold`: `oklch(0.78 0.10 220)` — azul sensor, para tracking/bounding boxes
-- `--grid-line`: `oklch(0.96 0.005 80 / 0.06)`
-- `--scanline`: `oklch(0.96 0.005 80 / 0.03)`
+**C. Teclado e ARIA**
+- Adicionar estilo global `:focus-visible` com anel urucum (2px offset) em `src/styles.css` para `button, a, [role="button"]`.
+- Adicionar `<a href="#main" className="sr-only focus:not-sr-only …">Pular para o conteúdo</a>` no `__root.tsx` e `id="main"` no `<main>`.
+- Marcar vídeo decorativo do Hero com `aria-hidden="true"` e `tabIndex={-1}`.
+- Verificar Navbar mobile: se houver menu colapsável, garantir `aria-expanded` e fechamento por Esc (Radix já cobre se estiver usando Sheet/DropdownMenu).
+- Confirmar tap targets ≥44×44 nos CTAs e nos "logo tiles" do IncidentLog (aumentar padding onde necessário).
+- Adicionar `prefers-reduced-motion` guard nas animações do Hero (stage 1–5), Timeline scroll, e vídeo (pausar).
 
----
+## 3. Entregáveis
 
-## 3. Nova arquitetura de seções
+Um único PR de acessibilidade tocando:
+- `src/styles.css` — token `--muted-foreground` mais claro, regra global de `:focus-visible`, media query `prefers-reduced-motion`.
+- `src/routes/__root.tsx` — skip link, `<main id="main">` (verificar se já existe layout com main único).
+- `src/components/Hero.tsx` — pisos de fonte mobile, `aria-hidden` no vídeo, respeitar reduce-motion.
+- `src/components/Product.tsx` — subir todos os `text-[8-11px]` para pisos mobile e ajustar opacidades.
+- `src/components/IncidentLog.tsx` — contraste labels, focus ring nos logo tiles, tap target ≥44px.
+- `src/components/ResearchLandscape.tsx` — mesma passada.
+- `src/routes/solucoes.index.tsx` — mesma passada.
+- `src/components/Navbar.tsx` — validar menu mobile e focus.
 
-```text
-┌─────────────────────────────────────────────────────────────┐
-│ 00 ─ OpticalHUD (frame global: crosshair canto, frame ID,   │
-│      lat/long fake, timestamp ao vivo, scanline contínua)   │
-├─────────────────────────────────────────────────────────────┤
-│ 01 ─ Hero "Detection Attempt"                               │
-│      Câmera tentando detectar rosto negro. Bounding box     │
-│      pisca, confidence cai de 87% → 31% → LOST. Headline    │
-│      aparece quando o tracking falha.                       │
-├─────────────────────────────────────────────────────────────┤
-│ 02 ─ Manifesto editorial (1 frase serif gigante, sangrada)  │
-├─────────────────────────────────────────────────────────────┤
-│ 03 ─ IncidentLog (substitui ResearchLandscape como blog)    │
-│      Lista vertical tipo terminal/registro classificado.    │
-├─────────────────────────────────────────────────────────────┤
-│ 04 ─ OpticalModules (substitui TechnicalGrid)               │
-│      Cards-como-cartão-SD/módulo-de-câmera.                 │
-├─────────────────────────────────────────────────────────────┤
-│ 05 ─ Product "Capture Stack" (assimétrico, com HUD vivo)    │
-├─────────────────────────────────────────────────────────────┤
-│ 06 ─ ScientificBase (fichas biométricas de pesquisadores)   │
-├─────────────────────────────────────────────────────────────┤
-│ 07 ─ Timeline (mantida em disclosure, repaginada)           │
-├─────────────────────────────────────────────────────────────┤
-│ 08 ─ Contact / "Request clearance"                          │
-└─────────────────────────────────────────────────────────────┘
-```
+## 4. Verificação
 
----
+Após implementar:
+- Rodar Playwright em viewport 384×702 (mobile atual do usuário), tirar screenshots do Hero, Product, IncidentLog, Solucoes.
+- Checar contraste com script (calcular ratio dos tokens finais).
+- Testar Tab-navigation registrando ordem de foco e visibilidade do anel.
 
-## 4. Componentes novos (anatomia)
-
-### `OpticalHUD` (overlay global, position: fixed)
-Quatro crosshairs nos cantos, frame counter rodando (`FRAME #04821 → #04822`), timestamp UTC ao vivo, scanline horizontal de 1px que desce a viewport a cada 8s. Pointer-events none. Opacidade 0.35.
-
-### `DetectionHero`
-- Imagem em grayscale com `clip-path` parcial simulando "área detectada".
-- Bounding box SVG animado que se redesenha a cada 3s tentando "encontrar" o rosto, com confidence numérica caindo.
-- Headline aparece com efeito de tipografia "renderizando" (char-by-char) somente após o terceiro tracking falhar.
-- Subheadline em mono pequeno, alinhada à esquerda como log.
-- CTAs estilo "REQUEST ACCESS / VIEW SYSTEM" — sem rounded, border 1px ember, font mono uppercase tracking-widest.
-
-### `IncidentCard` (anatomia compartilhada para reports, módulos, evidências)
-```
-┌──────────────────────────────────────────────┐
-│ ◤ ID: URC-2024-0317      [▮ CRITICAL]   ◥   │ ← canto cortado real (clip-path)
-│ ──────────────────────────────────────────── │
-│ FACIAL DETECTION FAILURE                     │ ← mono uppercase
-│ Affected group: Fitzpatrick V–VI             │ ← sans light
-│                                              │
-│ ░░░░░▓▓▓▓▓░░░  confidence 31%                │ ← barra ascii
-│                                              │
-│ LAT 23.5505°S  LON 46.6333°W                 │
-│ FRAME #04821   LIGHT SCORE: LOW              │
-│ ◣                                          ◢ │
-└──────────────────────────────────────────────┘
-```
-Sem `border-radius`. Cantos cortados com `clip-path: polygon(...)`. Background `--bg-elevated`. Border 1px `--grid-line`. Hover: bordas ficam `--signal-cold`, scanline curta cruza o card uma vez.
-
-### `OpticalModule` (cards-cartão-SD)
-Proporção 3:2 horizontal. Lado esquerdo: "chip" visual (grid de pontos representando sensor). Lado direito: metadata + título. Slot inferior com "CAPACITY / FORMAT / SPEED CLASS" reapropriado para tech specs do produto.
-
-### `BiometricCard` (para pesquisadores em ScientificBase)
-Foto do autor em grayscale com landmarks faciais sobrepostos (68 pontos SVG estáticos), nome em mono, instituição, "quote" em serif italic abaixo. Parece ficha de identificação científica.
-
----
-
-## 5. Motion design
-
-- **Global**: scanline contínua, frame counter incrementando, timestamp UTC ao vivo. Tudo `prefers-reduced-motion: respect`.
-- **Reveal**: elementos entram com `clip-path` revelando da esquerda + char-stagger no mono. Nunca fade simples.
-- **Hover em cards**: ruído digital de 200ms + reset da bounding box.
-- **Cursor (desktop)**: micro crosshair seguindo o mouse com coordenadas vivas em mono ao lado. Some em mobile.
-- **Transições de seção**: separadores horizontais de 1px com ticks marcando "0%, 25%, 50%, 75%, 100%" como régua de timecode.
-
----
-
-## 6. Tipografia
-
-- Display crítico: **Instrument Serif** (já disponível no preset usado)
-- Body: **Inter** weight 300/400, tracking levemente negativo em sizes grandes
-- Máquina: **JetBrains Mono** weight 400, uppercase, tracking-wider, sempre em cor `--ink-dim`
-- Hierarquia: H1 serif 72-120px; H2 mono uppercase 12-14px (eyebrow); H3 sans medium 24px
-
----
-
-## 7. UX / interações
-
-- Navbar vira régua técnica fina (12px height) com seções numeradas `01 · 02 · 03`.
-- Scroll progress vira um "timeline scrubber" no rodapé esquerdo com timecode.
-- Cada seção tem um ID visível tipo `§ 03 / INCIDENT LOG` no canto superior direito sticky durante a leitura da seção.
-- Acesso ao produto vira "REQUEST CLEARANCE" — formulário estilo terminal.
-
----
-
-## 8. Plano de implementação (faseado)
-
-Dado o escopo, proponho executar em **3 ondas**. A cada onda você revisa antes de continuar.
-
-### Onda 1 — Fundação (esta resposta, se aprovada)
-1. Atualizar tokens em `src/styles.css` (nova paleta, scanline, grid-line, fontes mono+serif via `@import`).
-2. Criar `src/components/optical/OpticalHUD.tsx` (overlay global) e montar em `routes/index.tsx`.
-3. Criar primitives reutilizáveis: `IncidentCard`, `OpticalModule`, `MonoMeta`, `CornerTicks`, `Scanline`, `BoundingBox`.
-4. Refazer `Hero.tsx` como `DetectionHero` com bounding box animada e confidence drop.
-5. Refazer Navbar como régua técnica numerada.
-
-### Onda 2 — Conteúdo
-6. Substituir `ResearchLandscape` por `IncidentLog` (lista vertical tipo registro classificado, com os mesmos casos reais reformatados como incident reports).
-7. Refazer `TechnicalGrid` usando `OpticalModule`.
-8. Refazer `ScientificBase` com `BiometricCard` + landmarks SVG.
-9. Refazer `Product` com layout assimétrico + HUD vivo.
-
-### Onda 3 — Polimento
-10. Cursor crosshair desktop, section IDs sticky, timeline scrubber.
-11. Motion design (reveal clip-path, char-stagger, ruído em hover).
-12. Repaginar `Timeline` dentro do disclosure com mesma linguagem.
-13. Refazer `Contact` como "Request Clearance" terminal.
-
----
-
-## Detalhes técnicos
-
-- Stack mantida (TanStack Start + Tailwind v4 tokens em `src/styles.css`).
-- Tokens novos via CSS custom properties oklch — zero cores hardcoded em componentes.
-- Fontes adicionadas via `@import` em `src/styles.css` (Instrument Serif + JetBrains Mono + Inter já presentes via Google Fonts).
-- SVG inline para bounding boxes, landmarks, crosshairs (performance + theming via `currentColor`).
-- `prefers-reduced-motion` respeitado em todas as animações contínuas.
-- Zero bibliotecas novas — usar `clip-path`, CSS animations, e `requestAnimationFrame` apenas para frame counter/timestamp.
-
----
-
-**Confirma a direção e começo pela Onda 1?** Se quiser ajustar paleta, tipografia, ou trocar a ordem das ondas, me diga antes de eu codar.
+## Fora de escopo
+- Não alterar layout, cores de marca, ou copy.
+- Não redesenhar componentes — só ajustes de tamanho/opacidade/ARIA/foco.

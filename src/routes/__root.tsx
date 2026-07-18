@@ -73,14 +73,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Urucum IA — Infraestrutura de visão para pele retinta" },
+      { name: "description", content: "Calibração paramétrica adaptativa direto na captura. Corrigimos a imagem antes de alimentar sistemas de visão computacional." },
+      { name: "author", content: "Urucum IA" },
+      { property: "og:title", content: "Urucum IA — Infraestrutura de visão para pele retinta" },
+      { property: "og:description", content: "Calibração paramétrica adaptativa direto na captura." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -92,6 +91,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: appCss },
     ],
   }),
+
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
@@ -118,8 +118,10 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider delayDuration={150}>
+        <a href="#main" className="skip-link">Pular para o conteúdo</a>
         <Outlet />
       </TooltipProvider>
     </QueryClientProvider>
   );
 }
+

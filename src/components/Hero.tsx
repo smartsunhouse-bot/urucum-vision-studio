@@ -164,9 +164,16 @@ export function Hero() {
               loop
               playsInline
               preload="metadata"
-              className="absolute inset-0 w-full h-full object-cover"
-              aria-label="Homem negro tentando autenticação facial sob luz doméstica hostil — sensor falhando"
+              tabIndex={-1}
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover motion-reduce:hidden"
             />
+            <img
+              src={heroPoster}
+              alt="Homem negro tentando autenticação facial sob luz doméstica hostil — sensor falhando"
+              className="absolute inset-0 w-full h-full object-cover hidden motion-reduce:block"
+            />
+
 
 
             {/* varredura sutil */}

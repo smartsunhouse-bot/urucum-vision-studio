@@ -90,7 +90,7 @@ export function SolutionPage({ data }: { data: SolutionData }) {
   if (cur.length) lines.push(cur);
 
   return (
-    <main className="relative bg-background text-foreground">
+    <main id="main" className="relative bg-background text-foreground">
       <SkinToneStrip />
       <Navbar />
 
