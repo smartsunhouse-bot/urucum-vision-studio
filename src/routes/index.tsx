@@ -38,7 +38,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   useReveal();
   return (
-    <main className="relative">
+    <main id="main" className="relative">
       <Navbar />
       <Hero />
       <IncidentLog />
