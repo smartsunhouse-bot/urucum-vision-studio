@@ -42,6 +42,7 @@ const industries = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [openKey, setOpenKey] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const closeTimer = useRef<number | null>(null);
 
   useEffect(() => {
@@ -50,6 +51,15 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [mobileOpen]);
 
   const open = (key: string) => {
     if (closeTimer.current) window.clearTimeout(closeTimer.current);
@@ -71,7 +81,8 @@ export function Navbar() {
           : ""
       }`}
     >
-      <nav className="max-w-[1320px] mx-auto px-6 lg:px-12 h-[84px] grid grid-cols-[auto_1fr_auto] items-center gap-10">
+      <nav className="max-w-[1320px] mx-auto px-5 md:px-6 lg:px-12 h-[72px] md:h-[84px] grid grid-cols-[auto_1fr_auto] items-center gap-4 md:gap-10" aria-label="Navegação principal">
+
         {/* logo lockup — wordmark é protagonista, logo é selo */}
         <a
           href="/"
