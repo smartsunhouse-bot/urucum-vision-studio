@@ -82,7 +82,8 @@
   --secondary-foreground: oklch(0.88 0.04 75);
 
   --muted: oklch(0.18 0.02 40);
-  --muted-foreground: oklch(0.74 0.03 70);
+  --muted-foreground: oklch(0.82 0.035 72);
+
 
   --accent: oklch(0.32 0.09 25);             /* dark wine */
   --accent-foreground: oklch(0.92 0.04 75);
