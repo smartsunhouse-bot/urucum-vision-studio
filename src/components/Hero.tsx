@@ -157,7 +157,7 @@ export function Hero() {
           >
             <img
               src={sensorMacro}
-              alt="Macro de sensor CMOS com resposta radiométrica visível"
+              alt="Homem negro tentando autenticação facial sob luz doméstica hostil — sensor falhando"
               className="absolute inset-0 w-full h-full object-cover"
               width={800}
               height={1000}
