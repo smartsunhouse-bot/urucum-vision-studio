@@ -118,8 +118,10 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider delayDuration={150}>
+        <a href="#main" className="skip-link">Pular para o conteúdo</a>
         <Outlet />
       </TooltipProvider>
     </QueryClientProvider>
   );
 }
+
