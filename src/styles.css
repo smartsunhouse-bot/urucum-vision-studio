@@ -428,5 +428,10 @@
     }
     html { scroll-behavior: auto; }
   }
+
+  /* Hero glow intensity — reduce on mobile so copy stays legible */
+  @media (max-width: 1023px) {
+    .hero-glow { opacity: 0.55; }
+  }
 }
 
