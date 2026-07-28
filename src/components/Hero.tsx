@@ -34,7 +34,7 @@ export function Hero() {
     >
       {/* ambient glow */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none hero-glow"
         style={{
           background:
             "radial-gradient(ellipse 70% 60% at 75% 45%, oklch(0.48 0.16 28 / 0.35), transparent 60%)," +
