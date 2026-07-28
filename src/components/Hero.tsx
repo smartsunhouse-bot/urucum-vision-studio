@@ -140,7 +140,7 @@ export function Hero() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Digite seu e-mail"
-              className="h-12 flex-1 max-w-[320px] px-4 rounded-lg text-[14px] bg-[oklch(0.16_0.02_40)] border border-[oklch(0.28_0.02_40)] text-foreground placeholder:text-foreground/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="h-12 flex-1 max-w-[320px] px-4 rounded-lg text-[14px] text-left bg-[oklch(0.16_0.02_40)] border border-[oklch(0.28_0.02_40)] text-foreground placeholder:text-foreground/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
             <a
               href="#contato"
