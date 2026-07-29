@@ -43,16 +43,33 @@ export function Hero() {
         }}
       />
 
-      {/* fine grid */}
+      {/* soft noise grain — microscopic film */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.035]"
+        className="absolute inset-0 pointer-events-none opacity-[0.07] mix-blend-overlay"
         style={{
           backgroundImage:
-            "linear-gradient(oklch(0.96 0.005 80 / 0.5) 1px, transparent 1px)," +
-            "linear-gradient(90deg, oklch(0.96 0.005 80 / 0.5) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
         }}
       />
+
+      {/* faint optical curves — spectral trajectories */}
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.12]"
+        viewBox="0 0 1440 900"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="spectral" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="oklch(0.78 0.14 65)" stopOpacity="0" />
+            <stop offset="50%" stopColor="oklch(0.78 0.14 65)" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="oklch(0.55 0.22 25)" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path d="M -100 620 Q 400 420 900 500 T 1600 380" stroke="url(#spectral)" strokeWidth="0.7" fill="none" />
+        <path d="M -100 680 Q 500 520 1000 560 T 1600 460" stroke="url(#spectral)" strokeWidth="0.5" fill="none" />
+        <path d="M -100 560 Q 350 380 850 440 T 1600 320" stroke="url(#spectral)" strokeWidth="0.4" fill="none" />
+      </svg>
 
       {/* particles */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -65,23 +82,13 @@ export function Hero() {
               top: p.top,
               width: p.size,
               height: p.size,
-              background: "oklch(0.78 0.14 65 / 0.55)",
-              boxShadow: "0 0 8px oklch(0.78 0.14 65 / 0.45)",
+              background: "oklch(0.78 0.14 65 / 0.45)",
+              boxShadow: "0 0 6px oklch(0.78 0.14 65 / 0.35)",
               animation: `particle-float ${p.duration}s ease-in-out ${p.delay}s infinite`,
             }}
           />
         ))}
       </div>
-
-      {/* subtle scanline */}
-      <div
-        className="absolute inset-x-0 h-[1px] pointer-events-none motion-reduce:hidden"
-        style={{
-          background:
-            "linear-gradient(90deg, transparent, oklch(0.78 0.14 65 / 0.5), transparent)",
-          animation: "scan-sweep 8s linear infinite",
-        }}
-      />
 
       <div className="relative max-w-[1320px] mx-auto px-5 sm:px-6 lg:px-12 pt-32 sm:pt-36 lg:pt-44 pb-20 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-screen">
         {/* LEFT — copy */}
