@@ -186,15 +186,15 @@ export function Hero() {
           }`}
         >
           <div
-            className="relative w-full max-w-[560px] aspect-square"
+            className="relative w-full max-w-[620px] aspect-square"
             aria-hidden="true"
           >
-            {/* glow behind image */}
+            {/* warm halo behind lens — bleeds into background */}
             <div
-              className="absolute inset-0 rounded-full blur-3xl opacity-40"
+              className="absolute inset-[-10%] rounded-full blur-[80px] opacity-60"
               style={{
                 background:
-                  "radial-gradient(circle at center, oklch(0.55 0.22 25 / 0.6), transparent 65%)",
+                  "radial-gradient(circle at 55% 50%, oklch(0.55 0.22 25 / 0.55), oklch(0.32 0.09 25 / 0.25) 45%, transparent 70%)",
               }}
             />
 
@@ -203,43 +203,24 @@ export function Hero() {
               alt="Lente e sensor CMOS com raio de luz vermelho-laranja representando a captura radiométrica da Urucum"
               width={1024}
               height={1024}
-              className="relative w-full h-full object-contain drop-shadow-2xl"
+              className="relative w-full h-full object-contain"
               style={{
                 filter:
-                  "drop-shadow(0 40px 80px oklch(0 0 0 / 0.5))",
+                  "drop-shadow(0 30px 60px oklch(0 0 0 / 0.55)) drop-shadow(0 0 40px oklch(0.55 0.22 25 / 0.25))",
+                maskImage:
+                  "radial-gradient(ellipse 75% 75% at 50% 50%, #000 60%, transparent 100%)",
+                WebkitMaskImage:
+                  "radial-gradient(ellipse 75% 75% at 50% 50%, #000 60%, transparent 100%)",
               }}
             />
-
-            {/* floating label */}
-            <div
-              className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full font-mono text-[10px] tracking-[0.28em] uppercase whitespace-nowrap"
-              style={{
-                background: "oklch(0.12 0.015 35 / 0.85)",
-                border: "1px solid oklch(0.35 0.03 40 / 0.5)",
-                color: "var(--muted-foreground)",
-                backdropFilter: "blur(8px)",
-              }}
-            >
-              <span
-                className="inline-block w-1.5 h-1.5 rounded-full mr-2 align-middle animate-live"
-                style={{ background: "var(--primary-glow)" }}
-              />
-              captura · radiometria · edge
-            </div>
           </div>
         </div>
       </div>
 
       <style>{`
         @keyframes particle-float {
-          0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.35; }
-          50% { transform: translate3d(0, -12px, 0); opacity: 0.85; }
-        }
-        @keyframes scan-sweep {
-          0% { top: -10%; opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { top: 110%; opacity: 0; }
+          0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.3; }
+          50% { transform: translate3d(0, -14px, 0); opacity: 0.8; }
         }
       `}</style>
     </section>
