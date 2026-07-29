@@ -43,16 +43,33 @@ export function Hero() {
         }}
       />
 
-      {/* fine grid */}
+      {/* soft noise grain — microscopic film */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.035]"
+        className="absolute inset-0 pointer-events-none opacity-[0.07] mix-blend-overlay"
         style={{
           backgroundImage:
-            "linear-gradient(oklch(0.96 0.005 80 / 0.5) 1px, transparent 1px)," +
-            "linear-gradient(90deg, oklch(0.96 0.005 80 / 0.5) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
         }}
       />
+
+      {/* faint optical curves — spectral trajectories */}
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.12]"
+        viewBox="0 0 1440 900"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="spectral" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="oklch(0.78 0.14 65)" stopOpacity="0" />
+            <stop offset="50%" stopColor="oklch(0.78 0.14 65)" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="oklch(0.55 0.22 25)" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path d="M -100 620 Q 400 420 900 500 T 1600 380" stroke="url(#spectral)" strokeWidth="0.7" fill="none" />
+        <path d="M -100 680 Q 500 520 1000 560 T 1600 460" stroke="url(#spectral)" strokeWidth="0.5" fill="none" />
+        <path d="M -100 560 Q 350 380 850 440 T 1600 320" stroke="url(#spectral)" strokeWidth="0.4" fill="none" />
+      </svg>
 
       {/* particles */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -65,23 +82,13 @@ export function Hero() {
               top: p.top,
               width: p.size,
               height: p.size,
-              background: "oklch(0.78 0.14 65 / 0.55)",
-              boxShadow: "0 0 8px oklch(0.78 0.14 65 / 0.45)",
+              background: "oklch(0.78 0.14 65 / 0.45)",
+              boxShadow: "0 0 6px oklch(0.78 0.14 65 / 0.35)",
               animation: `particle-float ${p.duration}s ease-in-out ${p.delay}s infinite`,
             }}
           />
         ))}
       </div>
-
-      {/* subtle scanline */}
-      <div
-        className="absolute inset-x-0 h-[1px] pointer-events-none motion-reduce:hidden"
-        style={{
-          background:
-            "linear-gradient(90deg, transparent, oklch(0.78 0.14 65 / 0.5), transparent)",
-          animation: "scan-sweep 8s linear infinite",
-        }}
-      />
 
       <div className="relative max-w-[1320px] mx-auto px-5 sm:px-6 lg:px-12 pt-32 sm:pt-36 lg:pt-44 pb-20 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-screen">
         {/* LEFT — copy */}
@@ -179,15 +186,15 @@ export function Hero() {
           }`}
         >
           <div
-            className="relative w-full max-w-[560px] aspect-square"
+            className="relative w-full max-w-[620px] aspect-square"
             aria-hidden="true"
           >
-            {/* glow behind image */}
+            {/* warm halo behind lens — bleeds into background */}
             <div
-              className="absolute inset-0 rounded-full blur-3xl opacity-40"
+              className="absolute inset-[-10%] rounded-full blur-[80px] opacity-60"
               style={{
                 background:
-                  "radial-gradient(circle at center, oklch(0.55 0.22 25 / 0.6), transparent 65%)",
+                  "radial-gradient(circle at 55% 50%, oklch(0.55 0.22 25 / 0.55), oklch(0.32 0.09 25 / 0.25) 45%, transparent 70%)",
               }}
             />
 
@@ -196,43 +203,24 @@ export function Hero() {
               alt="Lente e sensor CMOS com raio de luz vermelho-laranja representando a captura radiométrica da Urucum"
               width={1024}
               height={1024}
-              className="relative w-full h-full object-contain drop-shadow-2xl"
+              className="relative w-full h-full object-contain"
               style={{
                 filter:
-                  "drop-shadow(0 40px 80px oklch(0 0 0 / 0.5))",
+                  "drop-shadow(0 30px 60px oklch(0 0 0 / 0.55)) drop-shadow(0 0 40px oklch(0.55 0.22 25 / 0.25))",
+                maskImage:
+                  "radial-gradient(ellipse 75% 75% at 50% 50%, #000 60%, transparent 100%)",
+                WebkitMaskImage:
+                  "radial-gradient(ellipse 75% 75% at 50% 50%, #000 60%, transparent 100%)",
               }}
             />
-
-            {/* floating label */}
-            <div
-              className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full font-mono text-[10px] tracking-[0.28em] uppercase whitespace-nowrap"
-              style={{
-                background: "oklch(0.12 0.015 35 / 0.85)",
-                border: "1px solid oklch(0.35 0.03 40 / 0.5)",
-                color: "var(--muted-foreground)",
-                backdropFilter: "blur(8px)",
-              }}
-            >
-              <span
-                className="inline-block w-1.5 h-1.5 rounded-full mr-2 align-middle animate-live"
-                style={{ background: "var(--primary-glow)" }}
-              />
-              captura · radiometria · edge
-            </div>
           </div>
         </div>
       </div>
 
       <style>{`
         @keyframes particle-float {
-          0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.35; }
-          50% { transform: translate3d(0, -12px, 0); opacity: 0.85; }
-        }
-        @keyframes scan-sweep {
-          0% { top: -10%; opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { top: 110%; opacity: 0; }
+          0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.3; }
+          50% { transform: translate3d(0, -14px, 0); opacity: 0.8; }
         }
       `}</style>
     </section>
