@@ -38,12 +38,23 @@ const particles = Array.from({ length: 24 }, (_, i) => ({
 export function Hero() {
   const [stage, setStage] = useState(0);
   const [email, setEmail] = useState("");
+  const [slide, setSlide] = useState(0);
 
   useEffect(() => {
     const t = [120, 320, 520, 720, 920].map((d, i) =>
       window.setTimeout(() => setStage((s) => Math.max(s, i + 1)), d),
     );
     return () => t.forEach(window.clearTimeout);
+  }, []);
+
+  useEffect(() => {
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+    const id = window.setInterval(
+      () => setSlide((s) => (s + 1) % heroSlides.length),
+      6000,
+    );
+    return () => window.clearInterval(id);
   }, []);
 
   return (
