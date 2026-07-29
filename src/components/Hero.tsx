@@ -210,40 +210,104 @@ export function Hero() {
           </p>
         </div>
 
-        {/* RIGHT — optics image */}
+        {/* RIGHT — parametric evidence carousel */}
         <div
-          className={`lg:col-span-6 relative flex items-center justify-center transition-all duration-700 delay-200 ${
+          className={`lg:col-span-6 relative flex flex-col items-center justify-center transition-all duration-700 delay-200 ${
             stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          <div
-            className="relative w-full max-w-[620px] aspect-square"
-            aria-hidden="true"
-          >
-            {/* warm halo behind lens — bleeds into background */}
+          <div className="relative w-full max-w-[620px] aspect-square">
+            {/* warm halo bleeding into background */}
             <div
+              aria-hidden="true"
               className="absolute inset-[-10%] rounded-full blur-[80px] opacity-60"
               style={{
                 background:
-                  "radial-gradient(circle at 55% 50%, oklch(0.55 0.22 25 / 0.55), oklch(0.32 0.09 25 / 0.25) 45%, transparent 70%)",
+                  "radial-gradient(circle at 55% 50%, oklch(0.55 0.22 25 / 0.45), oklch(0.32 0.09 25 / 0.22) 45%, transparent 70%)",
               }}
             />
 
-            <img
-              src={heroOptics.url}
-              alt="Lente e sensor CMOS com raio de luz vermelho-laranja representando a captura radiométrica da Urucum"
-              width={1024}
-              height={1024}
-              className="relative w-full h-full object-contain"
-              style={{
-                filter:
-                  "drop-shadow(0 30px 60px oklch(0 0 0 / 0.55)) drop-shadow(0 0 40px oklch(0.55 0.22 25 / 0.25))",
-                maskImage:
-                  "radial-gradient(ellipse 75% 75% at 50% 50%, #000 60%, transparent 100%)",
-                WebkitMaskImage:
-                  "radial-gradient(ellipse 75% 75% at 50% 50%, #000 60%, transparent 100%)",
-              }}
-            />
+            {heroSlides.map((s, i) => (
+              <img
+                key={s.src}
+                src={s.src}
+                alt={s.alt}
+                width={1024}
+                height={1024}
+                loading={i === 0 ? "eager" : "lazy"}
+                className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-1000 ${
+                  slide === i ? "opacity-100" : "opacity-0"
+                }`}
+                style={{
+                  filter:
+                    "drop-shadow(0 30px 60px oklch(0 0 0 / 0.55)) drop-shadow(0 0 40px oklch(0.55 0.22 25 / 0.20))",
+                  maskImage:
+                    "radial-gradient(ellipse 78% 78% at 50% 50%, #000 62%, transparent 100%)",
+                  WebkitMaskImage:
+                    "radial-gradient(ellipse 78% 78% at 50% 50%, #000 62%, transparent 100%)",
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Technical caption */}
+          <div className="mt-6 w-full max-w-[560px] px-2">
+            <div className="min-h-[92px]">
+              {heroSlides.map((s, i) => (
+                <div
+                  key={s.caption.title}
+                  className={`transition-opacity duration-700 ${
+                    slide === i ? "opacity-100" : "opacity-0 pointer-events-none absolute"
+                  }`}
+                  aria-hidden={slide !== i}
+                >
+                  <div
+                    className="font-mono text-[10px] tracking-[0.34em] uppercase mb-2"
+                    style={{ color: "oklch(0.68 0.18 35)" }}
+                  >
+                    {s.caption.title}
+                  </div>
+                  <p
+                    className="text-[13px] leading-[1.6] font-light"
+                    style={{ color: "var(--muted-foreground)" }}
+                  >
+                    {s.caption.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-4 flex items-center gap-3">
+              <div
+                className="flex-1 h-px"
+                style={{ background: "oklch(0.35 0.04 40 / 0.5)" }}
+              />
+              <span
+                className="font-mono text-[10px] tracking-[0.28em] uppercase tabular-nums"
+                style={{ color: "var(--muted-foreground)" }}
+              >
+                Borda · 14.4ms
+              </span>
+              <div className="flex items-center gap-1.5">
+                {heroSlides.map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => setSlide(i)}
+                    aria-label={`Ver ${heroSlides[i].caption.title}`}
+                    aria-current={slide === i}
+                    className="h-1.5 rounded-full transition-all"
+                    style={{
+                      width: slide === i ? 18 : 6,
+                      background:
+                        slide === i
+                          ? "oklch(0.68 0.20 30)"
+                          : "oklch(0.35 0.04 40 / 0.6)",
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
