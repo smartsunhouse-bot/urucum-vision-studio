@@ -1,5 +1,25 @@
 import { useEffect, useState } from "react";
-import heroOptics from "@/assets/hero-optics.png.asset.json";
+import sensibilidade from "@/assets/sensibilidade-parametrica.png.asset.json";
+import fototiposCalibrados from "@/assets/fototipos-calibrados.jpg";
+
+const heroSlides = [
+  {
+    src: sensibilidade.url,
+    alt: "Gráficos de sensibilidade paramétrica: variação de lambda, gamma e sigma em função do ITA — princípio inventivo da patente Urucum.",
+    caption: {
+      title: "Acurácia física (ITA)",
+      body: "Calibração paramétrica profunda — λ, γ, σ — que respeita a física da luz e preserva a textura local da pele retinta.",
+    },
+  },
+  {
+    src: fototiposCalibrados,
+    alt: "Quatro rostos de pessoas negras retintas com sobreposição discreta de detecção de visão computacional e etiquetas técnicas indicando ITA, fototipo e latência.",
+    caption: {
+      title: "Fototipos IV–VI · em tempo real",
+      body: "Identificação, iluminação e validação em milissegundos. Sem se mover, sem procurar luz artificial.",
+    },
+  },
+] as const;
 
 /**
  * Hero — estética de referência traduzida para a paleta Urucum.
