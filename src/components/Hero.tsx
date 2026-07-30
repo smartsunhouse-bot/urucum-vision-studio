@@ -201,13 +201,15 @@ export function Hero() {
           </div>
 
           <p
-            className={`mt-3 text-[12px] transition-opacity duration-700 ${
+            className={`mt-3 max-w-[52ch] text-[12px] leading-[1.6] transition-opacity duration-700 ${
               stage >= 4 ? "opacity-100" : "opacity-0"
             }`}
             style={{ color: "var(--muted-foreground)" }}
           >
-            Análise técnica gratuita para times de ML e produto.
+            Acesso controlado para engenharia. Liberação manual de chaves de API
+            e documentação para validação em ambiente sandbox.
           </p>
+
         </div>
 
         {/* RIGHT — parametric evidence carousel */}
