@@ -208,7 +208,7 @@ export function Navbar() {
                           >
                             <div className="flex items-center gap-2 text-[9px] font-mono tracking-[0.32em] uppercase text-foreground/40">
                               <span style={{ color: "oklch(0.66 0.24 28)" }}>{p.code}</span>
-                              <span>{"sub" in p ? (p as { sub: string }).sub : "Indústria"}</span>
+                              <span>{p.sub}</span>
                             </div>
                             <div className="mt-2 font-serif text-[15px] leading-tight text-foreground/95 group-hover:text-foreground transition-colors">
                               {p.title}
