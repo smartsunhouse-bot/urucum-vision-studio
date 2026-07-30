@@ -190,7 +190,7 @@ export function Hero() {
                   "0 1px 0 oklch(1 0 0 / 0.08) inset, 0 10px 28px -12px oklch(0.55 0.22 25 / 0.55)",
               }}
             >
-              Começar
+              Solicitar Acesso
               <span
                 className="transition-transform duration-300 group-hover:translate-x-0.5"
                 aria-hidden="true"
