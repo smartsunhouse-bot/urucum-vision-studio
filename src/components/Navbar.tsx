@@ -156,11 +156,14 @@ export function Navbar() {
           <ul className="hidden md:flex items-center justify-center gap-7 lg:gap-9">
             {links.map((l) => {
               const dropdown =
-                l.label === "Produto"
-                  ? { key: "produto", items: productPillars, width: "w-[640px]" }
-                  : l.label === "Soluções"
-                    ? { key: "solucoes", items: industries, width: "w-[560px]" }
-                    : null;
+                l.label === "Linha do Tempo"
+                  ? { key: "timeline", items: timelineItems, width: "w-[640px]" }
+                  : l.label === "Infraestrutura"
+                    ? { key: "infra", items: infraItems, width: "w-[640px]" }
+                    : l.label === "Recursos"
+                      ? { key: "recursos", items: resourceItems, width: "w-[640px]" }
+                      : null;
+
               const isOpen = dropdown ? openKey === dropdown.key : false;
               return (
                 <li
