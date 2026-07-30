@@ -290,7 +290,7 @@ export function IncidentLog() {
 
   return (
     <section
-      id="incidentes"
+      id="registro"
       className="relative w-full py-28 lg:py-36"
       style={{ background: "oklch(0.115 0.018 34)" }}
     >

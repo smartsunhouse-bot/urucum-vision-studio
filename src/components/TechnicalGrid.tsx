@@ -18,7 +18,7 @@ function heat(t: number, e: number) {
 
 export function TechnicalGrid() {
   return (
-    <section className="relative py-32 lg:py-44 border-t border-border/40">
+    <section id="performance" className="relative py-32 lg:py-44 border-t border-border/40">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="reveal max-w-2xl mb-16">
           <div className="text-[11px] font-mono uppercase tracking-[0.32em] text-urucum/80 mb-5">

@@ -10,6 +10,8 @@ import { TechnicalGrid } from "@/components/TechnicalGrid";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Results } from "@/components/Results";
 import { Docs } from "@/components/Docs";
+import { Resources } from "@/components/Resources";
+import { Pricing } from "@/components/Pricing";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
@@ -49,6 +51,8 @@ function Index() {
       <Results />
       <TimelineDisclosure />
       <Docs />
+      <Resources />
+      <Pricing />
       <Contact />
       <Footer />
     </main>

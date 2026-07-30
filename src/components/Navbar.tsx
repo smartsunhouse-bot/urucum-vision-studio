@@ -1,43 +1,85 @@
 import { useEffect, useRef, useState } from "react";
 import urucumLogo from "@/assets/urucum-logo.png";
 
-const links: { href: string; label: string }[] = [
-  { href: "/", label: "Home" },
-  { href: "/solucoes", label: "Soluções" },
-  { href: "/#produto", label: "Produto" },
-  { href: "/#tecnologia", label: "Tecnologia" },
-  { href: "/#precos", label: "Preços" },
-];
-
-const productPillars = [
+const timelineItems = [
   {
     code: "01",
-    title: "Sintética API",
-    sub: "Geração on-demand",
-    desc: "Painel programável: fototipos IV–VI, iluminação, clima, sensores. Output via POST /v1/generate_faces.",
-    href: "#produto",
+    title: "A Linha da Invisibilidade",
+    sub: "1839 → hoje",
+    desc: "Seis capítulos sobre como o erro nasceu na química do filme e sobreviveu no sensor digital.",
+    href: "/#entenda",
   },
   {
     code: "02",
-    title: "Datasets Pré-Treinados",
-    sub: "Core libraries",
-    desc: "Bancos massivos prontos: biométrico base, estresse lumínico, dermatológico clínico em peles retintas.",
-    href: "#produto",
+    title: "O Custo da Invisibilidade",
+    sub: "Registro de dados",
+    desc: "Casos documentados de falha em biometria, diagnóstico e vigilância em peles retintas.",
+    href: "/#registro",
   },
   {
     code: "03",
-    title: "Motor de Anotação",
-    sub: "Pixel-perfect ground truth",
-    desc: "Segmentação semântica, 68+ landmarks faciais. Export COCO JSON, YOLO txt, Pascal VOC.",
-    href: "#produto",
+    title: "A Virada",
+    sub: "Capítulo 06",
+    desc: "O momento em que a linha do tempo deixa de ser problema e vira infraestrutura de captura.",
+    href: "/#entenda",
   },
 ];
 
-const industries = [
-  { code: "α", title: "Biometria & FinTechs", desc: "KYC, liveness e auditoria biométrica em fototipos IV–VI.", href: "/solucoes/biometria" },
-  { code: "β", title: "Saúde & Telemedicina", desc: "Dermatologia clínica e imagem médica em peles retintas.", href: "/solucoes/diagnostico" },
-  { code: "γ", title: "Smart Cities & CFTV", desc: "Vigilância urbana sob baixa luz e sombras críticas.", href: "/solucoes/smart-cities" },
+const infraItems = [
+  {
+    code: "01",
+    title: "Módulo Paramétrico",
+    sub: "λ · γ · σ",
+    desc: "A matemática por trás da API: ajustes minuciosos de lambda, gamma e sigma sobre a curva de exposição.",
+    href: "/#exposicao",
+  },
+  {
+    code: "02",
+    title: "Performance · 14.4 ms",
+    sub: "Borda",
+    desc: "Gráficos de velocidade de processamento e consumo de memória sob carga real.",
+    href: "/#performance",
+  },
+  {
+    code: "03",
+    title: "Pipeline de Captura",
+    sub: "HDR · radiância",
+    desc: "Como a radiometria adaptativa preserva detalhe fotométrico em fototipos IV–VI.",
+    href: "/#produto",
+  },
 ];
+
+const resourceItems = [
+  {
+    code: "01",
+    title: "Documentação da API",
+    sub: "Guia de integração",
+    desc: "Endpoints, parâmetros e manifesto determinístico — integração direta no seu editor.",
+    href: "/#documentacao",
+  },
+  {
+    code: "02",
+    title: "Propriedade Intelectual",
+    sub: "Patente técnica",
+    desc: "Detalhes da patente da pipeline radiométrica adaptativa da Urucum.",
+    href: "/#patente",
+  },
+  {
+    code: "03",
+    title: "Suporte ao Desenvolvedor",
+    sub: "Canal direto",
+    desc: "Fale com engenheiros que estão integrando a pipeline em produção.",
+    href: "/#suporte",
+  },
+];
+
+const links: { href: string; label: string }[] = [
+  { href: "/#entenda", label: "Linha do Tempo" },
+  { href: "/#produto", label: "Infraestrutura" },
+  { href: "/#recursos", label: "Recursos" },
+  { href: "/#precos", label: "Preços" },
+];
+
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -114,11 +156,14 @@ export function Navbar() {
           <ul className="hidden md:flex items-center justify-center gap-7 lg:gap-9">
             {links.map((l) => {
               const dropdown =
-                l.label === "Produto"
-                  ? { key: "produto", items: productPillars, width: "w-[640px]" }
-                  : l.label === "Soluções"
-                    ? { key: "solucoes", items: industries, width: "w-[560px]" }
-                    : null;
+                l.label === "Linha do Tempo"
+                  ? { key: "timeline", items: timelineItems, width: "w-[640px]" }
+                  : l.label === "Infraestrutura"
+                    ? { key: "infra", items: infraItems, width: "w-[640px]" }
+                    : l.label === "Recursos"
+                      ? { key: "recursos", items: resourceItems, width: "w-[640px]" }
+                      : null;
+
               const isOpen = dropdown ? openKey === dropdown.key : false;
               return (
                 <li
@@ -163,7 +208,7 @@ export function Navbar() {
                           >
                             <div className="flex items-center gap-2 text-[9px] font-mono tracking-[0.32em] uppercase text-foreground/40">
                               <span style={{ color: "oklch(0.66 0.24 28)" }}>{p.code}</span>
-                              <span>{"sub" in p ? (p as { sub: string }).sub : "Indústria"}</span>
+                              <span>{p.sub}</span>
                             </div>
                             <div className="mt-2 font-serif text-[15px] leading-tight text-foreground/95 group-hover:text-foreground transition-colors">
                               {p.title}
