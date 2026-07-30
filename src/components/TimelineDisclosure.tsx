@@ -27,8 +27,9 @@ export function TimelineDisclosure() {
                   boxShadow: "0 0 12px oklch(0.62 0.24 26 / 0.9)",
                 }}
               />
-              <span>04 · contexto histórico</span>
+              <span>linha do tempo</span>
             </div>
+
             <h2 className="mt-6 font-serif font-light text-[34px] md:text-[44px] leading-[1.05] tracking-[-0.02em] text-foreground/95">
               Entenda{" "}
               <span

@@ -177,7 +177,7 @@ export function Hero() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Digite seu e-mail"
+              placeholder="Seu e-mail corporativo"
               className="h-12 flex-1 max-w-[320px] px-4 rounded-lg text-[14px] text-left bg-[oklch(0.16_0.02_40)] border border-[oklch(0.28_0.02_40)] text-foreground placeholder:text-foreground/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
             <a
@@ -190,7 +190,7 @@ export function Hero() {
                   "0 1px 0 oklch(1 0 0 / 0.08) inset, 0 10px 28px -12px oklch(0.55 0.22 25 / 0.55)",
               }}
             >
-              Começar
+              Solicitar Acesso
               <span
                 className="transition-transform duration-300 group-hover:translate-x-0.5"
                 aria-hidden="true"
@@ -201,13 +201,15 @@ export function Hero() {
           </div>
 
           <p
-            className={`mt-3 text-[12px] transition-opacity duration-700 ${
+            className={`mt-3 max-w-[52ch] text-[12px] leading-[1.6] transition-opacity duration-700 ${
               stage >= 4 ? "opacity-100" : "opacity-0"
             }`}
             style={{ color: "var(--muted-foreground)" }}
           >
-            Análise técnica gratuita para times de ML e produto.
+            Acesso controlado para engenharia. Liberação manual de chaves de API
+            e documentação para validação em ambiente sandbox.
           </p>
+
         </div>
 
         {/* RIGHT — parametric evidence carousel */}
