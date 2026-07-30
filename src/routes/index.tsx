@@ -43,13 +43,14 @@ function Index() {
     <main id="main" className="relative">
       <Navbar />
       <Hero />
+      <TimelineDisclosure />
       <IncidentLog />
       <Product />
       <ExposureMatrix />
       <TechnicalGrid />
       <HowItWorks />
       <Results />
-      <TimelineDisclosure />
+
       <Docs />
       <Resources />
       <Pricing />
