@@ -1,29 +1,9 @@
 import { useEffect, useState } from "react";
-import sensibilidade from "@/assets/sensibilidade-parametrica.png.asset.json";
-import fototiposCalibrados from "@/assets/fototipos-calibrados.jpg";
-
-const heroSlides = [
-  {
-    src: sensibilidade.url,
-    alt: "Gráficos de sensibilidade paramétrica: variação de lambda, gamma e sigma em função do ITA — princípio inventivo da patente Urucum.",
-    caption: {
-      title: "Acurácia física (ITA)",
-      body: "Calibração paramétrica profunda — λ, γ, σ — que respeita a física da luz e preserva a textura local da pele retinta.",
-    },
-  },
-  {
-    src: fototiposCalibrados,
-    alt: "Quatro rostos de pessoas negras retintas com sobreposição discreta de detecção de visão computacional e etiquetas técnicas indicando ITA, fototipo e latência.",
-    caption: {
-      title: "Fototipos IV–VI · em tempo real",
-      body: "Identificação, iluminação e validação em milissegundos. Sem se mover, sem procurar luz artificial.",
-    },
-  },
-] as const;
+import { RadiometricField } from "@/components/optical/RadiometricField";
 
 /**
  * Hero — estética de referência traduzida para a paleta Urucum.
- * Fundo escuro, glow quente, imagem 3D de infraestrutura óptica à direita.
+ * Fundo escuro, glow quente, reconstrução radiométrica abstrata à direita.
  */
 
 const particles = Array.from({ length: 24 }, (_, i) => ({
@@ -38,7 +18,6 @@ const particles = Array.from({ length: 24 }, (_, i) => ({
 export function Hero() {
   const [stage, setStage] = useState(0);
   const [email, setEmail] = useState("");
-  const [slide, setSlide] = useState(0);
 
   useEffect(() => {
     const t = [120, 320, 520, 720, 920].map((d, i) =>
@@ -47,15 +26,6 @@ export function Hero() {
     return () => t.forEach(window.clearTimeout);
   }, []);
 
-  useEffect(() => {
-    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
-    const id = window.setInterval(
-      () => setSlide((s) => (s + 1) % heroSlides.length),
-      6000,
-    );
-    return () => window.clearInterval(id);
-  }, []);
 
   return (
     <section
