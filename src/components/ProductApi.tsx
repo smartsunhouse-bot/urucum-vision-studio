@@ -5,10 +5,10 @@
  */
 
 const APPS = [
-  { id: "biometria", label: "Biometria e verificação de identidade", glyph: "◈" },
   { id: "derma", label: "Dermatologia digital e telemedicina", glyph: "✚" },
   { id: "cosmetica", label: "Plataformas cosméticas e prova virtual", glyph: "◍" },
   { id: "espelhos", label: "Espelhos inteligentes e simuladores", glyph: "▣" },
+  { id: "biometria", label: "Biometria e verificação de identidade", glyph: "◈" },
   { id: "sinteticos", label: "Geração de dados sintéticos para treino de IA", glyph: "⌗" },
   { id: "edge", label: "Câmeras e dispositivos de captura (edge/firmware)", glyph: "⌁" },
 ];
@@ -33,7 +33,7 @@ const CODE: Tok[][] = [
   L(["# Corrige a imagem pelo ITA extraído da captura", C.cmt]),
   L(["imagem_corrigida", C.txt], [" = ", C.txt], ["client", C.txt], [".", C.txt], ["calibrar", C.fn], ["(", C.txt]),
   L(["    imagem", C.txt], ["=", C.txt], ['"selfie.jpg"', C.str], [",", C.txt]),
-  L(["    modo", C.txt], ["=", C.txt], ['"adaptativo"', C.str], ["  # radiometria + ruído por ITA", C.cmt]),
+  L(["    modo", C.txt], ["=", C.txt], ['"adaptativo"', C.str], ["  # radiometria, ruído e contraste por ITA", C.cmt]),
   L([")", C.txt]),
   [],
   L(["imagem_corrigida", C.txt], [".", C.txt], ["save", C.fn], ["(", C.txt], ['"resultado.jpg"', C.str], [")", C.txt]),
