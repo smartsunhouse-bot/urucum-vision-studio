@@ -8,6 +8,7 @@ const stats = [
 export function Results() {
   return (
     <section id="resultados" className="relative py-32 lg:py-44 border-t border-border/40">
+      <span id="performance" aria-hidden="true" />
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="reveal max-w-2xl mb-20">
           <div className="text-[11px] font-mono uppercase tracking-[0.32em] text-urucum/80 mb-5">
