@@ -30,10 +30,10 @@ const CODE: Tok[][] = [
   [],
   L(["client", C.txt], [" = ", C.txt], ["urucum", C.fn], [".", C.txt], ["Client", C.fn], ["(", C.txt], ["api_key", C.txt], ["=", C.txt], ['"SUA_CHAVE"', C.str], [")", C.txt]),
   [],
-  L(["# Corrige a imagem com base no ITA extraído da própria captura", C.cmt]),
+  L(["# Corrige a imagem pelo ITA extraído da captura", C.cmt]),
   L(["imagem_corrigida", C.txt], [" = ", C.txt], ["client", C.txt], [".", C.txt], ["calibrar", C.fn], ["(", C.txt]),
   L(["    imagem", C.txt], ["=", C.txt], ['"selfie.jpg"', C.str], [",", C.txt]),
-  L(["    modo", C.txt], ["=", C.txt], ['"adaptativo"', C.str], ["  # ajusta radiometria, ruído e contraste por ITA", C.cmt]),
+  L(["    modo", C.txt], ["=", C.txt], ['"adaptativo"', C.str], ["  # radiometria + ruído por ITA", C.cmt]),
   L([")", C.txt]),
   [],
   L(["imagem_corrigida", C.txt], [".", C.txt], ["save", C.fn], ["(", C.txt], ['"resultado.jpg"', C.str], [")", C.txt]),
@@ -149,7 +149,7 @@ export function ProductApi() {
                   Python
                 </span>
               </div>
-              <pre className="p-4 sm:p-5 overflow-x-auto font-mono text-[11.5px] sm:text-[12.5px] leading-[1.85]">
+              <pre className="p-4 sm:p-5 overflow-x-auto font-mono text-[11px] sm:text-[12px] leading-[1.85]">
                 <code>
                   {CODE.map((line, i) => (
                     <div key={i} className="whitespace-pre">
