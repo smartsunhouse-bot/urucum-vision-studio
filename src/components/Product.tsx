@@ -1,4 +1,3 @@
-import urucumLogo from "@/assets/urucum-logo.png";
 
 /* ============================================================
    URUCUM / AI — Dashboard técnico
