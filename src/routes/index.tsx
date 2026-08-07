@@ -44,8 +44,7 @@ function Index() {
       <TimelineDisclosure />
       <IncidentLog />
       <Product />
-      <ExposureMatrix />
-      <TechnicalGrid />
+      <ProductApi />
       <HowItWorks />
       <Results />
 
