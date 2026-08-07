@@ -1,4 +1,3 @@
-import urucumLogo from "@/assets/urucum-logo.png";
 
 /* ============================================================
    URUCUM / AI — Dashboard técnico
@@ -480,94 +479,6 @@ function AppsGrid() {
   );
 }
 
-/* ---------- footer trio ---------- */
-
-const FLOW = ["CAPTURA MULTI-EXPOSIÇÃO", "FUSÃO HDR", "MAPEAMENTO TONAL", "EXTRAÇÃO DE CARACTERÍSTICAS", "INFERÊNCIA E DECISÃO"];
-
-function FooterTrio() {
-  return (
-    <div className="grid lg:grid-cols-3 gap-px" style={{ background: "oklch(0.42 0.08 30 / 0.32)" }}>
-      <Panel pad="p-6">
-        <Label>NOSSA MISSÃO</Label>
-        <h3 className="font-serif text-[22px] leading-[1.15] mt-3 text-foreground/95">
-          Construir sistemas que enxergam toda a diversidade humana com{" "}
-          <span className="italic" style={{ color: "oklch(0.7 0.22 28)" }}>precisão e equidade.</span>
-        </h3>
-        <p className="text-[11.5px] font-mono uppercase tracking-[0.22em] text-foreground/55 mt-5">
-          Mais dados. Mais contexto. Menos viés.
-        </p>
-      </Panel>
-
-      <Panel pad="p-6">
-        <Label>COMO FUNCIONA</Label>
-        <div className="grid grid-cols-5 gap-2 mt-5">
-          {FLOW.map((f, i) => (
-            <div key={f} className="flex flex-col items-center text-center">
-              <div className="w-10 h-10 flex items-center justify-center" style={{
-                border: "1px solid oklch(0.7 0.22 28 / 0.6)",
-                background: "oklch(0.10 0.014 32 / 0.8)",
-              }}>
-                <span className="text-urucum text-[11px]">◆</span>
-              </div>
-              <div className="text-[8px] font-mono uppercase tracking-[0.16em] text-foreground/55 mt-2 leading-[1.3]">
-                {f}
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-5 p-3 font-mono text-[10.5px] leading-[1.8]" style={{
-          background: "oklch(0.05 0.008 30 / 0.7)",
-          border: "1px solid oklch(0.42 0.08 30 / 0.25)",
-        }}>
-          {[
-            "acquiring frames... 7/7",
-            "aligning...",
-            "merging radiance map...",
-            "tone mapping...",
-            "extracting features...",
-            "inference ready.",
-            "bias reduced. accuracy improved.",
-          ].map((l, i) => (
-            <div key={i} style={{ color: i >= 5 ? "oklch(0.78 0.18 38)" : "oklch(0.7 0.16 35 / 0.85)" }}>
-              <span className="text-foreground/35">{">"}</span> {l}
-            </div>
-          ))}
-        </div>
-      </Panel>
-
-      <Panel pad="p-6" className="relative overflow-hidden">
-        <Label>PRONTO PARA INTEGRAR</Label>
-        <p className="text-foreground/85 text-[15px] leading-[1.5] mt-3 max-w-[28ch]">
-          APIs e SDKs para integração em sua solução ou fluxo operacional existente.
-        </p>
-        <a
-          href="#contato"
-          className="inline-flex items-center gap-2 mt-6 text-[10.5px] font-mono uppercase tracking-[0.28em] px-4 py-3"
-          style={{
-            border: "1px solid oklch(0.7 0.22 28 / 0.75)",
-            color: "oklch(0.85 0.06 60)",
-            background: "oklch(0.10 0.014 32 / 0.6)",
-          }}
-        >
-          <span className="w-1.5 h-1.5 rounded-full" style={{ background: "oklch(0.7 0.22 28)", boxShadow: "0 0 10px oklch(0.7 0.22 28 / 0.8)" }} />
-          Solicitar acesso
-        </a>
-        <div className="mt-6 text-[9px] font-mono uppercase tracking-[0.22em] text-foreground/45 leading-[1.8]">
-          API REST · SDK PYTHON · ONNX<br />
-          DOCKER · EDGE COMPATÍVEL
-        </div>
-        <img
-          src={urucumLogo}
-          alt=""
-          aria-hidden
-          className="absolute -bottom-6 -right-6 w-32 h-32 opacity-70 pointer-events-none"
-          style={{ mixBlendMode: "screen" }}
-        />
-      </Panel>
-    </div>
-  );
-}
-
 /* ---------- main section ---------- */
 
 export function Product() {
@@ -654,11 +565,6 @@ export function Product() {
         {/* ============= APPLICATIONS ============= */}
         <div className="mt-12">
           <AppsGrid />
-        </div>
-
-        {/* ============= FOOTER TRIO ============= */}
-        <div className="mt-12">
-          <FooterTrio />
         </div>
 
         {/* signature */}
