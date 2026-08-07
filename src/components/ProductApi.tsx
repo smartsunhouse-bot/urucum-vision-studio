@@ -103,14 +103,14 @@ export function ProductApi() {
 
           {/* RIGHT — apps + código */}
           <div
-            className="lg:col-span-7 reveal grid md:grid-cols-[minmax(0,240px)_1fr] gap-px"
+            className="lg:col-span-7 reveal grid md:grid-cols-[240px_minmax(0,1fr)] gap-px"
             style={{
               background: "oklch(0.42 0.08 30 / 0.28)",
               border: "1px solid oklch(0.42 0.08 30 / 0.35)",
             }}
           >
             {/* coluna de aplicações */}
-            <div className="p-5" style={{ background: "oklch(0.075 0.010 32)" }}>
+            <div className="p-5 min-w-0" style={{ background: "oklch(0.075 0.010 32)" }}>
               <div className="font-mono text-[9px] uppercase tracking-[0.28em] text-foreground/45 pb-3 mb-3 border-b" style={{ borderColor: "oklch(0.42 0.08 30 / 0.3)" }}>
                 Onde se aplica
               </div>
@@ -137,7 +137,7 @@ export function ProductApi() {
             </div>
 
             {/* bloco de código */}
-            <div style={{ background: "oklch(0.045 0.006 30)" }}>
+            <div className="min-w-0" style={{ background: "oklch(0.045 0.006 30)" }}>
               <div
                 className="flex items-center justify-between px-4 py-3 border-b"
                 style={{ borderColor: "oklch(0.42 0.08 30 / 0.28)" }}
