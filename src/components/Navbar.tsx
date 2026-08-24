@@ -38,7 +38,7 @@ const infraItems = [
     title: "Performance · 14.4 ms",
     sub: "Borda",
     desc: "Gráficos de velocidade de processamento e consumo de memória sob carga real.",
-    href: "/#performance",
+    href: "/#produto",
   },
   {
     code: "03",
