@@ -5,8 +5,6 @@ import { IncidentLog } from "@/components/IncidentLog";
 import { TimelineDisclosure } from "@/components/TimelineDisclosure";
 import { Product } from "@/components/Product";
 import { ProductApi } from "@/components/ProductApi";
-import { HowItWorks } from "@/components/HowItWorks";
-import { Results } from "@/components/Results";
 import { Docs } from "@/components/Docs";
 import { Resources } from "@/components/Resources";
 import { Pricing } from "@/components/Pricing";
@@ -45,8 +43,6 @@ function Index() {
       <IncidentLog />
       <Product />
       <ProductApi />
-      <HowItWorks />
-      <Results />
 
       <Docs />
       <Resources />
