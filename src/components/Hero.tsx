@@ -112,13 +112,13 @@ export function Hero() {
           </div>
 
           <h1
-            className={`mt-6 sm:mt-8 font-serif font-light text-[34px] sm:text-[46px] md:text-[58px] lg:text-[68px] leading-[1.05] tracking-[-0.025em] text-foreground max-w-[18ch] transition-all duration-700 ${
+            className={`mt-6 sm:mt-8 font-serif font-medium text-[34px] sm:text-[46px] md:text-[58px] lg:text-[68px] leading-[1.05] tracking-[-0.025em] text-foreground max-w-[18ch] transition-all duration-700 ${
               stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
             }`}
           >
-            Infraestrutura de{" "}
-            <span className="italic text-foreground/85">
-              visão computacional.
+            Inteligência visual que{" "}
+            <span className="text-foreground/85">
+              aprende direto na captura.
             </span>
           </h1>
 
@@ -128,9 +128,9 @@ export function Hero() {
             }`}
             style={{ color: "var(--muted-foreground)" }}
           >
-            Calibração paramétrica adaptativa direto na captura. Corrigimos viés
-            de cor, exposição e textura cutânea antes do dado alimentar seu
-            modelo — com foco em fototipos IV–VI.
+            Corrigimos distorções de cor, exposição e textura de pele em tempo
+            real, preparando seus dados para alimentar modelos de alta
+            performance.
           </p>
 
           {/* email + CTA */}
