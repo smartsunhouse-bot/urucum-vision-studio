@@ -112,7 +112,7 @@ export function Hero() {
           </div>
 
           <h1
-            className={`mt-6 sm:mt-8 font-serif font-light text-[34px] sm:text-[46px] md:text-[58px] lg:text-[68px] leading-[1.05] tracking-[-0.025em] text-foreground max-w-[18ch] transition-all duration-700 ${
+            className={`mt-6 sm:mt-8 font-serif font-medium text-[34px] sm:text-[46px] md:text-[58px] lg:text-[68px] leading-[1.05] tracking-[-0.025em] text-foreground max-w-[18ch] transition-all duration-700 ${
               stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
             }`}
           >
