@@ -116,9 +116,9 @@ export function Hero() {
               stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
             }`}
           >
-            Infraestrutura de{" "}
-            <span className="italic text-foreground/85">
-              visão computacional.
+            Inteligência visual que{" "}
+            <span className="text-foreground/85">
+              aprende direto na captura.
             </span>
           </h1>
 
@@ -128,9 +128,9 @@ export function Hero() {
             }`}
             style={{ color: "var(--muted-foreground)" }}
           >
-            Calibração paramétrica adaptativa direto na captura. Corrigimos viés
-            de cor, exposição e textura cutânea antes do dado alimentar seu
-            modelo — com foco em fototipos IV–VI.
+            Corrigimos distorções de cor, exposição e textura de pele em tempo
+            real, preparando seus dados para alimentar modelos de alta
+            performance.
           </p>
 
           {/* email + CTA */}
