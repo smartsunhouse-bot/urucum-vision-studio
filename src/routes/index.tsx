@@ -3,6 +3,7 @@ import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { IncidentLog } from "@/components/IncidentLog";
 import { TimelineDisclosure } from "@/components/TimelineDisclosure";
+import { AiReceives } from "@/components/AiReceives";
 import { Product } from "@/components/Product";
 import { ProductApi } from "@/components/ProductApi";
 import { Docs } from "@/components/Docs";
@@ -40,6 +41,7 @@ function Index() {
       <Navbar />
       <Hero />
       <TimelineDisclosure />
+      <AiReceives />
       <IncidentLog />
       <Product />
       <ProductApi />
