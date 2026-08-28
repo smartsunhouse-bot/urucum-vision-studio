@@ -36,7 +36,7 @@ function StepRow({
   etapa: (typeof ETAPAS)[number];
 }) {
   return (
-    <div className="grid md:grid-cols-[140px_1fr_1fr] gap-6 md:gap-10 border-b border-border/50 py-10 first:pt-0 last:border-b-0">
+    <div className="grid md:grid-cols-[200px_1fr_1fr] gap-6 md:gap-10 border-b border-border/50 py-10 first:pt-0 last:border-b-0">
       {/* Número + etapa */}
       <div className="flex md:flex-col items-baseline md:items-start gap-3">
         <span className="font-mono text-[12px] tracking-[0.3em] text-foreground/45">
