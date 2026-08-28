@@ -95,19 +95,15 @@ export function Hero() {
         {/* LEFT — copy */}
         <div className="lg:col-span-6 relative z-10">
           <div
-            className={`flex items-center gap-3 transition-opacity duration-500 ${
+            className={`transition-opacity duration-500 ${
               stage >= 1 ? "opacity-100" : "opacity-0"
             }`}
           >
             <span
-              className="h-px w-8"
-              style={{ background: "oklch(0.55 0.18 35 / 0.6)" }}
-            />
-            <span
               className="font-mono text-[11px] tracking-[0.34em] uppercase"
               style={{ color: "var(--muted-foreground)" }}
             >
-              Infraestrutura de visão
+              PELE • IMAGEM • VISÃO COMPUTACIONAL
             </span>
           </div>
 
@@ -116,10 +112,9 @@ export function Hero() {
               stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
             }`}
           >
-            Inteligência visual que{" "}
-            <span className="text-foreground/85">
-              aprende direto na captura.
-            </span>
+            Antes da IA enxergar,
+            <br />
+            a imagem precisa estar preparada.
           </h1>
 
           <p
@@ -128,9 +123,9 @@ export function Hero() {
             }`}
             style={{ color: "var(--muted-foreground)" }}
           >
-            Corrigimos distorções de cor, exposição e textura de pele em tempo
-            real, preparando seus dados para alimentar modelos de alta
-            performance.
+            A Urucum processa imagens de pele considerando fotometria, exposição
+            e características do tom de pele, preparando a entrada para sistemas
+            de visão computacional.
           </p>
 
           {/* email + CTA */}
@@ -176,8 +171,9 @@ export function Hero() {
             }`}
             style={{ color: "var(--muted-foreground)" }}
           >
-            Acesso controlado para engenharia. Liberação manual de chaves de API
-            e documentação para validação em ambiente sandbox.
+            Do celular ao modelo.
+            <br />
+            A imagem passa primeiro pela Urucum.
           </p>
 
         </div>
@@ -200,19 +196,13 @@ export function Hero() {
             <RadiometricField className="relative" />
           </div>
 
-          <div className="mt-6 w-full max-w-[520px] px-2">
-            <div className="flex items-center gap-3">
-              <div
-                className="flex-1 h-px"
-                style={{ background: "oklch(0.35 0.04 40 / 0.4)" }}
-              />
-              <span
-                className="font-mono text-[10px] tracking-[0.28em] uppercase tabular-nums"
-                style={{ color: "var(--muted-foreground)" }}
-              >
-                Luz bruta · calibração · dado
-              </span>
-            </div>
+          <div className="mt-6 w-full max-w-[520px] px-2 text-center">
+            <span
+              className="font-mono text-[10px] tracking-[0.28em] uppercase tabular-nums"
+              style={{ color: "var(--muted-foreground)" }}
+            >
+              Luz bruta · calibração · dado
+            </span>
           </div>
         </div>
 
