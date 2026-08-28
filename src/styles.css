@@ -157,10 +157,43 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-weight: 400;
-    letter-spacing: 0.01em;
-    line-height: 1.7;
+    line-height: 1.75;
+    letter-spacing: 0;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+  }
+
+  /* Typographic commandments — hierarchy, rhythm and breathing room */
+
+  /* 1 · Clear hierarchy: headings tighter, geometric, optical balance */
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  /* 2 · Paragraphs breathe: no widows, comfortable measure */
+  p {
+    text-wrap: pretty;
+    max-width: 68ch;
+  }
+
+  /* 3 · Lists follow the same rhythm as body copy */
+  ul, ol {
+    line-height: 1.7;
+  }
+
+  /* 4 · Emphasis is structural, not decorative */
+  strong, b {
+    font-weight: 600;
+  }
+
+  /* 5 · Micro labels (mono meta) keep air around them */
+  .font-mono[class*="uppercase"],
+  [class*="tracking-[0.3"] {
+    letter-spacing: 0.3em;
   }
 
   ::selection {
