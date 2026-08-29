@@ -118,10 +118,9 @@ export function Hero() {
           </h1>
 
           <p
-            className={`mt-5 sm:mt-6 max-w-[52ch] text-[15px] sm:text-[16px] md:text-[17px] leading-[1.65] font-light transition-opacity duration-700 ${
+            className={`font-editorial mt-5 sm:mt-6 max-w-[52ch] text-[17px] sm:text-[18px] md:text-[19px] leading-[1.5] transition-opacity duration-700 ${
               stage >= 3 ? "opacity-100" : "opacity-0"
             }`}
-            style={{ color: "var(--muted-foreground)" }}
           >
             A Urucum processa imagens de pele considerando fotometria, exposição
             e características do tom de pele, preparando a entrada para sistemas
@@ -166,9 +165,10 @@ export function Hero() {
           </div>
 
           <p
-            className={`font-editorial mt-6 max-w-[52ch] text-[18px] sm:text-[20px] leading-[1.5] transition-opacity duration-700 ${
+            className={`mt-6 max-w-[52ch] text-[14px] sm:text-[15px] leading-[1.65] font-light transition-opacity duration-700 ${
               stage >= 4 ? "opacity-100" : "opacity-0"
             }`}
+            style={{ color: "var(--muted-foreground)" }}
           >
             Do celular ao modelo.
             <br />
