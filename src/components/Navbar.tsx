@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import urucumLogo from "@/assets/urucum-logo.png";
 
 const timelineItems = [
   {
@@ -126,29 +125,38 @@ export function Navbar() {
         aria-label="Navegação principal"
       >
         <div className="h-full px-4 sm:px-5 grid grid-cols-[auto_1fr_auto] items-center gap-4">
-          {/* logo */}
+          {/* logo — wordmark editorial: Playfair italic + "IA" em sans geométrica */}
           <a
             href="/"
-            aria-label="URUCUM IA — página inicial"
+            aria-label="Urucum IA — página inicial"
             className="flex items-center gap-2.5 group leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-lg"
           >
-            <img
-              src={urucumLogo}
-              alt=""
-              aria-hidden="true"
-              draggable={false}
-              className="h-6 w-auto select-none block transition-transform duration-500 group-hover:scale-[1.04]"
-              style={{ mixBlendMode: "screen", opacity: 0.8 }}
-            />
             <span
-              className="font-semibold uppercase leading-none text-[17px] sm:text-[19px]"
+              aria-hidden="true"
+              className="inline-block w-2 h-2 rounded-full shrink-0 transition-transform duration-500 group-hover:scale-125"
               style={{
-                fontFamily: "'Playfair Display', 'Fraunces', Georgia, serif",
-                letterSpacing: "-0.01em",
-                color: "#E2E8F0",
+                background: "#D3452B",
+                boxShadow: "0 0 10px rgba(211, 69, 43, 0.7)",
               }}
-            >
-              URUCUM <span style={{ color: "#C2410C" }}>IA</span>
+            />
+            <span className="leading-none">
+              <span
+                className="italic text-[19px] sm:text-[21px]"
+                style={{
+                  fontFamily: "'Playfair Display', Georgia, serif",
+                  fontWeight: 400,
+                  letterSpacing: "0.005em",
+                  color: "#E2E8F0",
+                }}
+              >
+                Urucum
+              </span>{" "}
+              <span
+                className="font-sans font-semibold uppercase text-[13px] sm:text-[14px] tracking-[0.18em] align-middle"
+                style={{ color: "#D3452B" }}
+              >
+                IA
+              </span>
             </span>
           </a>
 

@@ -166,10 +166,9 @@ export function Hero() {
           </div>
 
           <p
-            className={`mt-3 max-w-[52ch] text-[12px] leading-[1.6] transition-opacity duration-700 ${
+            className={`font-editorial mt-6 max-w-[52ch] text-[18px] sm:text-[20px] leading-[1.5] transition-opacity duration-700 ${
               stage >= 4 ? "opacity-100" : "opacity-0"
             }`}
-            style={{ color: "var(--muted-foreground)" }}
           >
             Do celular ao modelo.
             <br />

@@ -160,8 +160,8 @@ export function AiReceives() {
 
         {/* Fechamento */}
         <div className="reveal mt-24 md:mt-32 text-center">
-          <p className="font-serif font-medium text-[28px] md:text-[44px] leading-[1.12] tracking-[-0.015em] text-foreground/95 max-w-[22ch] mx-auto">
-            Antes da IA enxergar, a imagem precisa estar preparada.
+          <p className="font-editorial text-[30px] md:text-[46px] leading-[1.18] max-w-[24ch] mx-auto" style={{ textWrap: "balance" }}>
+            “Antes da IA enxergar, a imagem precisa estar preparada.”
           </p>
 
           <div
