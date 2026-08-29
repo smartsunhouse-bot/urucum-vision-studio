@@ -1,103 +1,146 @@
-const developerIncludes = [
-  "Acesso ao endpoint /v1/generate",
-  "Controle paramétrico λ · γ · σ",
-  "Manifesto determinístico por seed",
-  "Latência de borda 14.4 ms",
-];
-
-const enterpriseIncludes = [
-  "Processamento local (on-premise)",
-  "Segurança bancária · isolamento de rede",
-  "Compliance médico e trilha de auditoria",
-  "Engenharia dedicada na integração",
+const plans = [
+  {
+    label: "TESTE · SEM CARTÃO",
+    name: "Semente",
+    price: "Grátis",
+    phrase: "Pra testar a calibração antes de decidir.",
+    bullets: [
+      "Limite de requisições/mês incluído",
+      "Sem cartão de crédito",
+      "Suporte via comunidade",
+    ],
+    featured: false,
+  },
+  {
+    label: "SELF-SERVE",
+    name: "Broto",
+    price: "R$ 0,25 / requisição",
+    phrase: "Pra prototipar e integrar sem contrato.",
+    bullets: ["Paga só pelo que usar", "Sem mensalidade fixa", "Ativa na hora"],
+    featured: false,
+  },
+  {
+    label: "PRODUÇÃO EM ESCALA",
+    name: "Floração",
+    price: "Mínimo mensal + uso",
+    phrase: "Pra quem já processa volume real todo mês.",
+    bullets: [
+      "Suporte prioritário",
+      "Compliance LGPD para dados de saúde",
+      "SLA de resposta",
+    ],
+    featured: false,
+  },
+  {
+    label: "LICENCIAMENTO · HARDWARE & SAÚDE",
+    name: "Colheita",
+    price: "Sob consulta",
+    phrase: "Pra rodar dentro do seu hardware, sem dado saindo.",
+    bullets: [
+      "Processamento on-device/on-premise",
+      "Licenciamento da patente",
+      "Nenhuma imagem sai do seu ambiente",
+    ],
+    featured: true,
+  },
 ];
 
 export function Pricing() {
   return (
     <section
       id="precos"
-      className="relative py-32 lg:py-44 border-t border-border/40"
+      className="relative py-24 sm:py-32 lg:py-40 border-t border-border/40"
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="reveal max-w-2xl mb-16">
-          <div className="text-[11px] font-mono uppercase tracking-[0.32em] text-urucum/80 mb-5">
-            ◦ Preços
-          </div>
-          <h2 className="font-serif font-light text-4xl md:text-5xl leading-[1.05] tracking-[-0.01em]">
-            Comece por requisição.{" "}
-            <span className="italic">Escale por contrato.</span>
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10">
+        {/* Header */}
+        <div className="max-w-2xl mb-14 sm:mb-16">
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-peach/20 bg-peach/5 text-[11px] font-mono uppercase tracking-[0.22em] text-peach">
+            <span className="w-1 h-1 rounded-full bg-peach" aria-hidden="true" />
+            Preços
+          </span>
+
+          <h2 className="mt-6 sm:mt-8">
+            <span className="block font-sans font-bold text-[34px] sm:text-[44px] md:text-[54px] lg:text-[62px] leading-[1.05] tracking-[-0.025em] text-white">
+              Comece por requisição.
+            </span>
+            <span
+              className="block mt-1 italic text-[34px] sm:text-[44px] md:text-[54px] lg:text-[62px] leading-[1.05] tracking-[-0.02em] text-peach"
+              style={{ fontFamily: "var(--font-editorial)" }}
+            >
+              Escale por contrato.
+            </span>
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-6">
-          {/* Self-serve */}
-          <div className="reveal rounded-sm border border-border bg-[oklch(0.11_0.014_36)] p-8 flex flex-col">
-            <div className="text-[11px] font-mono uppercase tracking-[0.3em] text-muted-foreground">
-              Plano Desenvolvedor · self-serve
-            </div>
-            <div className="mt-6 flex items-baseline gap-2">
-              <span className="font-serif text-5xl leading-none text-foreground">
-                R$ 0,04
-              </span>
-              <span className="text-[13px] text-muted-foreground">
-                / requisição
-              </span>
-            </div>
-            <p className="mt-4 text-[14px] leading-[1.65] text-muted-foreground max-w-[46ch]">
-              Valor fixo por chamada de API. Para testar, prototipar e integrar
-              em aplicações menores — sem contrato mínimo.
-            </p>
-            <ul className="mt-8 space-y-3 border-t border-border/60 pt-6">
-              {developerIncludes.map((i) => (
-                <li key={i} className="flex gap-3 text-[13.5px] text-foreground/80">
-                  <span className="font-mono text-[11px] text-urucum/80 mt-[3px]">
-                    ▸
-                  </span>
-                  {i}
-                </li>
-              ))}
-            </ul>
-            <a
-              href="/auth"
-              className="mt-8 inline-flex items-center justify-center h-11 px-5 rounded-lg text-[13px] font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              style={{
-                background: "var(--primary)",
-                color: "var(--primary-foreground)",
-              }}
+        {/* 2x2 Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 lg:gap-6">
+          {plans.map((plan) => (
+            <article
+              key={plan.name}
+              className={`relative flex flex-col h-full p-7 sm:p-8 lg:p-9 rounded-xl bg-[#18120E] border transition-all duration-300 ${
+                plan.featured
+                  ? "border-peach shadow-[0_0_40px_-16px_rgba(255,122,89,0.35)]"
+                  : "border-white/[0.08] hover:border-white/[0.14]"
+              }`}
             >
-              Obter chave de API
-            </a>
-          </div>
+              {plan.featured && (
+                <span className="absolute -top-3 left-7 sm:left-8 lg:left-9 inline-flex items-center px-2.5 py-1 rounded-md bg-peach text-[10px] font-bold uppercase tracking-[0.12em] text-[#18120E]">
+                  Topo de valor
+                </span>
+              )}
 
-          {/* Enterprise */}
-          <div className="reveal rounded-sm border border-border bg-[oklch(0.10_0.012_35)] p-8 flex flex-col">
-            <div className="text-[11px] font-mono uppercase tracking-[0.3em] text-muted-foreground">
-              Plano Enterprise · bancos & saúde
-            </div>
-            <div className="mt-6 font-serif text-4xl leading-none text-foreground">
-              Sob consulta
-            </div>
-            <p className="mt-4 text-[14px] leading-[1.65] text-muted-foreground max-w-[48ch]">
-              Precisa de processamento local (on-premise), segurança bancária ou
-              compliance médico? Entre em contato com nossa engenharia.
-            </p>
-            <ul className="mt-8 space-y-3 border-t border-border/60 pt-6">
-              {enterpriseIncludes.map((i) => (
-                <li key={i} className="flex gap-3 text-[13.5px] text-foreground/80">
-                  <span className="font-mono text-[11px] text-urucum/80 mt-[3px]">
-                    ▸
-                  </span>
-                  {i}
-                </li>
-              ))}
-            </ul>
-            <a
-              href="#contato"
-              className="mt-8 inline-flex items-center justify-center h-11 px-5 rounded-lg text-[13px] font-medium text-foreground/90 border border-[oklch(0.35_0.03_40_/0.6)] hover:border-[oklch(0.45_0.04_40_/0.8)] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            >
-              Falar com engenharia
-            </a>
-          </div>
+              <div className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.22em] text-muted-foreground/80">
+                {plan.label}
+              </div>
+
+              <h3 className="mt-5 font-sans font-semibold text-[22px] sm:text-[24px] tracking-[-0.01em] text-foreground">
+                {plan.name}
+              </h3>
+
+              <div className="mt-3 font-sans font-bold text-[28px] sm:text-[32px] leading-none text-foreground">
+                {plan.price}
+              </div>
+
+              <p className="mt-3 text-[14px] sm:text-[15px] leading-[1.55] text-muted-foreground">
+                {plan.phrase}
+              </p>
+
+              <ul className="mt-6 sm:mt-7 space-y-2.5 border-t border-white/[0.08] pt-6">
+                {plan.bullets.map((bullet) => (
+                  <li
+                    key={bullet}
+                    className="flex items-start gap-3 text-[13px] sm:text-[14px] text-foreground/85"
+                  >
+                    <span
+                      className="mt-[5px] w-1 h-1 rounded-full shrink-0"
+                      style={{
+                        backgroundColor: plan.featured
+                          ? "var(--peach)"
+                          : "var(--muted-foreground)",
+                      }}
+                      aria-hidden="true"
+                    />
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href="#contato"
+                className={`mt-auto pt-7 inline-flex items-center justify-center h-12 px-5 rounded-lg text-[13px] font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                  plan.featured
+                    ? "bg-peach text-[#18120E] hover:brightness-110"
+                    : "bg-white/[0.06] text-foreground border border-white/[0.10] hover:bg-white/[0.10] hover:border-white/[0.16]"
+                }`}
+              >
+                {plan.name === "Semente"
+                  ? "Criar conta gratuita"
+                  : plan.featured
+                    ? "Falar com vendas"
+                    : "Começar agora"}
+              </a>
+            </article>
+          ))}
         </div>
       </div>
     </section>
