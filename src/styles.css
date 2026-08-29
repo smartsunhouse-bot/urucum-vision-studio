@@ -110,9 +110,11 @@
   --sidebar-border: oklch(0.25 0.02 40 / 60%);
   --sidebar-ring: oklch(0.55 0.18 35);
 
-  --font-serif: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+  --font-editorial: "Playfair Display", Georgia, serif;
+  --urucum-red: #D3452B;
 
   --gradient-hero: radial-gradient(ellipse at 70% 40%, oklch(0.32 0.12 30 / 0.55), transparent 60%),
                    radial-gradient(ellipse at 20% 80%, oklch(0.22 0.06 25 / 0.6), transparent 70%),
@@ -260,6 +262,15 @@
   .font-mono { font-family: var(--font-mono); }
 
   .text-urucum { color: oklch(0.52 0.22 25); }
+
+  /* Assinatura editorial — "anotação de caderno" em Playfair italic vermelho urucum */
+  .font-editorial {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--urucum-red);
+    letter-spacing: 0.005em;
+  }
 
   .bg-hero { background: var(--gradient-hero); }
 
