@@ -134,19 +134,11 @@ export function Navbar() {
           >
             <span
               aria-hidden="true"
-              className="inline-block w-2 h-2 rounded-full shrink-0"
+              className="inline-block w-2 h-2 rounded-full shrink-0 transition-transform duration-500 group-hover:scale-125"
               style={{
                 background: "#D3452B",
                 boxShadow: "0 0 10px rgba(211, 69, 43, 0.7)",
               }}
-            />
-            <img
-              src={urucumLogo}
-              alt=""
-              aria-hidden="true"
-              draggable={false}
-              className="h-6 w-auto select-none block transition-transform duration-500 group-hover:scale-[1.04]"
-              style={{ mixBlendMode: "screen", opacity: 0.8 }}
             />
             <span className="leading-none">
               <span
