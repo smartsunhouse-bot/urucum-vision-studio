@@ -115,6 +115,7 @@
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
   --font-editorial: "Playfair Display", Georgia, serif;
   --urucum-red: #D3452B;
+  --peach: #FF7A59;
 
   --gradient-hero: radial-gradient(ellipse at 70% 40%, oklch(0.32 0.12 30 / 0.55), transparent 60%),
                    radial-gradient(ellipse at 20% 80%, oklch(0.22 0.06 25 / 0.6), transparent 70%),
@@ -138,6 +139,7 @@
   --font-serif: var(--font-serif);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
+  --color-peach: var(--peach);
 }
 
 .dark {
