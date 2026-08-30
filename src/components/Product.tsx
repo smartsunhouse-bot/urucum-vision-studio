@@ -27,19 +27,7 @@ function Panel({
   pad?: string;
 }) {
   return (
-    <div
-      className={`relative ${pad} ${className}`}
-      style={{
-        border: "1px solid oklch(0.42 0.08 30 / 0.32)",
-        background:
-          "linear-gradient(180deg, oklch(0.10 0.014 32 / 0.85), oklch(0.07 0.010 30 / 0.85))",
-      }}
-    >
-      {/* corner ticks */}
-      <span className="absolute -top-px -left-px w-2 h-2 border-t border-l" style={{ borderColor: "oklch(0.66 0.20 30 / 0.6)" }} />
-      <span className="absolute -top-px -right-px w-2 h-2 border-t border-r" style={{ borderColor: "oklch(0.66 0.20 30 / 0.6)" }} />
-      <span className="absolute -bottom-px -left-px w-2 h-2 border-b border-l" style={{ borderColor: "oklch(0.66 0.20 30 / 0.6)" }} />
-      <span className="absolute -bottom-px -right-px w-2 h-2 border-b border-r" style={{ borderColor: "oklch(0.66 0.20 30 / 0.6)" }} />
+    <div className={`relative ${pad} ${className}`}>
       {children}
     </div>
   );
@@ -47,39 +35,9 @@ function Panel({
 
 /* ---------- mid row: radiance map / sensor curve / segmentation / metrics ---------- */
 
-function RadianceMap() {
-  return (
-    <Panel pad="p-4">
-      <Label right="EV 0.0">MAPA DE RADIÂNCIA</Label>
-      <div className="flex gap-3 mt-3">
-        <div className="flex-1 relative aspect-[4/5]" style={{ background: "oklch(0.05 0.006 30)" }}>
-          <div className="absolute inset-0" style={{
-            background:
-              "radial-gradient(ellipse 38% 30% at 50% 40%, oklch(0.85 0.22 95 / 0.95), oklch(0.7 0.22 55 / 0.7) 30%, oklch(0.6 0.22 28 / 0.55) 48%, oklch(0.45 0.2 260 / 0.7) 72%, oklch(0.18 0.12 260 / 0.6) 92%)",
-          }} />
-          {/* contour lines */}
-          <svg viewBox="0 0 100 120" className="absolute inset-0 w-full h-full">
-            {[20, 30, 40].map((r, i) => (
-              <ellipse key={i} cx="50" cy="48" rx={r * 0.45} ry={r * 0.55} fill="none" stroke="oklch(0.9 0.05 80 / 0.25)" strokeWidth="0.3" />
-            ))}
-          </svg>
-        </div>
-        <div className="flex flex-col justify-between text-[9px] font-mono text-foreground/55 py-1">
-          {[32.788, 8.245, 2.058, 0.512, 0.128, 0.032, 0.008].map((v) => (
-            <span key={v}>{v.toFixed(3)}</span>
-          ))}
-        </div>
-        <div className="w-2.5" style={{
-          background: "linear-gradient(180deg, oklch(0.65 0.24 30), oklch(0.78 0.22 80), oklch(0.75 0.20 130), oklch(0.55 0.18 200), oklch(0.25 0.12 260))",
-        }} />
-      </div>
-    </Panel>
-  );
-}
-
 function SensorChart() {
   return (
-    <Panel pad="p-4" className="col-span-2">
+    <Panel pad="p-4" className="md:border-l md:border-border/25">
       <Label>RESPOSTA DO SENSOR × COMPRIMENTO DE ONDA</Label>
       <div className="relative mt-4">
         <svg viewBox="0 0 320 140" className="w-full h-44">
@@ -213,8 +171,7 @@ export function Product() {
 
       <div className="relative max-w-[1320px] mx-auto px-6 lg:px-10 py-20 lg:py-28">
         {/* ============= MID DASHBOARD ============= */}
-        <div className="grid lg:grid-cols-[1fr_2fr_1fr_0.6fr] gap-px" style={{ background: "oklch(0.42 0.08 30 / 0.32)" }}>
-          <RadianceMap />
+        <div className="grid lg:grid-cols-[2fr_1fr_0.7fr] gap-0" >
           <SensorChart />
           <Segmentation />
           <MetricsPanel />
