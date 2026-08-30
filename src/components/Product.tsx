@@ -37,7 +37,7 @@ function Panel({
 
 function SensorChart() {
   return (
-    <Panel pad="p-4" className="md:border-l md:border-border/25">
+    <Panel pad="pr-8 py-8">
       <Label>RESPOSTA DO SENSOR × COMPRIMENTO DE ONDA</Label>
       <div className="relative mt-4">
         <svg viewBox="0 0 320 140" className="w-full h-44">
@@ -92,7 +92,7 @@ function SensorChart() {
 
 function Segmentation() {
   return (
-    <Panel pad="p-4">
+    <Panel pad="lg:pl-8 pr-8 py-8" className="lg:border-l lg:border-border/25">
       <Label>SEGMENTAÇÃO DE PELE</Label>
       <div className="grid grid-cols-[1.2fr_auto] gap-3 mt-3 items-stretch">
         <div className="relative aspect-square" style={{ background: "oklch(0.05 0.006 30)" }}>
@@ -136,7 +136,7 @@ function MetricsPanel() {
     ["RETENÇÃO TONAL", "99.2"],
   ];
   return (
-    <Panel pad="p-4">
+    <Panel pad="lg:pl-8 py-8" className="lg:border-l lg:border-border/25">
       <Label>MÉTRICAS</Label>
       <div className="mt-4 space-y-4">
         {rows.map(([k, v]) => (
@@ -169,16 +169,16 @@ export function Product() {
           "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>\")",
       }} />
 
-      <div className="relative max-w-[1320px] mx-auto px-6 lg:px-10 py-20 lg:py-28">
+      <div className="relative max-w-[1320px] mx-auto px-6 lg:px-10 py-28 lg:py-40">
         {/* ============= MID DASHBOARD ============= */}
-        <div className="grid lg:grid-cols-[2fr_1fr_0.7fr] gap-0" >
+        <div className="grid lg:grid-cols-[2fr_1fr_0.7fr] gap-0 border-t border-border/25">
           <SensorChart />
           <Segmentation />
           <MetricsPanel />
         </div>
 
         {/* signature */}
-        <div className="mt-10 flex items-center justify-between text-[9px] font-mono uppercase tracking-[0.32em] text-foreground/40">
+        <div className="mt-16 pt-8 border-t border-border/25 flex items-center justify-between text-[9px] font-mono uppercase tracking-[0.32em] text-foreground/40">
           <span><span className="text-urucum/80">URUCUM AI</span> — CAPTURE · UNDERSTAND · REPRESENT</span>
           <span>FIG. 03 · v 2.4</span>
         </div>
