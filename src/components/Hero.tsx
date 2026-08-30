@@ -93,7 +93,7 @@ export function Hero() {
 
       <div className="relative max-w-[1320px] mx-auto px-5 sm:px-6 lg:px-12 pt-32 sm:pt-36 lg:pt-44 pb-20 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-screen">
         {/* LEFT — copy */}
-        <div className="lg:col-span-6 relative z-10">
+        <div className="lg:col-span-7 relative z-10">
           <div
             className={`transition-opacity duration-500 ${
               stage >= 1 ? "opacity-100" : "opacity-0"
@@ -129,7 +129,7 @@ export function Hero() {
 
           {/* email + CTA */}
           <div
-            className={`mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 transition-all duration-700 ${
+            className={`mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch max-w-[520px] rounded-lg overflow-hidden border border-[oklch(0.28_0.02_40)] bg-[oklch(0.16_0.02_40)] transition-all duration-700 ${
               stage >= 4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
             }`}
           >
@@ -142,11 +142,11 @@ export function Hero() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Seu e-mail corporativo"
-              className="h-12 flex-1 max-w-[320px] px-4 rounded-lg text-[14px] text-left bg-[oklch(0.16_0.02_40)] border border-[oklch(0.28_0.02_40)] text-foreground placeholder:text-foreground/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="h-12 flex-1 min-w-0 px-4 text-[14px] text-left bg-transparent text-foreground placeholder:text-foreground/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
             />
             <a
               href="#contato"
-              className="group inline-flex items-center justify-center gap-2 h-12 px-6 rounded-lg text-[13px] font-medium tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="group inline-flex items-center justify-center gap-2 h-12 px-6 shrink-0 text-[13px] font-medium tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               style={{
                 background: "var(--primary)",
                 color: "var(--primary-foreground)",
@@ -179,7 +179,7 @@ export function Hero() {
 
         {/* RIGHT — abstract radiometric reconstruction */}
         <div
-          className={`lg:col-span-6 relative flex flex-col items-center justify-center transition-all duration-700 delay-200 ${
+          className={`lg:col-span-5 relative flex flex-col items-center justify-center transition-all duration-700 delay-200 ${
             stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >

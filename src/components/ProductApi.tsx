@@ -45,7 +45,7 @@ export function ProductApi() {
   return (
     <section
       id="api"
-      className="relative border-t py-24 lg:py-36"
+      className="relative border-t py-28 lg:py-44"
       style={{
         background:
           "radial-gradient(1200px 600px at 15% 0%, oklch(0.13 0.03 30 / 0.6), transparent 62%), oklch(0.055 0.008 32)",
@@ -103,14 +103,10 @@ export function ProductApi() {
 
           {/* RIGHT — apps + código */}
           <div
-            className="lg:col-span-7 reveal flex flex-col md:flex-row gap-px overflow-hidden"
-            style={{
-              background: "oklch(0.42 0.08 30 / 0.28)",
-              border: "1px solid oklch(0.42 0.08 30 / 0.35)",
-            }}
+            className="lg:col-span-7 reveal flex flex-col md:flex-row gap-10 md:gap-0"
           >
             {/* coluna de aplicações */}
-            <div className="p-5 w-full md:w-[240px] md:shrink-0" style={{ background: "oklch(0.075 0.010 32)" }}>
+            <div className="w-full md:w-[240px] md:shrink-0 md:pr-8">
               <div className="font-mono text-[9px] uppercase tracking-[0.28em] text-foreground/45 pb-3 mb-3 border-b" style={{ borderColor: "oklch(0.42 0.08 30 / 0.3)" }}>
                 Onde se aplica
               </div>
@@ -137,9 +133,9 @@ export function ProductApi() {
             </div>
 
             {/* bloco de código */}
-            <div className="min-w-0 flex-1" style={{ background: "oklch(0.045 0.006 30)" }}>
+            <div className="min-w-0 flex-1 md:pl-8 md:border-l md:border-border/25">
               <div
-                className="flex items-center justify-between px-4 py-3 border-b"
+                className="flex items-center justify-between pb-3 border-b"
                 style={{ borderColor: "oklch(0.42 0.08 30 / 0.28)" }}
               >
                 <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-foreground/50">
@@ -149,7 +145,7 @@ export function ProductApi() {
                   Python
                 </span>
               </div>
-              <pre className="p-4 sm:p-5 overflow-x-auto font-mono text-[11px] sm:text-[12px] leading-[1.85]">
+              <pre className="pt-5 overflow-x-auto font-mono text-[11px] sm:text-[12px] leading-[1.85]">
                 <code>
                   {CODE.map((line, i) => (
                     <div key={i} className="whitespace-pre">

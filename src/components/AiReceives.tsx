@@ -1,7 +1,6 @@
 // Seção de transição entre a linha histórica e a tecnologia da Urucum.
-// Compara dois caminhos — SEM URUCUM / COM URUCUM — em quatro etapas de
-// processo. Sem alegações clínicas, sem linguagem exagerada: a Urucum é uma
-// camada de processamento fotométrico posicionada ANTES dos modelos de visão.
+// Fluxo editorial aberto — sem cards, sem caixas. Apenas linhas finas de
+// separação e tipografia flutuando sobre o fundo.
 
 const ETAPAS = [
   {
@@ -30,52 +29,38 @@ const ETAPAS = [
   },
 ];
 
-function StepRow({
-  etapa,
-}: {
-  etapa: (typeof ETAPAS)[number];
-}) {
+function StepRow({ etapa }: { etapa: (typeof ETAPAS)[number] }) {
   return (
-    <div className="grid md:grid-cols-[200px_1fr_1fr] gap-6 md:gap-10 border-b border-border/50 py-10 first:pt-0 last:border-b-0">
+    <div className="grid md:grid-cols-[180px_1fr_1fr] gap-8 md:gap-12 border-t border-border/25 py-12 md:py-16">
       {/* Número + etapa */}
       <div className="flex md:flex-col items-baseline md:items-start gap-3">
-        <span className="font-mono text-[12px] tracking-[0.3em] text-foreground/45">
+        <span className="font-mono text-[12px] tracking-[0.3em] text-foreground/40">
           {etapa.n}
         </span>
-        <h3 className="font-serif text-[17px] md:text-[19px] tracking-[0.08em] uppercase text-foreground/90">
+        <h3 className="font-sans text-[15px] md:text-[16px] tracking-[0.12em] uppercase text-foreground/85">
           {etapa.titulo}
         </h3>
       </div>
 
       {/* SEM URUCUM */}
-      <div className="rounded-[4px] border border-border/60 bg-card/40 px-6 py-6">
-        <span className="block font-mono text-[11px] tracking-[0.3em] uppercase text-foreground/45 mb-4">
+      <div className="min-w-0">
+        <span className="block font-mono text-[10.5px] tracking-[0.3em] uppercase text-foreground/40 mb-4">
           Sem Urucum
         </span>
-        <p className="text-[14.5px] leading-[1.7] text-foreground/65 max-w-none">
+        <p className="text-[14.5px] leading-[1.75] text-foreground/55 max-w-[42ch]">
           {etapa.sem}
         </p>
       </div>
 
       {/* COM URUCUM */}
-      <div
-        className="rounded-[4px] px-6 py-6"
-        style={{
-          border: "1px solid oklch(0.55 0.18 35 / 0.35)",
-          background: "oklch(0.15 0.020 35 / 0.5)",
-        }}
-      >
+      <div className="min-w-0 md:border-l md:border-border/25 md:pl-12">
         <span
-          className="flex items-center gap-2 font-mono text-[11px] tracking-[0.3em] uppercase mb-4"
-          style={{ color: "oklch(0.66 0.20 30)" }}
+          className="block font-mono text-[10.5px] tracking-[0.3em] uppercase mb-4"
+          style={{ color: "oklch(0.68 0.20 30)" }}
         >
-          <span
-            className="inline-block w-1.5 h-1.5 rounded-full"
-            style={{ background: "oklch(0.62 0.22 28)" }}
-          />
           Com Urucum
         </span>
-        <p className="text-[14.5px] leading-[1.7] text-foreground/85 max-w-none">
+        <p className="text-[14.5px] leading-[1.75] text-foreground/85 max-w-[42ch]">
           {etapa.com}
         </p>
       </div>
@@ -88,34 +73,23 @@ export function AiReceives() {
     <section
       id="o-que-a-ia-recebe"
       aria-labelledby="ai-receives-heading"
-      className="relative"
-      style={{
-        background:
-          "linear-gradient(180deg, oklch(0.078 0.010 30), oklch(0.105 0.014 36) 30%, oklch(0.105 0.014 36) 70%, oklch(0.095 0.012 34))",
-      }}
+      className="relative bg-background border-t border-border/30"
     >
-      <div className="max-w-[1320px] mx-auto px-6 lg:px-12 py-24 md:py-32">
-        {/* Cabeçalho — transição editorial */}
+      <div className="max-w-[1320px] mx-auto px-5 sm:px-6 lg:px-12 py-28 md:py-40">
+        {/* Cabeçalho */}
         <div className="reveal max-w-3xl">
-          <div className="flex items-center gap-3 text-[11px] font-mono tracking-[0.42em] uppercase text-foreground/55">
-            <span
-              className="inline-block w-1.5 h-1.5 rounded-full"
-              style={{
-                background: "oklch(0.62 0.24 26)",
-                boxShadow: "0 0 12px oklch(0.62 0.24 26 / 0.9)",
-              }}
-            />
-            <span>O que a IA recebe</span>
-          </div>
+          <span className="font-mono text-[11px] tracking-[0.34em] uppercase text-foreground/50">
+            O que a IA recebe
+          </span>
 
           <h2
             id="ai-receives-heading"
-            className="mt-7 font-serif font-medium text-[34px] md:text-[52px] leading-[1.06] tracking-[-0.02em] text-foreground/95"
+            className="mt-7 font-sans font-medium text-[32px] md:text-[52px] leading-[1.06] tracking-[-0.025em] text-foreground/95"
           >
             O problema começa antes do modelo.
           </h2>
 
-          <p className="mt-6 max-w-[58ch] text-[15px] leading-[1.75] text-foreground/65">
+          <p className="mt-6 max-w-[58ch] text-[15px] leading-[1.75] text-foreground/60">
             Uma câmera captura uma imagem. Algoritmos transformam essa imagem.
             Modelos de inteligência artificial aprendem a partir dela. A Urucum
             atua nesse intervalo: antes que a imagem se torne dado para a visão
@@ -123,9 +97,9 @@ export function AiReceives() {
           </p>
         </div>
 
-        {/* Fluxo linear — quatro verbos */}
+        {/* Fluxo linear */}
         <ol
-          className="reveal mt-14 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[12px] tracking-[0.24em] uppercase text-foreground/55"
+          className="reveal mt-16 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[11.5px] tracking-[0.24em] uppercase text-foreground/50"
           aria-label="Fluxo de processamento da imagem"
         >
           {["Captura", "Processamento", "Imagem", "Visão computacional"].map(
@@ -133,10 +107,7 @@ export function AiReceives() {
               <li key={label} className="flex items-center gap-4">
                 <span className="text-foreground/70">{label}</span>
                 {i < arr.length - 1 && (
-                  <span
-                    aria-hidden="true"
-                    className="text-foreground/30 select-none"
-                  >
+                  <span aria-hidden="true" className="text-foreground/25 select-none">
                     →
                   </span>
                 )}
@@ -145,9 +116,9 @@ export function AiReceives() {
           )}
         </ol>
 
-        {/* Comparação em quatro etapas */}
+        {/* Etapas */}
         <div
-          className="reveal mt-16 border-t border-border/50"
+          className="reveal mt-20"
           role="list"
           aria-label="Comparação entre pipeline sem Urucum e com Urucum"
         >
@@ -159,22 +130,19 @@ export function AiReceives() {
         </div>
 
         {/* Fechamento */}
-        <div className="reveal mt-24 md:mt-32 text-center">
-          <p className="font-editorial text-[30px] md:text-[46px] leading-[1.18] max-w-[24ch] mx-auto" style={{ textWrap: "balance" }}>
+        <div className="reveal mt-32 md:mt-40 text-center border-t border-border/25 pt-24">
+          <p
+            className="font-editorial text-[28px] md:text-[46px] leading-[1.2] max-w-[24ch] mx-auto"
+            style={{ textWrap: "balance" }}
+          >
             “Antes da IA enxergar, a imagem precisa estar preparada.”
           </p>
 
-          <div
-            aria-hidden="true"
-            className="mx-auto mt-10 h-px w-24"
-            style={{ background: "oklch(0.55 0.18 35 / 0.4)" }}
-          />
-
-          <p className="mt-10 max-w-[62ch] mx-auto text-[13.5px] leading-[1.75] text-foreground/50">
+          <p className="mt-12 max-w-[62ch] mx-auto text-[13.5px] leading-[1.75] text-foreground/45">
             A Urucum é uma camada de processamento fotométrico adaptativo para
             imagens de pele, posicionada antes dos sistemas de visão
-            computacional. Não é um sistema de diagnóstico e não substitui
-            redes neurais, dermatologistas ou sistemas clínicos.
+            computacional. Não é um sistema de diagnóstico e não substitui redes
+            neurais, dermatologistas ou sistemas clínicos.
           </p>
         </div>
       </div>
