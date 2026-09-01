@@ -37,7 +37,7 @@ function Panel({
 
 function Segmentation() {
   return (
-    <Panel pad="lg:pl-8 pr-8 py-8" className="lg:border-l lg:border-border/25">
+    <Panel pad="pr-8 py-8">
       <Label>SEGMENTAÇÃO DE PELE</Label>
       <div className="grid grid-cols-[1.2fr_auto] gap-3 mt-3 items-stretch">
         <div className="relative aspect-square" style={{ background: "oklch(0.05 0.006 30)" }}>
