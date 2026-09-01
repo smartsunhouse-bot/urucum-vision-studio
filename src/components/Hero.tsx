@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { RadiometricField } from "@/components/optical/RadiometricField";
+import { CornerTicks, MonoMeta } from "@/components/optical/primitives";
 
 /**
  * Hero — estética de referência traduzida para a paleta Urucum.
@@ -196,6 +197,7 @@ export function Hero() {
           }`}
         >
           <div className="relative w-full max-w-[520px] aspect-square">
+            {/* glow ambiente */}
             <div
               aria-hidden="true"
               className="absolute inset-[-6%] rounded-full blur-[90px] opacity-45"
@@ -204,7 +206,35 @@ export function Hero() {
                   "radial-gradient(circle at 50% 50%, oklch(0.50 0.18 30 / 0.35), transparent 68%)",
               }}
             />
+
+            {/* anel de abertura — ancora o campo como instrumento óptico */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-[3%] rounded-full"
+              style={{
+                border: "1px solid oklch(0.62 0.14 40 / 0.22)",
+                boxShadow: "inset 0 0 70px oklch(0.50 0.18 30 / 0.14)",
+              }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-[13%] rounded-full"
+              style={{ border: "1px solid oklch(0.62 0.14 40 / 0.10)" }}
+            />
+
+            {/* campo radiométrico */}
             <RadiometricField className="relative" />
+
+            {/* moldura industrial — ticks nos cantos */}
+            <CornerTicks size={16} className="text-[oklch(0.78_0.12_45_/_0.5)]" />
+
+            {/* metadados mono — linguagem óptica coerente com o HUD */}
+            <div className="absolute top-0.5 left-0.5">
+              <MonoMeta label="SENSOR" value="RADIOMÉTRICO" />
+            </div>
+            <div className="absolute bottom-0.5 right-0.5">
+              <MonoMeta label="ALVO" value="CALIBRAGEM" accent />
+            </div>
           </div>
         </div>
 

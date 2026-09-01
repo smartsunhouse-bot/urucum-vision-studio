@@ -40,9 +40,9 @@ export function TimelineDisclosure() {
               </span>{" "}
               o erro.
             </h2>
-            <p className="mt-5 max-w-[52ch] text-[14.5px] leading-[1.65] text-foreground/60">
-              Seis capítulos: de 1839 à virada técnica. Opcional — você pode
-              seguir direto para o produto.
+            <p className="mt-5 max-w-[54ch] text-[14.5px] leading-[1.65] text-foreground/60">
+              Um resgate histórico das decisões técnicas que moldaram a captura
+              de imagem. Siga o fluxo ou vá direto para a infraestrutura.
             </p>
           </div>
 

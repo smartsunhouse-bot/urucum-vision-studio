@@ -72,19 +72,35 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => {
+    let raf = 0;
+    let last = -1;
+    const compute = () => {
+      raf = 0;
       const el = ref.current;
       if (!el) return;
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight;
+      // fora da janela: não recalcula nem re-renderiza
+      if (rect.bottom < -vh || rect.top > vh * 2) return;
       const total = rect.height + vh;
       const scrolled = vh - rect.top;
       const p = Math.min(1, Math.max(0, scrolled / total));
+      // ignora micro-variações sub-pixel para cortar re-renders inúteis
+      if (Math.abs(p - last) < 0.002) return;
+      last = p;
       setProgress(p);
     };
-    onScroll();
+    // coalesce: no máximo um cálculo por frame de animação
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(compute);
+    };
+    compute();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   // cinematic curves
@@ -97,7 +113,7 @@ function ChapterScene({ chapter, index }: { chapter: Chapter; index: number }) {
   return (
     <section
       ref={ref}
-      className="relative min-h-[220vh] border-t border-border/10"
+      className="relative min-h-[170vh] border-t border-border/10"
     >
       {/* Sticky cinematic scene */}
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-[oklch(0.05_0.006_30)]">
