@@ -7,8 +7,15 @@ export function Contact() {
       />
       <div className="relative max-w-4xl mx-auto px-6 lg:px-10 text-center">
         <div className="reveal">
-          <div className="text-[11px] font-mono uppercase tracking-[0.32em] text-urucum/80 mb-8">
-            ◦ Contato
+          <div className="flex items-center justify-center gap-3 text-[10.5px] font-mono tracking-[0.42em] uppercase text-foreground/55 mb-8">
+            <span
+              className="inline-block w-1.5 h-1.5 rounded-full"
+              style={{
+                background: "oklch(0.62 0.24 26)",
+                boxShadow: "0 0 12px oklch(0.62 0.24 26 / 0.9)",
+              }}
+            />
+            <span>Contato</span>
           </div>
           <h2 className="font-serif font-light text-3xl md:text-5xl leading-[1.18] tracking-[-0.01em] text-foreground/95">
             Não controlamos apenas quem aparece nos dados.

@@ -57,14 +57,15 @@ export function ProductApi() {
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-start">
           {/* LEFT — título */}
           <div className="lg:col-span-5 reveal">
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8" style={{ background: "oklch(0.62 0.21 32 / 0.7)" }} />
+            <div className="flex items-center gap-3 text-[10.5px] font-mono tracking-[0.42em] uppercase text-foreground/55">
               <span
-                className="font-mono text-[10px] tracking-[0.32em] uppercase"
-                style={{ color: "var(--muted-foreground)" }}
-              >
-                Integração
-              </span>
+                className="inline-block w-1.5 h-1.5 rounded-full"
+                style={{
+                  background: "oklch(0.62 0.24 26)",
+                  boxShadow: "0 0 12px oklch(0.62 0.24 26 / 0.9)",
+                }}
+              />
+              <span>Integração</span>
             </div>
 
             <h2

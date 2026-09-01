@@ -60,18 +60,20 @@ export function Pricing() {
       <div className="max-w-[1320px] mx-auto px-5 sm:px-6 lg:px-12">
         {/* Header */}
         <div className="max-w-2xl mb-20 sm:mb-24">
-          <span className="font-mono text-[11px] uppercase tracking-[0.32em] text-peach">
-            · Preços
-          </span>
-
-          <h2 className="mt-6 sm:mt-8">
-            <span className="block font-sans font-bold text-[32px] sm:text-[44px] md:text-[54px] leading-[1.06] tracking-[-0.025em] text-foreground">
-              Comece por requisição.
-            </span>
+          <div className="flex items-center gap-3 text-[10.5px] font-mono tracking-[0.42em] uppercase text-foreground/55">
             <span
-              className="block mt-1 italic text-[32px] sm:text-[44px] md:text-[54px] leading-[1.06] tracking-[-0.02em] text-peach"
-              style={{ fontFamily: "var(--font-editorial)" }}
-            >
+              className="inline-block w-1.5 h-1.5 rounded-full"
+              style={{
+                background: "oklch(0.62 0.24 26)",
+                boxShadow: "0 0 12px oklch(0.62 0.24 26 / 0.9)",
+              }}
+            />
+            <span>Preços</span>
+          </div>
+
+          <h2 className="mt-6 sm:mt-8 font-serif font-light text-[34px] md:text-[44px] leading-[1.05] tracking-[-0.02em] text-foreground/95">
+            Comece por requisição.{" "}
+            <span className="italic" style={{ color: "oklch(0.66 0.24 28)" }}>
               Escale por contrato.
             </span>
           </h2>

@@ -6,13 +6,25 @@ import { RadiometricField } from "@/components/optical/RadiometricField";
  * Fundo escuro, glow quente, reconstrução radiométrica abstrata à direita.
  */
 
+// PRNG determinístico (mulberry32) — evita mismatch de hidratação SSR/cliente.
+function mulberry32(seed: number) {
+  let a = seed;
+  return () => {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+const rand = mulberry32(42);
 const particles = Array.from({ length: 24 }, (_, i) => ({
   id: i,
-  left: `${Math.random() * 100}%`,
-  top: `${Math.random() * 100}%`,
-  size: Math.random() * 2 + 1,
-  delay: Math.random() * 4,
-  duration: Math.random() * 3 + 4,
+  left: `${(rand() * 100).toFixed(4)}%`,
+  top: `${(rand() * 100).toFixed(4)}%`,
+  size: rand() * 2 + 1,
+  delay: rand() * 4,
+  duration: rand() * 3 + 4,
 }));
 
 export function Hero() {
@@ -118,10 +130,9 @@ export function Hero() {
           </h1>
 
           <p
-            className={`mt-5 sm:mt-6 max-w-[52ch] text-[16px] sm:text-[17px] leading-[1.65] font-light transition-opacity duration-700 ${
+            className={`font-editorial mt-5 sm:mt-6 max-w-[52ch] text-[17px] sm:text-[18px] md:text-[19px] leading-[1.5] transition-opacity duration-700 ${
               stage >= 3 ? "opacity-100" : "opacity-0"
             }`}
-            style={{ color: "var(--muted-foreground)" }}
           >
             A Urucum processa imagens de pele considerando fotometria, exposição
             e características do tom de pele, preparando a entrada para sistemas
