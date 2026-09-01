@@ -1,6 +1,6 @@
 export function Contact() {
   return (
-    <section id="contato" className="relative py-40 lg:py-56 border-t border-border/40 overflow-hidden">
+    <section id="contato" className="relative py-28 md:py-40 lg:py-56 border-t border-border/40 overflow-hidden">
       <div
         className="absolute -top-40 left-1/2 -translate-x-1/2 w-[60rem] h-[60rem] rounded-full pointer-events-none"
         style={{ background: "radial-gradient(circle, oklch(0.55 0.18 35 / 0.18), transparent 65%)" }}
@@ -17,14 +17,20 @@ export function Contact() {
             />
             <span>Contato</span>
           </div>
-          <h2 className="font-serif font-light text-3xl md:text-5xl leading-[1.18] tracking-[-0.01em] text-foreground/95">
-            Não controlamos apenas quem aparece nos dados.
-            <span className="block mt-4 italic text-urucum">
-              Controlamos como a imagem é formada antes de virar dado.
+
+          <h2 className="font-serif font-light text-[34px] md:text-[44px] leading-[1.05] tracking-[-0.02em] text-foreground/95">
+            Vamos conversar sobre
+            <span className="block mt-3 italic" style={{ color: "oklch(0.66 0.24 28)" }}>
+              como a imagem entra no seu pipeline.
             </span>
           </h2>
 
-          <form className="mt-16 max-w-md mx-auto flex items-center gap-2 border-b border-border/70 focus-within:border-urucum/60 transition-colors pb-3">
+          <p className="mt-8 max-w-[58ch] mx-auto text-[15px] leading-[1.75] text-foreground/60">
+            A Urucum atende instituições, fabricantes de câmera e empresas de saúde
+            que precisam preparar imagens de pele antes da visão computacional.
+          </p>
+
+          <form className="mt-14 max-w-md mx-auto flex items-center gap-2 border-b border-border/70 focus-within:border-urucum/60 transition-colors pb-3">
             <input
               type="email"
               placeholder="email@instituição.org"
@@ -37,12 +43,23 @@ export function Contact() {
               Solicitar acesso →
             </button>
           </form>
+
           <p className="mt-4 text-[12px] text-muted-foreground">
             Acesso por convite · Pipelines auditáveis · Contratos institucionais
           </p>
+
+          <div className="mt-20 pt-10 border-t border-border/25">
+            <p className="text-[11px] font-mono uppercase tracking-[0.24em] text-foreground/40 mb-4">
+              Dados da empresa
+            </p>
+            <div className="space-y-2 text-[13px] leading-[1.7] text-foreground/55">
+              <p>Gabriela Reboucas do Nascimento Santana</p>
+              <p>CNPJ 56.974.901/0001-39</p>
+              <p>Rua Sta Cruz, 2187 — Vila Mariana, São Paulo — SP, 04.121-002</p>
+            </div>
+          </div>
         </div>
       </div>
-
     </section>
   );
 }
