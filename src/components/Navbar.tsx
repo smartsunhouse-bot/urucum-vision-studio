@@ -135,8 +135,8 @@ export function Navbar() {
               aria-hidden="true"
               className="inline-block w-2 h-2 rounded-full shrink-0 transition-transform duration-500 group-hover:scale-125"
               style={{
-                background: "#D3452B",
-                boxShadow: "0 0 10px rgba(211, 69, 43, 0.7)",
+                background: "var(--urucum-red)",
+                boxShadow: "0 0 10px color-mix(in srgb, var(--urucum-red) 70%, transparent)",
               }}
             />
             <span className="leading-none">
@@ -153,7 +153,7 @@ export function Navbar() {
               </span>{" "}
               <span
                 className="font-sans font-semibold uppercase text-[13px] sm:text-[14px] tracking-[0.18em] align-middle"
-                style={{ color: "#D3452B" }}
+                style={{ color: "var(--urucum-red)" }}
               >
                 IA
               </span>
