@@ -19,18 +19,13 @@ export function Contact() {
           </div>
 
           <h2 className="font-serif font-light text-[34px] md:text-[44px] leading-[1.05] tracking-[-0.02em] text-foreground/95">
-            Vamos conversar sobre
-            <span className="block mt-3 italic" style={{ color: "oklch(0.66 0.24 28)" }}>
-              como a imagem entra no seu pipeline.
+            Não controlamos apenas quem aparece nos dados.
+            <span className="block mt-4 italic" style={{ color: "oklch(0.66 0.24 28)" }}>
+              Controlamos como a imagem é formada antes de virar dado.
             </span>
           </h2>
 
-          <p className="mt-8 max-w-[58ch] mx-auto text-[15px] leading-[1.75] text-foreground/60">
-            A Urucum atende instituições, fabricantes de câmera e empresas de saúde
-            que precisam preparar imagens de pele antes da visão computacional.
-          </p>
-
-          <form className="mt-14 max-w-md mx-auto flex items-center gap-2 border-b border-border/70 focus-within:border-urucum/60 transition-colors pb-3">
+          <form className="mt-16 max-w-md mx-auto flex items-center gap-2 border-b border-border/70 focus-within:border-urucum/60 transition-colors pb-3">
             <input
               type="email"
               placeholder="email@instituição.org"
@@ -43,17 +38,12 @@ export function Contact() {
               Solicitar acesso →
             </button>
           </form>
-
           <p className="mt-4 text-[12px] text-muted-foreground">
             Acesso por convite · Pipelines auditáveis · Contratos institucionais
           </p>
 
           <div className="mt-20 pt-10 border-t border-border/25">
-            <p className="text-[11px] font-mono uppercase tracking-[0.24em] text-foreground/40 mb-4">
-              Dados da empresa
-            </p>
             <div className="space-y-2 text-[13px] leading-[1.7] text-foreground/55">
-              <p>Gabriela Reboucas do Nascimento Santana</p>
               <p>CNPJ 56.974.901/0001-39</p>
               <p>Rua Sta Cruz, 2187 — Vila Mariana, São Paulo — SP, 04.121-002</p>
             </div>
