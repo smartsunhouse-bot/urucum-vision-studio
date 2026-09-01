@@ -56,7 +56,7 @@ export function ProductApi() {
       <div className="relative max-w-[1320px] mx-auto px-5 sm:px-6 lg:px-10">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-start">
           {/* LEFT — título */}
-          <div className="lg:col-span-5 reveal">
+          <div className="lg:col-span-5 min-w-0 reveal">
             <div className="flex items-center gap-3 text-[10.5px] font-mono tracking-[0.42em] uppercase text-foreground/55">
               <span
                 className="inline-block w-1.5 h-1.5 rounded-full"
@@ -104,7 +104,7 @@ export function ProductApi() {
 
           {/* RIGHT — apps + código */}
           <div
-            className="lg:col-span-7 reveal flex flex-col md:flex-row gap-10 md:gap-0"
+            className="lg:col-span-7 min-w-0 reveal flex flex-col md:flex-row gap-10 md:gap-0"
           >
             {/* coluna de aplicações */}
             <div className="w-full md:w-[240px] md:shrink-0 md:pr-8">
