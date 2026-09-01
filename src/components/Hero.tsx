@@ -118,9 +118,10 @@ export function Hero() {
           </h1>
 
           <p
-            className={`font-editorial mt-5 sm:mt-6 max-w-[52ch] text-[17px] sm:text-[18px] md:text-[19px] leading-[1.5] transition-opacity duration-700 ${
+            className={`mt-5 sm:mt-6 max-w-[52ch] text-[16px] sm:text-[17px] leading-[1.65] font-light transition-opacity duration-700 ${
               stage >= 3 ? "opacity-100" : "opacity-0"
             }`}
+            style={{ color: "var(--muted-foreground)" }}
           >
             A Urucum processa imagens de pele considerando fotometria, exposição
             e características do tom de pele, preparando a entrada para sistemas
@@ -193,15 +194,6 @@ export function Hero() {
               }}
             />
             <RadiometricField className="relative" />
-          </div>
-
-          <div className="mt-6 w-full max-w-[520px] px-2 text-center">
-            <span
-              className="font-mono text-[10px] tracking-[0.28em] uppercase tabular-nums"
-              style={{ color: "var(--muted-foreground)" }}
-            >
-              Luz bruta · calibração · dado
-            </span>
           </div>
         </div>
 
