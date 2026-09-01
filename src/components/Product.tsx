@@ -33,62 +33,7 @@ function Panel({
   );
 }
 
-/* ---------- mid row: radiance map / sensor curve / segmentation / metrics ---------- */
-
-function SensorChart() {
-  return (
-    <Panel pad="pr-8 py-8">
-      <Label>RESPOSTA DO SENSOR × COMPRIMENTO DE ONDA</Label>
-      <div className="relative mt-4">
-        <svg viewBox="0 0 320 140" className="w-full h-44">
-          {/* grid */}
-          {[0, 0.2, 0.4, 0.6, 0.8, 1].map((y) => (
-            <line key={y} x1="30" y1={20 + y * 100} x2="310" y2={20 + y * 100} stroke="oklch(0.3 0.04 30 / 0.3)" strokeWidth="0.3" />
-          ))}
-          {[400, 500, 600, 700, 800].map((x, i) => (
-            <line key={x} x1={30 + i * 70} y1="20" x2={30 + i * 70} y2="120" stroke="oklch(0.3 0.04 30 / 0.3)" strokeWidth="0.3" />
-          ))}
-          {/* curves */}
-          {[
-            { color: "oklch(0.62 0.22 28)", peak: 0.65, label: "R" },
-            { color: "oklch(0.72 0.18 145)", peak: 0.4, label: "G" },
-            { color: "oklch(0.65 0.18 245)", peak: 0.2, label: "B" },
-            { color: "oklch(0.55 0.16 35)", peak: 0.78, label: "DEEP" },
-          ].map((c, ci) => {
-            const path = Array.from({ length: 60 }).map((_, i) => {
-              const x = i / 59;
-              const y = Math.exp(-Math.pow((x - c.peak) * 6, 2));
-              return `${ci === 0 && i === 0 ? "M" : "L"} ${30 + x * 280} ${120 - y * 100}`;
-            }).join(" ");
-            return <path key={ci} d={`M ${path.slice(2)}`} fill="none" stroke={c.color} strokeWidth="1.4" />;
-          })}
-          {/* axis labels */}
-          {[400, 500, 600, 700, 800].map((x, i) => (
-            <text key={x} x={30 + i * 70} y="135" fontSize="8" fontFamily="monospace" fill="oklch(0.65 0.02 60)" textAnchor="middle">{x}</text>
-          ))}
-          {[0, 0.2, 0.4, 0.6, 0.8, 1].map((y) => (
-            <text key={y} x="25" y={24 + (1 - y) * 100} fontSize="8" fontFamily="monospace" fill="oklch(0.65 0.02 60)" textAnchor="end">{y.toFixed(1)}</text>
-          ))}
-          <text x="170" y="148" fontSize="8" fontFamily="monospace" fill="oklch(0.55 0.02 60)" textAnchor="middle">COMPRIMENTO DE ONDA (nm)</text>
-        </svg>
-        {/* legend */}
-        <div className="absolute top-1 right-2 grid grid-cols-2 gap-x-3 gap-y-0.5 text-[8.5px] font-mono">
-          {[
-            ["SENSOR R", "oklch(0.62 0.22 28)"],
-            ["SENSOR G", "oklch(0.72 0.18 145)"],
-            ["SENSOR B", "oklch(0.65 0.18 245)"],
-            ["PELE PROFUNDA", "oklch(0.55 0.16 35)"],
-          ].map(([l, c]) => (
-            <div key={l} className="flex items-center gap-1.5 text-foreground/65">
-              <span className="w-2 h-px" style={{ background: c }} />
-              <span>{l}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Panel>
-  );
-}
+/* ---------- mid row: segmentation / metrics ---------- */
 
 function Segmentation() {
   return (
