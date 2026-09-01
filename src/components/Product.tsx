@@ -116,8 +116,7 @@ export function Product() {
 
       <div className="relative max-w-[1320px] mx-auto px-6 lg:px-10 py-28 lg:py-40">
         {/* ============= MID DASHBOARD ============= */}
-        <div className="grid lg:grid-cols-[2fr_1fr_0.7fr] gap-0 border-t border-border/25">
-          <SensorChart />
+        <div className="grid lg:grid-cols-[1.4fr_0.7fr] gap-0 border-t border-border/25">
           <Segmentation />
           <MetricsPanel />
         </div>
