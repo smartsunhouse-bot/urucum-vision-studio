@@ -24,12 +24,21 @@ export function Resources() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="reveal max-w-2xl mb-16">
-          <div className="text-[11px] font-mono uppercase tracking-[0.32em] text-urucum/80 mb-5">
-            ◦ Recursos
+          <div className="flex items-center gap-3 text-[10.5px] font-mono tracking-[0.42em] uppercase text-foreground/55 mb-5">
+            <span
+              className="inline-block w-1.5 h-1.5 rounded-full"
+              style={{
+                background: "oklch(0.62 0.24 26)",
+                boxShadow: "0 0 12px oklch(0.62 0.24 26 / 0.9)",
+              }}
+            />
+            <span>Recursos</span>
           </div>
-          <h2 className="font-serif font-light text-4xl md:text-5xl leading-[1.05] tracking-[-0.01em]">
+          <h2 className="font-serif font-light text-4xl md:text-5xl leading-[1.05] tracking-[-0.01em] text-foreground/95">
             Ecossistema em volta da{" "}
-            <span className="italic">integração.</span>
+            <span className="italic" style={{ color: "oklch(0.66 0.24 28)" }}>
+              integração.
+            </span>
           </h2>
         </div>
 

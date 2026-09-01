@@ -297,14 +297,21 @@ export function IncidentLog() {
       <div className="max-w-[1180px] mx-auto px-6 lg:px-12">
         <div className="flex items-end justify-between gap-6 flex-wrap">
           <div>
-            <div
-              className="font-mono text-[10px] tracking-[0.42em] uppercase"
-              style={{ color: "var(--muted-foreground)" }}
-            >
-              Registro de dados
+            <div className="flex items-center gap-3 text-[10.5px] font-mono tracking-[0.42em] uppercase text-foreground/55">
+              <span
+                className="inline-block w-1.5 h-1.5 rounded-full"
+                style={{
+                  background: "oklch(0.62 0.24 26)",
+                  boxShadow: "0 0 12px oklch(0.62 0.24 26 / 0.9)",
+                }}
+              />
+              <span>Registro de dados</span>
             </div>
-            <h2 className="mt-5 font-serif font-light text-[28px] md:text-[38px] leading-[1.1] tracking-[-0.02em] text-foreground/95 max-w-[20ch]">
-              As fontes que sustentam o que afirmamos.
+            <h2 className="mt-5 font-serif font-light text-[28px] md:text-[38px] leading-[1.1] tracking-[-0.02em] text-foreground/95 max-w-[22ch]">
+              As fontes que sustentam{" "}
+              <span className="italic" style={{ color: "oklch(0.66 0.24 28)" }}>
+                o que afirmamos.
+              </span>
             </h2>
           </div>
           <a

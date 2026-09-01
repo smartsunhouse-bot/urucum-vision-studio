@@ -78,15 +78,25 @@ export function AiReceives() {
       <div className="max-w-[1320px] mx-auto px-5 sm:px-6 lg:px-12 py-28 md:py-40">
         {/* Cabeçalho */}
         <div className="reveal max-w-3xl">
-          <span className="font-mono text-[11px] tracking-[0.34em] uppercase text-foreground/50">
-            O que a IA recebe
-          </span>
+          <div className="flex items-center gap-3 text-[10.5px] font-mono tracking-[0.42em] uppercase text-foreground/55">
+            <span
+              className="inline-block w-1.5 h-1.5 rounded-full"
+              style={{
+                background: "oklch(0.62 0.24 26)",
+                boxShadow: "0 0 12px oklch(0.62 0.24 26 / 0.9)",
+              }}
+            />
+            <span>O que a IA recebe</span>
+          </div>
 
           <h2
             id="ai-receives-heading"
-            className="mt-7 font-sans font-medium text-[32px] md:text-[52px] leading-[1.06] tracking-[-0.025em] text-foreground/95"
+            className="mt-7 font-serif font-light text-[34px] md:text-[44px] leading-[1.05] tracking-[-0.02em] text-foreground/95"
           >
-            O problema começa antes do modelo.
+            O problema começa{" "}
+            <span className="italic" style={{ color: "oklch(0.66 0.24 28)" }}>
+              antes do modelo.
+            </span>
           </h2>
 
           <p className="mt-6 max-w-[58ch] text-[15px] leading-[1.75] text-foreground/60">
