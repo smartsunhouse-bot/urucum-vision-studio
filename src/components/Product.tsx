@@ -33,45 +33,7 @@ function Panel({
   );
 }
 
-/* ---------- mid row: segmentation / metrics ---------- */
-
-function Segmentation() {
-  return (
-    <Panel pad="pr-8 py-8" className="min-w-0">
-      <Label>SEGMENTAÇÃO DE PELE</Label>
-      <div className="grid grid-cols-[1.2fr_auto] gap-3 mt-3 items-stretch">
-        <div className="relative aspect-square" style={{ background: "oklch(0.05 0.006 30)" }}>
-          <div className="absolute inset-0" style={{
-            background: "radial-gradient(ellipse 50% 42% at 50% 50%, oklch(0.3 0.06 30), oklch(0.12 0.02 30) 75%)",
-          }} />
-          <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full">
-            {Array.from({ length: 40 }).map((_, i) => {
-              const x = 20 + Math.random() * 60;
-              const y = 20 + Math.random() * 60;
-              return <circle key={i} cx={x} cy={y} r="0.5" fill="oklch(0.7 0.22 28 / 0.7)" />;
-            })}
-            <path d="M 35 30 Q 50 25 65 30" stroke="oklch(0.7 0.22 28 / 0.8)" strokeWidth="0.5" fill="none" />
-            <path d="M 30 55 Q 50 65 70 55" stroke="oklch(0.7 0.22 28 / 0.8)" strokeWidth="0.5" fill="none" />
-          </svg>
-        </div>
-        <div className="flex flex-col justify-center gap-2 text-[9px] font-mono uppercase tracking-[0.18em]">
-          {[
-            ["EPIDERME", "oklch(0.6 0.04 60)"],
-            ["LESÃO", "oklch(0.7 0.22 28)"],
-            ["MANCHA", "oklch(0.65 0.18 35)"],
-            ["VASCULARIZAÇÃO", "oklch(0.55 0.16 28)"],
-            ["TEXTURA", "oklch(0.6 0.04 60)"],
-          ].map(([l, c]) => (
-            <div key={l} className="flex items-center gap-1.5 text-foreground/65">
-              <span className="w-2 h-2" style={{ background: c }} />
-              <span>{l}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Panel>
-  );
-}
+/* ---------- metrics ---------- */
 
 function MetricsPanel() {
   const rows = [
@@ -81,9 +43,9 @@ function MetricsPanel() {
     ["RETENÇÃO TONAL", "99.2"],
   ];
   return (
-    <Panel pad="lg:pl-8 py-8" className="min-w-0 lg:border-l lg:border-border/25">
+    <Panel pad="py-8" className="min-w-0">
       <Label>MÉTRICAS</Label>
-      <div className="mt-4 space-y-4">
+      <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-6">
         {rows.map(([k, v]) => (
           <div key={k}>
             <div className="text-[9px] font-mono uppercase tracking-[0.22em] text-foreground/55">{k}</div>
@@ -116,8 +78,7 @@ export function Product() {
 
       <div className="relative max-w-[1320px] mx-auto px-6 lg:px-10 py-28 lg:py-40">
         {/* ============= MID DASHBOARD ============= */}
-        <div className="grid lg:grid-cols-[1.4fr_0.7fr] gap-0 border-t border-border/25">
-          <Segmentation />
+        <div className="border-t border-border/25">
           <MetricsPanel />
         </div>
 

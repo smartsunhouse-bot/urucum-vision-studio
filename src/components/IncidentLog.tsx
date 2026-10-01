@@ -232,61 +232,9 @@ function Wordmark({
   );
 }
 
-function StatBar({
-  label,
-  value,
-  max,
-  highlight,
-}: {
-  label: string;
-  value: number;
-  max: number;
-  highlight?: boolean;
-}) {
-  const pct = Math.max(2, Math.min(100, (value / max) * 100));
-  return (
-    <div className="space-y-2">
-      <div className="flex items-baseline justify-between gap-4">
-        <span
-          className="text-[12px] tracking-wide"
-          style={{ color: "var(--muted-foreground)" }}
-        >
-          {label}
-        </span>
-        <span
-          className="font-serif text-[18px] tracking-tight"
-          style={{
-            color: highlight
-              ? "oklch(0.86 0.10 40)"
-              : "oklch(0.80 0.03 35 / 0.85)",
-          }}
-        >
-          {value}
-          {value <= 100 ? "%" : ""}
-        </span>
-      </div>
-      <div
-        className="h-[3px] w-full"
-        style={{ background: "oklch(0.55 0.04 35 / 0.12)" }}
-      >
-        <div
-          className="h-full transition-all duration-700"
-          style={{
-            width: `${pct}%`,
-            background: highlight
-              ? "oklch(0.70 0.14 38)"
-              : "oklch(0.60 0.06 36 / 0.6)",
-          }}
-        />
-      </div>
-    </div>
-  );
-}
-
 export function IncidentLog() {
   const [activeId, setActiveId] = useState<string>(records[0].id);
   const active = records.find((r) => r.id === activeId) ?? records[0];
-  const max = Math.max(active.stat.a.value, active.stat.b.value);
 
   return (
     <section
@@ -341,91 +289,6 @@ export function IncidentLog() {
               onClick={() => setActiveId(r.id)}
             />
           ))}
-        </div>
-
-        {/* painel do caso em destaque */}
-        <div
-          key={active.id}
-          className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-10 animate-in fade-in duration-500"
-        >
-          <div className="lg:col-span-5">
-            <div
-              className="font-mono text-[10px] tracking-[0.3em] uppercase"
-              style={{ color: "var(--muted-foreground)" }}
-            >
-              Caso em destaque
-            </div>
-            <div className="mt-4 flex items-baseline gap-4">
-              <span className="font-serif text-[34px] md:text-[42px] leading-none tracking-[-0.02em] text-foreground/95">
-                {active.name}
-              </span>
-              <span
-                className="font-mono text-[12px] tracking-wide"
-                style={{ color: "var(--muted-foreground)" }}
-              >
-                {active.year}
-              </span>
-            </div>
-            <p
-              className="mt-5 text-[14px] leading-[1.7] max-w-[44ch]"
-              style={{ color: "var(--muted-foreground)" }}
-            >
-              {active.summary}
-            </p>
-            <div
-              className="mt-6 font-mono text-[10px] tracking-[0.28em] uppercase"
-              style={{ color: "oklch(0.65 0.04 35 / 0.8)" }}
-            >
-              {active.scope}
-            </div>
-          </div>
-
-          <div className="lg:col-span-7">
-            <div
-              className="p-6 md:p-8"
-              style={{
-                background: "oklch(0.14 0.022 34)",
-                border: "1px solid oklch(0.55 0.05 35 / 0.15)",
-              }}
-            >
-              <div
-                className="font-mono text-[10px] tracking-[0.32em] uppercase"
-                style={{ color: "var(--muted-foreground)" }}
-              >
-                {active.stat.label}
-              </div>
-              <div className="mt-6 space-y-5">
-                <StatBar
-                  label={active.stat.a.name}
-                  value={active.stat.a.value}
-                  max={max}
-                  highlight
-                />
-                <StatBar
-                  label={active.stat.b.name}
-                  value={active.stat.b.value}
-                  max={max}
-                />
-              </div>
-              <div
-                className="mt-7 pt-5 flex items-center justify-between border-t text-[11px] font-mono tracking-[0.22em] uppercase"
-                style={{
-                  borderColor: "oklch(0.55 0.05 35 / 0.15)",
-                  color: "var(--muted-foreground)",
-                }}
-              >
-                <span>Fonte · {active.source}</span>
-                <a
-                  href={active.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground/80 hover:text-foreground transition-colors"
-                >
-                  Abrir ↗
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
