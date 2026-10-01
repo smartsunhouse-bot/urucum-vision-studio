@@ -125,9 +125,9 @@ export function Hero() {
               stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
             }`}
           >
-            Antes da IA enxergar,
+            Antes de virar dado,
             <br />
-            a imagem precisa estar preparada.
+            a imagem precisa ser confiável.
           </h1>
 
           <p
@@ -135,9 +135,9 @@ export function Hero() {
               stage >= 3 ? "opacity-100" : "opacity-0"
             }`}
           >
-            A Urucum processa imagens de pele considerando fotometria, exposição
-            e características do tom de pele, preparando a entrada para sistemas
-            de visão computacional.
+            A Urucum é uma infraestrutura de processamento de imagem que calibra
+            e preserva informações visuais antes que elas entrem em sistemas de
+            saúde, visão computacional e outras aplicações.
           </p>
 
           {/* email + CTA */}
