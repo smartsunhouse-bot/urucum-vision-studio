@@ -10,13 +10,6 @@ const timelineItems = [
   },
   {
     code: "02",
-    title: "O Custo da Invisibilidade",
-    sub: "Registro de dados",
-    desc: "Casos documentados de falha em biometria, diagnóstico e vigilância em peles retintas.",
-    href: "/#registro",
-  },
-  {
-    code: "03",
     title: "A Virada",
     sub: "Capítulo 06",
     desc: "O momento em que a linha do tempo deixa de ser problema e vira infraestrutura de captura.",
@@ -37,14 +30,14 @@ const infraItems = [
     title: "Performance · 14.4 ms",
     sub: "Borda",
     desc: "Gráficos de velocidade de processamento e consumo de memória sob carga real.",
-    href: "/#produto",
+    href: "/#api",
   },
   {
     code: "03",
     title: "Pipeline de Captura",
     sub: "HDR · radiância",
     desc: "Como a radiometria adaptativa preserva detalhe fotométrico em fototipos IV–VI.",
-    href: "/#produto",
+    href: "/#api",
   },
 ];
 
@@ -74,7 +67,7 @@ const resourceItems = [
 
 const links: { href: string; label: string }[] = [
   { href: "/#entenda", label: "Linha do Tempo" },
-  { href: "/#produto", label: "Infraestrutura" },
+  { href: "/#api", label: "Infraestrutura" },
   { href: "/#recursos", label: "Recursos" },
   { href: "/#precos", label: "Preços" },
 ];

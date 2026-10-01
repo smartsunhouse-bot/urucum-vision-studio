@@ -82,7 +82,7 @@ export function Hero() {
             }`}
           >
             <a
-              href="#produto"
+              href="#o-que-a-ia-recebe"
               className="group inline-flex items-center justify-center gap-2 h-12 px-6 rounded-lg text-[14px] font-medium tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               style={{
                 background: "var(--primary)",
