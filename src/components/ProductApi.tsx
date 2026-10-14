@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowDown, ArrowLeft, ArrowRight, Check, ChevronRight, CircleAlert, Contrast, ScanFace, ShieldCheck, Upload, Waves } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, ChevronRight, CircleAlert, Contrast, ScanFace, ShieldCheck, Upload, Waves } from "lucide-react";
 
 const stages = [
   {
