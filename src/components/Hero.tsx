@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ProductDevice } from "@/components/hero/ProductDevice";
+import { HeroMonitor } from "@/components/hero/HeroMonitor";
 
 /**
  * Hero — estética de referência traduzida para a paleta Urucum.
@@ -123,7 +123,7 @@ export function Hero() {
             stage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          <ProductDevice />
+          <HeroMonitor />
         </div>
       </div>
     </section>
