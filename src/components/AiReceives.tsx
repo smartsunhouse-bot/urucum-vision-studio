@@ -227,10 +227,7 @@ function Statement() {
         className="font-editorial text-[28px] md:text-[44px] leading-[1.2] max-w-[26ch] mx-auto text-foreground/95"
         style={{ textWrap: "balance" }}
       >
-        A Urucum não decide o que a imagem significa.{" "}
-        <span className="italic" style={{ color: ACCENT }}>
-          Ela melhora a qualidade do que o sistema recebe.
-        </span>
+        A Urucum existe para ajudar as imagens digitais a representar a pele com mais consistência e fidelidade, para que a informação visual não se perca e os sistemas possam enxergar, interpretar e respeitar a pluralidade da pele humana.
       </p>
     </div>
   );
