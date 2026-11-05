@@ -46,7 +46,7 @@ const links: { href: string; label: string }[] = [
   { href: "/#o-que-a-ia-recebe", label: "Como funciona" },
   { href: "/#api", label: "API & MCP" },
   { href: "/#entenda", label: "Linha do tempo" },
-  { href: "/#api", label: "Calculadora" },
+  { href: "/#calculadora", label: "Calculadora" },
 ];
 
 
@@ -211,7 +211,7 @@ export function Navbar() {
               Ver demonstração
             </a>
             <a
-              href="/#api"
+              href="/#calculadora"
               className="hidden md:inline-flex items-center justify-center h-9 px-4 rounded-lg text-[12px] font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               style={{
                 background: "var(--primary)",
@@ -272,7 +272,7 @@ export function Navbar() {
               Ver demonstração
             </a>
             <a
-              href="/#api"
+              href="/#calculadora"
               onClick={() => setMobileOpen(false)}
               className="inline-flex items-center justify-center h-10 px-4 rounded-lg text-[14px] font-medium"
               style={{

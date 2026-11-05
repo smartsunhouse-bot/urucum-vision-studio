@@ -4,6 +4,7 @@ import { Hero } from "@/components/Hero";
 import { TimelineDisclosure } from "@/components/TimelineDisclosure";
 import { AiReceives } from "@/components/AiReceives";
 import { ProductApi } from "@/components/ProductApi";
+import { ImpactCalculator } from "@/components/ImpactCalculator";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
@@ -38,6 +39,7 @@ function Index() {
       <TimelineDisclosure />
       <AiReceives />
       <ProductApi />
+      <ImpactCalculator />
 
       <Contact />
       <Footer />
