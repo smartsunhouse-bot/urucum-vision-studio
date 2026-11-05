@@ -224,7 +224,7 @@ function Statement() {
   return (
     <div className="reveal py-24 md:py-32 border-t border-border/25 text-center">
       <p
-        className="font-editorial text-[28px] md:text-[44px] leading-[1.2] max-w-[26ch] mx-auto text-foreground/95"
+        className="font-editorial text-[28px] md:text-[24px] leading-[1.2] max-w-[26ch] mx-auto text-foreground/95"
         style={{ textWrap: "balance" }}
       >
         A Urucum existe para ajudar as imagens digitais a representar a pele com mais consistência e fidelidade, para que a informação visual não se perca e os sistemas possam enxergar, interpretar e respeitar a pluralidade da pele humana.

@@ -71,10 +71,16 @@ export function Hero() {
               stage >= 3 ? "opacity-100" : "opacity-0"
             }`}
           >
-            A Urucum é uma infraestrutura de processamento de imagem que calibra
-            e preserva informações visuais antes que elas entrem em sistemas de
-            saúde, visão computacional e outras aplicações.
+            Avalie e corrija imagens de pele antes de usá-las no seu fluxo digital.
           </p>
+
+          <div
+            className={`mt-5 max-w-[48ch] text-[15px] sm:text-[16px] leading-[1.6] text-pretty text-foreground/70 transition-opacity duration-700 ${
+              stage >= 3 ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            A Urucum analisa a captura, estima o ITA na região de pele e aplica correção fotométrica adaptativa quando necessário. Experimente no MVP ou integre por API REST e MCP.
+          </div>
 
           <div
             className={`mt-8 flex flex-col sm:flex-row gap-3 transition-all duration-700 ${
@@ -91,7 +97,7 @@ export function Hero() {
                   "0 1px 0 oklch(1 0 0 / 0.08) inset, 0 10px 28px -12px oklch(0.55 0.22 25 / 0.55)",
               }}
             >
-              Ver a Urucum em ação
+              Experimentar o MVP
               <span className="transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true">
                 →
               </span>
@@ -100,10 +106,7 @@ export function Hero() {
               href="#api"
               className="group inline-flex items-center justify-center gap-2 h-12 px-6 rounded-lg border border-[oklch(0.34_0.02_40)] text-[14px] font-medium tracking-wide text-foreground transition-colors duration-300 hover:bg-[oklch(0.18_0.02_40)] hover:border-[oklch(0.45_0.03_40)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              <span className="font-mono text-[12px] text-muted-foreground" aria-hidden="true">
-                {"</>"}
-              </span>
-              Integrar via API
+              Ver integração API e MCP
             </a>
           </div>
 
