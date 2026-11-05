@@ -4,9 +4,6 @@ import { Hero } from "@/components/Hero";
 import { TimelineDisclosure } from "@/components/TimelineDisclosure";
 import { AiReceives } from "@/components/AiReceives";
 import { ProductApi } from "@/components/ProductApi";
-import { Docs } from "@/components/Docs";
-import { Resources } from "@/components/Resources";
-import { Pricing } from "@/components/Pricing";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
@@ -42,9 +39,6 @@ function Index() {
       <AiReceives />
       <ProductApi />
 
-      <Docs />
-      <Resources />
-      <Pricing />
       <Contact />
       <Footer />
     </main>

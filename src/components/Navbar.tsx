@@ -41,35 +41,9 @@ const infraItems = [
   },
 ];
 
-const resourceItems = [
-  {
-    code: "01",
-    title: "Documentação da API",
-    sub: "Guia de integração",
-    desc: "Endpoints, parâmetros e manifesto determinístico — integração direta no seu editor.",
-    href: "/#documentacao",
-  },
-  {
-    code: "02",
-    title: "Propriedade Intelectual",
-    sub: "Patente técnica",
-    desc: "Detalhes da patente da pipeline radiométrica adaptativa da Urucum.",
-    href: "/#patente",
-  },
-  {
-    code: "03",
-    title: "Suporte ao Desenvolvedor",
-    sub: "Canal direto",
-    desc: "Fale com engenheiros que estão integrando a pipeline em produção.",
-    href: "/#suporte",
-  },
-];
-
 const links: { href: string; label: string }[] = [
   { href: "/#entenda", label: "Linha do Tempo" },
   { href: "/#api", label: "Infraestrutura" },
-  { href: "/#recursos", label: "Recursos" },
-  { href: "/#precos", label: "Preços" },
 ];
 
 
@@ -161,9 +135,7 @@ export function Navbar() {
                   ? { key: "timeline", items: timelineItems, width: "w-[640px]" }
                   : l.label === "Infraestrutura"
                     ? { key: "infra", items: infraItems, width: "w-[640px]" }
-                    : l.label === "Recursos"
-                      ? { key: "recursos", items: resourceItems, width: "w-[640px]" }
-                      : null;
+                    : null;
 
               const isOpen = dropdown ? openKey === dropdown.key : false;
               return (
