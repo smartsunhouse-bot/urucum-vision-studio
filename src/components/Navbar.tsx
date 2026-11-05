@@ -206,13 +206,13 @@ export function Navbar() {
           <div className="flex items-center gap-2 sm:gap-3">
             <a
               href="/#o-que-a-ia-recebe"
-              className="hidden sm:inline-flex items-center justify-center h-9 px-4 rounded-lg text-[12px] font-medium text-foreground/85 hover:text-foreground border border-[oklch(0.35_0.03_40_/0.55)] hover:border-[oklch(0.45_0.04_40_/0.7)] bg-transparent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="hidden sm:inline-flex whitespace-nowrap items-center justify-center h-9 px-4 rounded-lg text-[12px] font-medium text-foreground/85 hover:text-foreground border border-[oklch(0.35_0.03_40_/0.55)] hover:border-[oklch(0.45_0.04_40_/0.7)] bg-transparent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               Ver demonstração
             </a>
             <a
               href="/#calculadora"
-              className="hidden md:inline-flex items-center justify-center h-9 px-4 rounded-lg text-[12px] font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="hidden md:inline-flex whitespace-nowrap items-center justify-center h-9 px-4 rounded-lg text-[12px] font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               style={{
                 background: "var(--primary)",
                 color: "var(--primary-foreground)",
@@ -224,7 +224,7 @@ export function Navbar() {
 
             <button
               type="button"
-              className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg text-foreground/85 hover:text-foreground"
+              className="md:hidden inline-flex whitespace-nowrap items-center justify-center w-10 h-10 rounded-lg text-foreground/85 hover:text-foreground"
               aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"
@@ -267,14 +267,14 @@ export function Navbar() {
             <a
               href="/#o-que-a-ia-recebe"
               onClick={() => setMobileOpen(false)}
-              className="inline-flex items-center justify-center h-10 px-4 rounded-lg text-[14px] font-medium text-foreground/85 border border-[oklch(0.35_0.03_40_/0.55)]"
+              className="inline-flex whitespace-nowrap items-center justify-center h-10 px-4 rounded-lg text-[14px] font-medium text-foreground/85 border border-[oklch(0.35_0.03_40_/0.55)]"
             >
               Ver demonstração
             </a>
             <a
               href="/#calculadora"
               onClick={() => setMobileOpen(false)}
-              className="inline-flex items-center justify-center h-10 px-4 rounded-lg text-[14px] font-medium"
+              className="inline-flex whitespace-nowrap items-center justify-center h-10 px-4 rounded-lg text-[14px] font-medium"
               style={{
                 background: "var(--primary)",
                 color: "var(--primary-foreground)",
