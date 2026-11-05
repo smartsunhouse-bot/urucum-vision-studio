@@ -481,26 +481,9 @@ export function Timeline() {
           </div>
 
           <div className="lg:col-span-7 reveal">
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                ["01", "Referência", "/images/story/leg-original.png", "Imagem original"],
-                ["02", "Entrada", "/images/story/leg-original.png", "Subexposição simulada · −0,5 EV"],
-                ["03", "Saída Urucum", "/images/story/leg-urucum.png", "Correção fotométrica"],
-                ["04", "Máscara", "/images/story/leg-mask.png", "Região estimada como pele"],
-              ].map(([number, label, src, caption]) => (
-                <figure key={number} className="overflow-hidden rounded-sm border border-[oklch(0.55_0.12_35_/_0.28)] bg-black/20">
-                  <figcaption className="flex items-center gap-3 px-3 py-3 font-mono text-[10px] tracking-[0.22em] uppercase text-foreground/65"><span style={{ color: "oklch(0.72 0.20 30)" }}>{number}</span>{label}</figcaption>
-                  <img src={src} alt={caption} loading="lazy" className="block w-full aspect-[4/3] object-cover" />
-                  <p className="px-3 py-3 font-mono text-[10px] text-foreground/60">{caption}</p>
-                </figure>
-              ))}
+            <div className="overflow-hidden border border-[oklch(0.55_0.12_35_/_0.28)] bg-black/20">
+              <img src="/images/capitulo-06.png" alt="Capítulo 06: comparação entre referência, entrada, saída Urucum e máscara de pele" loading="lazy" className="block w-full h-auto" />
             </div>
-            <div className="mt-6 grid sm:grid-cols-2 gap-4 font-mono text-[11px]">
-              <div><span className="block text-foreground/45">ITA estimado na entrada → saída</span><strong className="block mt-2 text-[16px] text-foreground/90">−69,54° → −60,21°</strong></div>
-              <div><span className="block text-foreground/45">Resposta da API</span><strong className="block mt-2 text-[14px] text-foreground/90">atencao · pele detectada 68,4% · Monk 8 estimado</strong></div>
-            </div>
-            <p className="mt-5 font-mono text-[10px] leading-[1.6] text-foreground/50">Demonstração controlada: exposição reduzida artificialmente em 0,5 EV. Monk é estimativa experimental; não é validação clínica.</p>
-            <details className="mt-5 border-t border-foreground/15 pt-4 text-[12px] text-foreground/60"><summary className="cursor-pointer font-mono text-[10px] uppercase tracking-[0.2em]">Como funciona a matemática</summary><p className="mt-3 leading-[1.7]">O ITA estimado influencia parâmetros da correção, e a EQ02 ajusta o peso de pixels de baixa intensidade conforme esse ITA. Essa escolha foi desenhada para considerar o desafio de processar imagens de peles negras e pardas. Trata-se de foco de projeto, não de uma comprovação de equidade ou benefício clínico.</p></details>
           </div>
         </div>
       </section>
