@@ -42,8 +42,11 @@ const infraItems = [
 ];
 
 const links: { href: string; label: string }[] = [
-  { href: "/#entenda", label: "Linha do Tempo" },
-  { href: "/#api", label: "Infraestrutura" },
+  { href: "/#top", label: "Produto" },
+  { href: "/#o-que-a-ia-recebe", label: "Como funciona" },
+  { href: "/#api", label: "API & MCP" },
+  { href: "/#entenda", label: "Linha do tempo" },
+  { href: "/#api", label: "Calculadora" },
 ];
 
 
@@ -202,13 +205,13 @@ export function Navbar() {
           {/* actions */}
           <div className="flex items-center gap-2 sm:gap-3">
             <a
-              href="/auth"
+              href="/#o-que-a-ia-recebe"
               className="hidden sm:inline-flex items-center justify-center h-9 px-4 rounded-lg text-[12px] font-medium text-foreground/85 hover:text-foreground border border-[oklch(0.35_0.03_40_/0.55)] hover:border-[oklch(0.45_0.04_40_/0.7)] bg-transparent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              Entrar
+              Ver demonstração
             </a>
             <a
-              href="/#contato"
+              href="/#api"
               className="hidden md:inline-flex items-center justify-center h-9 px-4 rounded-lg text-[12px] font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               style={{
                 background: "var(--primary)",
@@ -216,7 +219,7 @@ export function Navbar() {
                 boxShadow: "0 1px 0 oklch(1 0 0 / 0.08) inset, 0 6px 18px -8px oklch(0.55 0.22 25 / 0.5)",
               }}
             >
-              Solicitar acesso
+              Calcular impacto
             </a>
 
             <button
@@ -262,14 +265,14 @@ export function Navbar() {
           ))}
           <li className="mt-3 flex flex-col gap-2">
             <a
-              href="/auth"
+              href="/#o-que-a-ia-recebe"
               onClick={() => setMobileOpen(false)}
               className="inline-flex items-center justify-center h-10 px-4 rounded-lg text-[14px] font-medium text-foreground/85 border border-[oklch(0.35_0.03_40_/0.55)]"
             >
-              Entrar
+              Ver demonstração
             </a>
             <a
-              href="/#contato"
+              href="/#api"
               onClick={() => setMobileOpen(false)}
               className="inline-flex items-center justify-center h-10 px-4 rounded-lg text-[14px] font-medium"
               style={{
@@ -277,7 +280,7 @@ export function Navbar() {
                 color: "var(--primary-foreground)",
               }}
             >
-              Solicitar acesso
+              Calcular impacto
             </a>
           </li>
         </ul>
