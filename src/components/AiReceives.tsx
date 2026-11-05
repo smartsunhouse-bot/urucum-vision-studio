@@ -22,11 +22,11 @@ const ALGORITMOS: Algoritmo[] = [
   { nome: "Urucum", src: "/images/story/alg-urucum.png", ita: "-3.3°", monk: "Monk 5", destaque: true },
 ];
 
-function ChapterHeader({ n, titulo, children }: { n: string; titulo: string; children?: React.ReactNode }) {
+function ChapterHeader({ titulo, children }: { titulo: string; children?: React.ReactNode }) {
   return (
     <header className="reveal max-w-3xl">
       <div className="flex items-baseline gap-4">
-        <span className="font-mono text-[12px] tracking-[0.3em] text-foreground/40">{n}.</span>
+        <span className="inline-block size-2 rounded-full bg-[oklch(0.62_0.24_26)] shadow-[0_0_12px_oklch(0.62_0.24_26_/_0.9)]" aria-hidden="true" />
         <h2 className="font-serif font-light text-[32px] md:text-[44px] leading-[1.05] tracking-[-0.02em] text-foreground/95">
           {titulo}
         </h2>
@@ -91,7 +91,7 @@ function Figure({
 function ProblemChapter() {
   return (
     <div className="py-24 md:py-32">
-      <ChapterHeader n="02" titulo="O problema">
+      <ChapterHeader titulo="O problema">
         Toda imagem de pele passa por um caminho antes de chegar a qualquer sistema. E em cada etapa,
         algo da pele real se perde.
       </ChapterHeader>
@@ -135,7 +135,7 @@ function ProblemChapter() {
 function ComparisonChapter() {
   return (
     <div className="py-24 md:py-32 border-t border-border/25">
-      <ChapterHeader n="03" titulo="O que acontece com a imagem">
+      <ChapterHeader titulo="O que acontece com a imagem">
         A mesma foto, três destinos. Métodos tradicionais tentam melhorar a imagem — e acabam
         clareando a pele. A Urucum melhora sem mudar quem a pessoa é.
       </ChapterHeader>
@@ -243,7 +243,7 @@ function SystemChapter() {
 
   return (
     <div className="py-24 md:py-32 border-t border-border/25">
-      <ChapterHeader n="04" titulo="O que o sistema recebe">
+      <ChapterHeader titulo="O que o sistema recebe">
         A Urucum fica entre a captura e o sistema. Tudo que chega depois dela chega com a pele
         preservada.
       </ChapterHeader>

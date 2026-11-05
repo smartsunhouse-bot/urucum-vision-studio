@@ -18,11 +18,8 @@ export function Contact() {
             <span>Contato</span>
           </div>
 
-          <h2 className="font-serif font-light text-[34px] md:text-[44px] leading-[1.05] tracking-[-0.02em] text-foreground/95">
-            Não controlamos apenas quem aparece nos dados.
-            <span className="block mt-4 italic" style={{ color: "oklch(0.66 0.24 28)" }}>
-              Controlamos como a imagem é formada antes de virar dado.
-            </span>
+          <h2 className="font-editorial text-[24px] leading-[1.2] max-w-[32ch] mx-auto text-foreground/95" style={{ textWrap: "balance" }}>
+            Não controlamos quem aparece nos dados. Controlamos como a imagem é avaliada e corrigida antes de entrar no sistema.
           </h2>
 
           <form className="mt-16 max-w-md mx-auto flex items-center gap-2 border-b border-border/70 focus-within:border-urucum/60 transition-colors pb-3">
